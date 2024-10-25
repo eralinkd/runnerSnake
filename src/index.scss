@@ -1,72 +1,6 @@
 @use 'sass:math';
 @use './variables' as var;
-
 @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Koulen&display=swap');
-
-* {
-  font-family: "Istok Web", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 18px;
-  line-height: 25.91px;
-}
-
-.koulen {
-  font-family: 'Koulen', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.istok {
-  font-family: "Istok Web", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.bold {
-  font-weight: 700;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.f-30 {
-  font-family: Koulen;
-  font-size: 30px;
-  line-height: 54.2px;
-}
-
-.f-23 {
-  font-size: 23px;
-  line-height: 33.11px;
-}
-
-.f-18 {
-  font-size: 18px;
-  line-height: 25.91px;
-}
-
-.f-16 {
-  font-size: 16px;
-  line-height: 23.03px;
-}
-
-.f-12 {
-  font-size: 12px;
-  line-height: 17.27px;
-}
-
-.f-10 {
-  font-size: 10px;
-  line-height: 14.39px;
-}
-
-.f-8 {
-  font-size: 8px;
-  line-height: 11.52px;
-}
-
 
 * {
   padding: 0px;
@@ -142,9 +76,74 @@ h6 {
 }
 
 //========================================================================================================================================================
-body {
-  
 
+* {
+  font-family: 'Istok Web', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 25.91px;
+}
+
+.koulen {
+  font-family: 'Koulen', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.istok {
+  font-family: 'Istok Web', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.f-30 {
+  font-family: Koulen;
+  font-size: 30px;
+  line-height: 54.2px;
+}
+
+.f-23 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 33.11px;
+}
+
+.f-18 {
+  font-size: 18px;
+  line-height: 25.91px;
+}
+
+.f-16 {
+  font-size: 16px;
+  line-height: 23.03px;
+}
+
+.f-12 {
+  font-size: 12px;
+  line-height: 17.27px;
+}
+
+.f-10 {
+  font-size: 10px;
+  line-height: 14.39px;
+}
+
+.f-8 {
+  font-size: 8px;
+  line-height: 11.52px;
+}
+
+body {
+  background-color: var.$mainBgColor;
   &.lock {
     overflow: hidden;
     touch-action: none;
@@ -162,7 +161,7 @@ body {
     overflow: clip;
   }
 
-  >main {
+  > main {
     flex: 1 1 auto;
   }
 }

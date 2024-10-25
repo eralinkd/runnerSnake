@@ -1,7 +1,11 @@
+import CurrencyCard from './shared/CurrencyCard/CurrencyCard';
+
 function App() {
   return (
     <>
-      <div className="">hello world</div>
+      <div className="">
+        <CurrencyCard />
+      </div>
     </>
   );
 }
