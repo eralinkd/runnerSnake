@@ -1,0 +1,99 @@
+@use '../../variables' as *;
+
+.replenish {
+  position: relative;
+  background-color: $almost-black;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: $deep-gray;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  gap: 20px;
+}
+
+.text {
+  padding: 5px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.title {
+  font-weight: 700;
+  border-bottom: 4px solid green;
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.currencyImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  & > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.currencyName {
+  line-height: 1;
+  font-weight: 700;
+}
+
+.imgContainer {
+  width: 104px;
+  height: 104px;
+  background-color: #fff;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  & > span {
+    color: $light-gray;
+  }
+  & > button {
+    color: $dark-gray-purple;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: $dark-gray-purple;
+    }
+  }
+}

@@ -1,11 +1,9 @@
-import CurrencyCard from './shared/CurrencyCard/CurrencyCard';
+import Exchange from './view/exchange/Exchange';
 
 function App() {
   return (
     <>
-      <div className="">
-        <CurrencyCard />
-      </div>
+      <Exchange />
     </>
   );
 }
