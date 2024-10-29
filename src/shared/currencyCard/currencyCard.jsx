@@ -1,30 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './CurrencyCard.module.scss';
 import dots from '../../assets/dots.svg';
 import replenishModalState from '../../state/replenishModalState';
+import CurrencyCardInfo from './CurrencyCardInfo/CurrencyCardInfo';
 
-const CurrencyCard = ({ title, type, imgSrc }) => {
+const gradients = {
+  purple: 'linear-gradient(90deg, #ff8a00, #8e2de2)',
+  yellow: 'linear-gradient(90deg, #f7b733, #fc4a1a)',
+  green: 'linear-gradient(90deg, #56ab2f, #a8e063)',
+  blue: 'linear-gradient(90deg, #36d1dc, #5b86e5)',
+};
+
+const CurrencyCard = ({ title, type, imgSrc, color }) => {
   const [show, setShow] = useState(false);
   const open = replenishModalState((state) => state.open);
+
+  const gradientStyle = gradients[color] || gradients.purple;
 
   const replenishModalOpen = () => {
     open();
   };
 
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(() => {
+        setShow(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [show]);
+
   return (
     <article className={styles.article}>
-      <div className={styles.gradientBg}></div>
+      <div
+        className={styles.gradientBg}
+        style={{ background: gradientStyle }}
+      ></div>
       <div className={styles.content}>
-        <div className={styles.currency}>
-          <div className={styles.imgContainer}>
-            <img src={imgSrc} alt={title} />
-          </div>
-          <div className={styles.currencyInfo}>
-            <h2 className={clsx(styles.currencyName, 'f-18')}>{title}</h2>
-            <span className={clsx(styles.currencyType, 'f-10')}>{type}</span>
-          </div>
-        </div>
+        <CurrencyCardInfo
+          className={styles.currencyCardInfo}
+          title={title}
+          imgSrc={imgSrc}
+          type={type}
+        />
         <div className={clsx(styles.actions, show && styles.hide)}>
           <span className={styles.value}>
             <span className="f-30">0.</span>

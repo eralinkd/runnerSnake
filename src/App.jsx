@@ -3,28 +3,29 @@ import Game from './view/game/Game';
 import Inventory from './view/inventory/Inventory';
 import Profile from './view/profile/Profile';
 import Store from './view/store/Store';
-import bImg from './assets/navIcons/b.svg'
-import gImg from './assets/navIcons/g.svg'
-import iImg from './assets/navIcons/i.svg'
-import pImg from './assets/navIcons/p.svg'
-import sImg from './assets/navIcons/s.svg'
+import bImg from './assets/navIcons/b.svg';
+import gImg from './assets/navIcons/g.svg';
+import iImg from './assets/navIcons/i.svg';
+import pImg from './assets/navIcons/p.svg';
+import sImg from './assets/navIcons/s.svg';
 import styles from './App.module.scss';
 import { useState } from 'react';
+import clsx from 'clsx';
 
 const menuComponents = {
-  'Биржа': <Exchange />,
-  'Магазин': <Store />,
-  'Игра': <Game />,
-  'Инвентарь': <Inventory />,
-  'Профиль': <Profile />
+  Биржа: <Exchange />,
+  Магазин: <Store />,
+  Игра: <Game />,
+  Инвентарь: <Inventory />,
+  Профиль: <Profile />,
 };
 
 const menuIcons = {
-  'Биржа': bImg,
-  'Магазин': sImg,
-  'Игра': gImg,
-  'Инвентарь': iImg,
-  'Профиль': pImg
+  Биржа: bImg,
+  Магазин: sImg,
+  Игра: gImg,
+  Инвентарь: iImg,
+  Профиль: pImg,
 };
 
 function App() {
@@ -40,13 +41,13 @@ function App() {
         {Object.keys(menuComponents).map((menuItem) => (
           <li
             key={menuItem}
-            className={`'f-12' ${menuItem === activeComponent ? ' ' + styles.active : ''}`}
+            className={clsx(
+              'f-12',
+              menuItem === activeComponent && styles.active
+            )}
             onClick={() => setActiveComponent(menuItem)}
           >
-            <img
-              src={menuIcons[menuItem]}
-              alt={`${menuItem} icon`}
-            />
+            <img src={menuIcons[menuItem]} alt={`${menuItem} icon`} />
             {menuItem}
           </li>
         ))}

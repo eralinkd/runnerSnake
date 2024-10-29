@@ -1,15 +1,18 @@
 import Bitcoin from '../../assets/bitcoin.png';
-import CurrencyCard from '../../shared/currencyCard/CurrencyCard';
+import CurrencyCard from '../../shared/CurrencyCard/CurrencyCard';
 import ReplenishModal from '../../shared/ReplenishModal/ReplenishModal';
 import Scoin from '../../assets/scoin.png';
 import Ton from '../../assets/ton.png';
 import styles from './Exchange.module.scss';
 import usdt from '../../assets/usdt.png';
 import { useState } from 'react';
+import clsx from 'clsx';
 
+//временная переменная, потом с бд будет приходить
 const cardsList = [
   {
     id: 1,
+    color: 'purple',
     title: 'SCoin',
     type: 'token',
     cardType: '',
@@ -17,6 +20,7 @@ const cardsList = [
   },
   {
     id: 2,
+    color: 'yellow',
     title: 'BITCOIN',
     type: 'Coin',
     cardType: '',
@@ -24,6 +28,7 @@ const cardsList = [
   },
   {
     id: 3,
+    color: 'green',
     title: 'USDT',
     type: 'Coin',
     cardType: '',
@@ -31,10 +36,23 @@ const cardsList = [
   },
   {
     id: 4,
+    color: 'blue',
     title: 'TON',
     type: 'Coin',
     cardType: '',
     imgSrc: Ton,
+  },
+];
+
+const activeTabs = [
+  {
+    name: 'Кошелёк',
+  },
+  {
+    name: 'Обмен',
+  },
+  {
+    name: 'История',
   },
 ];
 
@@ -44,9 +62,18 @@ const Exchange = () => {
     <>
       <section className="section">
         <ul className={styles.nav}>
-          <li className={`f-23 bold ${activeTab === 'Кошелёк' ? styles.active : ''}`} onClick={() => setActiveTab('Кошелёк')}>Кошелёк</li>
-          <li className={`f-23 bold ${activeTab === 'Обмен' ? styles.active : ''}`} onClick={() => setActiveTab('Обмен')}>Обмен</li>
-          <li className={`f-23 bold ${activeTab === 'История' ? styles.active : ''}`} onClick={() => setActiveTab('История')}>История</li>
+          {activeTabs.map((tab, index) => (
+            <li
+              key={index}
+              className={clsx(
+                'f-23 bold',
+                activeTab === tab.name && styles.active
+              )}
+              onClick={() => setActiveTab(tab.name)}
+            >
+              {tab.name}
+            </li>
+          ))}
         </ul>
         {activeTab === 'Кошелёк' && (
           <div className={styles.container}>
@@ -57,6 +84,7 @@ const Exchange = () => {
                   title={card.title}
                   imgSrc={card.imgSrc}
                   type={card.type}
+                  color={card.color}
                 />
               ))}
             </div>
