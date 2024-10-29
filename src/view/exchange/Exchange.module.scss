@@ -1,3 +1,5 @@
+@use '../../variables.scss' as var;
+
 .main {
   margin-top: 30px;
 }
@@ -10,4 +12,55 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  max-width: 350px;
+  margin: 20px auto 40px auto;
+  user-select: none;
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: var.$dark-gray-purple;
+    position: relative;
+    width: fit-content;
+    &.active {
+      color: var.$white;
+      &::before {
+        width: 100%;
+      }
+    }
+    &:hover {
+      color: var.$white;
+      &::before {
+        width: 100%;
+      }
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: linear-gradient(89.83deg, #5C6AC4 -3.32%, #9C27B0 101.32%);
+      transition: all 0.3s ease 0s;
+    }
+
+  }
+}
+
+
+.nothing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
 }
