@@ -63,6 +63,7 @@ ul li {
 
 img {
   vertical-align: top;
+  display: block;
 }
 
 h1,
@@ -157,11 +158,24 @@ body {
   flex-direction: column;
   overflow: hidden;
 
+
+  
+  // simulate phone screen
+  // max-width: 450px;
+  // margin: 0 auto;
+  // border-radius: 10px;
+  // border: 5px solid var.$light-gray;
+  // max-height: 900px;
+  // height: 900px;
+  // min-height: auto;
+
   @supports (overflow: clip) {
     overflow: clip;
   }
 
   > main {
     flex: 1 1 auto;
+    background: url('./assets/mainBg.svg') no-repeat center bottom;
+    background-size: contain;
   }
 }
