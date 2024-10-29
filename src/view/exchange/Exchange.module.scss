@@ -15,8 +15,8 @@
 }
 
 .nav {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   max-width: 350px;
   margin: 20px auto 40px auto;
   user-select: none;
@@ -30,6 +30,7 @@
     color: var.$dark-gray-purple;
     position: relative;
     width: fit-content;
+    margin: auto;
     &.active {
       color: var.$white;
       &::before {
