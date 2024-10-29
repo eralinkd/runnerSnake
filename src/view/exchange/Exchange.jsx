@@ -45,15 +45,9 @@ const cardsList = [
 ];
 
 const activeTabs = [
-  {
-    name: 'Кошелёк',
-  },
-  {
-    name: 'Обмен',
-  },
-  {
-    name: 'История',
-  },
+  { name: 'Кошелёк' },
+  { name: 'Обмен' },
+  { name: 'История' },
 ];
 
 const Exchange = () => {
