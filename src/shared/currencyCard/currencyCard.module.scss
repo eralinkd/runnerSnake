@@ -14,7 +14,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #ff8a00, #8e2de2); /* Градиент */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
 }
@@ -32,43 +31,15 @@
   height: 68px;
 }
 
-.currency {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.imgContainer {
-  width: 38px;
-  height: 38px;
-  position: relative;
-  & > img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit: contain;
-  }
-}
-
-.currencyInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.currencyName {
-  font-weight: 700;
-}
-
-.currencyType {
-  color: $light-gray;
-}
-
 .actions {
   display: flex;
   align-items: center;
   gap: 12px;
+  opacity: 1;
+  transition: all 0.3s ease 0s;
+  &.hide {
+    opacity: 0;
+  }
 }
 
 .moreActions {
@@ -81,9 +52,14 @@
   top: 0;
   right: 0;
   height: 100%;
+  transition: all 0.3s ease 0s;
+  transform: translateY(100%);
+  &.show {
+    transform: translateY(0);
+  }
 }
 .button {
-  width: 112px;
+  width: 100px;
   height: 100%;
   background-color: $purple;
   font-weight: 700;

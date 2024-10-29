@@ -1,0 +1,34 @@
+@use '../../../variables.scss' as *;
+
+.currency {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.imgContainer {
+  width: 38px;
+  height: 38px;
+  position: relative;
+  & > img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+  }
+}
+
+.currencyInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.currencyName {
+  font-weight: 700;
+}
+
+.currencyType {
+  color: $light-gray;
+}
