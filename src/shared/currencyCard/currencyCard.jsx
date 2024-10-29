@@ -25,38 +25,34 @@ const CurrencyCard = ({ title, type, imgSrc }) => {
             <span className={clsx(styles.currencyType, 'f-10')}>{type}</span>
           </div>
         </div>
-        {!show && (
-          <div className={styles.actions}>
-            <span className={styles.value}>
-              <span className="f-30">0.</span>
-              <span className="f-23">00</span>
-            </span>
-            <button
-              onClick={() => setShow((prev) => !prev)}
-              className={styles.moreActions}
-            >
-              <img src={dots} alt="icon dots" />
-            </button>
-          </div>
-        )}
-        {show && (
-          <div className={styles.buttons}>
-            <button
-              disabled
-              type="button"
-              className={clsx(styles.button, 'f-16')}
-            >
-              Вывести
-            </button>
-            <button
-              onClick={replenishModalOpen}
-              type="button"
-              className={clsx(styles.button, 'f-16')}
-            >
-              Пополнить
-            </button>
-          </div>
-        )}
+        <div className={clsx(styles.actions, show && styles.hide)}>
+          <span className={styles.value}>
+            <span className="f-30">0.</span>
+            <span className="f-23">00</span>
+          </span>
+          <button
+            onClick={() => setShow((prev) => !prev)}
+            className={styles.moreActions}
+          >
+            <img src={dots} alt="icon dots" />
+          </button>
+        </div>
+        <div className={clsx(styles.buttons, show && styles.show)}>
+          <button
+            disabled
+            type="button"
+            className={clsx(styles.button, 'f-16')}
+          >
+            Вывести
+          </button>
+          <button
+            onClick={replenishModalOpen}
+            type="button"
+            className={clsx(styles.button, 'f-16')}
+          >
+            Пополнить
+          </button>
+        </div>
       </div>
     </article>
   );
