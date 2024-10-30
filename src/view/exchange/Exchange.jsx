@@ -7,6 +7,7 @@ import styles from './Exchange.module.scss';
 import usdt from '../../assets/usdt.png';
 import { useState } from 'react';
 import clsx from 'clsx';
+import WithdrawModal from '../../shared/WithdrawModal/WithdrawModal';
 
 //временная переменная, потом с бд будет приходить
 const cardsList = [
@@ -93,6 +94,7 @@ const Exchange = () => {
         )}
       </section>
       <ReplenishModal />
+      <WithdrawModal />
     </>
   );
 };

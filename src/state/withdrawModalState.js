@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-const replenishModalState = create((set) => ({
+const withdrawModalState = create((set) => ({
 	isOpen: false,
 	modalData: { title: '', imgSrc: '' },
 	openModal: (title, imgSrc) =>
@@ -8,4 +8,4 @@ const replenishModalState = create((set) => ({
 	closeModal: () => set({ isOpen: false }),
 }));
 
-export default replenishModalState;
+export default withdrawModalState;
