@@ -14,12 +14,12 @@ const gradients = {
 
 const CurrencyCard = ({ title, type, imgSrc, color }) => {
   const [show, setShow] = useState(false);
-  const open = replenishModalState((state) => state.open);
+  const openModal = replenishModalState((state) => state.openModal);
 
   const gradientStyle = gradients[color] || gradients.purple;
 
   const replenishModalOpen = () => {
-    open();
+    openModal(title, imgSrc);
   };
 
   useEffect(() => {

@@ -7,16 +7,18 @@ import { useState } from 'react';
 const ReplenishModal = () => {
   const [isCopy, setIsCopy] = useState(false);
 
-  const close = replenishModalState((state) => state.close);
   const isOpen = replenishModalState((state) => state.isOpen);
+  const closeModal = replenishModalState((state) => state.closeModal);
+  const { title, imgSrc } = replenishModalState((state) => state.modalData);
 
   const handleCopy = () => {
     setIsCopy(true);
     navigator.clipboard.writeText('1Cd8nZHAYFH7ZG8aJ1wfhCXhHuxzeRtqoB');
   };
+
   const handleClose = () => {
     setIsCopy(false);
-    close();
+    closeModal();
   };
 
   if (!isOpen) return null;
@@ -29,8 +31,10 @@ const ReplenishModal = () => {
           <div className={styles.text}>
             <h2 className={clsx(styles.title, 'f-18')}>Пополнение</h2>
             <div className={styles.currency}>
-              <div className={styles.currencyImage}></div>
-              <div className={styles.currencyName}>USDT</div>
+              <div className={styles.currencyImage}>
+                <img src={imgSrc} alt={title} />
+              </div>
+              <div className={styles.currencyName}>{title}</div>
             </div>
           </div>
           <div className={styles.imgContainer}></div>
