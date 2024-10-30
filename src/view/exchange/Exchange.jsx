@@ -52,6 +52,7 @@ const activeTabs = [
 
 const Exchange = () => {
   const [activeTab, setActiveTab] = useState('Кошелёк');
+
   return (
     <>
       <section className="section">
