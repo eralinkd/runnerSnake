@@ -4,6 +4,7 @@ import styles from './CurrencyCard.module.scss';
 import dots from '../../assets/dots.svg';
 import replenishModalState from '../../state/replenishModalState';
 import CurrencyCardInfo from './CurrencyCardInfo/CurrencyCardInfo';
+import withdrawModalState from '../../state/withdrawModalState';
 
 const gradients = {
   purple: 'linear-gradient(90deg, #ff8a00, #8e2de2)',
@@ -15,11 +16,15 @@ const gradients = {
 const CurrencyCard = ({ title, type, imgSrc, color }) => {
   const [show, setShow] = useState(false);
   const openModal = replenishModalState((state) => state.openModal);
+  const openWithDrawModal = withdrawModalState((state) => state.openModal);
 
   const gradientStyle = gradients[color] || gradients.purple;
 
   const replenishModalOpen = () => {
     openModal(title, imgSrc);
+  };
+  const withdrawModalOpen = () => {
+    openWithDrawModal(title, imgSrc);
   };
 
   useEffect(() => {
@@ -59,9 +64,9 @@ const CurrencyCard = ({ title, type, imgSrc, color }) => {
         </div>
         <div className={clsx(styles.buttons, show && styles.show)}>
           <button
-            disabled
+            onClick={withdrawModalOpen}
             type="button"
-            className={clsx(styles.button, 'f-16')}
+            className={clsx(styles.button, 'f-16', styles.darkButton)}
           >
             Вывести
           </button>
