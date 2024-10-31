@@ -3,21 +3,11 @@
 .main {
   margin-top: 30px;
 }
-.container {
-  max-width: 375px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
 
 .nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-width: 350px;
+  max-width: 420px;
   margin: 20px auto 40px auto;
   user-select: none;
   li {

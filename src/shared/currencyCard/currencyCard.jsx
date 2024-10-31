@@ -31,7 +31,7 @@ const CurrencyCard = ({ title, type, imgSrc, color }) => {
     if (show) {
       const timer = setTimeout(() => {
         setShow(false);
-      }, 5000);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
@@ -48,7 +48,7 @@ const CurrencyCard = ({ title, type, imgSrc, color }) => {
           className={styles.currencyCardInfo}
           title={title}
           imgSrc={imgSrc}
-          type={type}
+          text={type}
         />
         <div className={clsx(styles.actions, show && styles.hide)}>
           <span className={styles.value}>
