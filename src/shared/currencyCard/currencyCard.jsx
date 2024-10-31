@@ -7,7 +7,7 @@ import CurrencyCardInfo from './CurrencyCardInfo/CurrencyCardInfo';
 import withdrawModalState from '../../state/withdrawModalState';
 
 const gradients = {
-  purple: 'linear-gradient(90deg, #ff8a00, #8e2de2)',
+  purple: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
   yellow: 'linear-gradient(90deg, #f7b733, #fc4a1a)',
   green: 'linear-gradient(90deg, #56ab2f, #a8e063)',
   blue: 'linear-gradient(90deg, #36d1dc, #5b86e5)',
