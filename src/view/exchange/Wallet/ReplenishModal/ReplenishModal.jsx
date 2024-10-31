@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import replenishModalState from '../../state/replenishModalState.js';
-import Modal from '../Modal/Modal.jsx';
-import styles from './ReplenishModal.module.scss';
+import replenishModalState from '../../../../state/replenishModalState.js';
+import Modal from '../../../../shared/Modal/Modal.jsx';
 import { useState } from 'react';
+import styles from './ReplenishModal.module.scss';
 
 const ReplenishModal = () => {
   const [isCopy, setIsCopy] = useState(false);

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import withdrawModalState from '../../state/withdrawModalState';
-import Modal from '../Modal/Modal';
+import withdrawModalState from '../../../../state/withdrawModalState';
+import Modal from '../../../../shared/Modal/Modal';
 import styles from './WithdrawModal.module.scss';
 
 const WithdrawModal = () => {

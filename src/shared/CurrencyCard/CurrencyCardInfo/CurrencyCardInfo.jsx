@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import styles from './CurrencyCardInfo.module.scss';
 
-const CurrencyCardInfo = ({ imgSrc, title, type, className }) => {
+const CurrencyCardInfo = ({ imgSrc, title, text, className }) => {
   return (
     <div className={clsx(styles.currency, className)}>
       <div className={styles.imgContainer}>
@@ -9,7 +9,7 @@ const CurrencyCardInfo = ({ imgSrc, title, type, className }) => {
       </div>
       <div className={styles.currencyInfo}>
         <h2 className={clsx(styles.currencyName, 'f-18')}>{title}</h2>
-        <span className={clsx(styles.currencyType, 'f-10')}>{type}</span>
+        <span className={clsx(styles.currencyType, 'f-10')}>{text}</span>
       </div>
     </div>
   );
