@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import History from './History/History';
+import Swap from './Swap/Swap';
+import Wallet from './Wallet/Wallet';
 import clsx from 'clsx';
 import styles from './Exchange.module.scss';
-import Wallet from './Wallet/Wallet';
-import History from './History/History';
+import { useState } from 'react';
 
 const activeTabs = [
   { name: 'Кошелёк' },
@@ -31,9 +32,7 @@ const Exchange = () => {
           ))}
         </ul>
         {activeTab === 'Кошелёк' && <Wallet />}
-        {activeTab === 'Обмен' && (
-          <div className={styles.nothing}>Still nothing here</div>
-        )}
+        {activeTab === 'Обмен' && <Swap />}
         {activeTab === 'История' && <History />}
       </section>
     </>
