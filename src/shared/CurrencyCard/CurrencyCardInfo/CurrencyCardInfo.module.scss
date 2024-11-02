@@ -4,11 +4,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .imgContainer {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   position: relative;
   & > img {
     width: 100%;
@@ -27,8 +28,10 @@
 
 .currencyName {
   font-weight: 700;
+  margin-top: 5px;
 }
 
 .currencyType {
   color: $light-gray;
+  margin-top: -6px;
 }
