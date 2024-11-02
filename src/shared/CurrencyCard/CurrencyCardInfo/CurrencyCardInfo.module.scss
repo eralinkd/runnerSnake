@@ -31,12 +31,9 @@
 }
 
 .currencyName {
-  font-size: 16px;
   font-weight: 700;
   margin-top: 5px;
-  @media (min-width: 350px) {
-    font-size: 18px;
-  }
+  font-size: 18px;
 }
 
 .currencyType {

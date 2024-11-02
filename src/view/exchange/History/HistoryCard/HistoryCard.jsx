@@ -32,7 +32,7 @@ const HistoryCard = () => {
         <div className={styles.currencyContainer}>
           <CurrencyCardInfo
             className={styles.currencyInfo}
-            title={'USDT'}
+            title={'BITCOIN'}
             imgSrc={bitcoin}
             text={'Вывод средств'}
           />
