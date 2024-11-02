@@ -8,7 +8,7 @@ const CurrencyCardInfo = ({ imgSrc, title, text, className }) => {
         <img src={imgSrc} alt={title} />
       </div>
       <div className={styles.currencyInfo}>
-        <h2 className={clsx(styles.currencyName, 'f-18')}>{title}</h2>
+        <h2 className={styles.currencyName}>{title}</h2>
         <span className={clsx(styles.currencyType, 'f-10')}>{text}</span>
       </div>
     </div>
