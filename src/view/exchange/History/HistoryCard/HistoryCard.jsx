@@ -1,4 +1,4 @@
-import CurrencyCardInfo from '../../../../shared/CurrencyCard/CurrencyCardInfo/CurrencyCardInfo';
+import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 import dots from '../../../../assets/dots.svg';
 import swap from '../../../../assets/swap-arrows.svg';
 import bitcoin from '../../../../assets/bitcoin.png';

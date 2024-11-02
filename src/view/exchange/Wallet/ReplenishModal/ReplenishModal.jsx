@@ -21,8 +21,6 @@ const ReplenishModal = () => {
     closeModal();
   };
 
-  if (!isOpen) return null;
-
   return (
     <Modal handleClose={handleClose} isOpen={isOpen}>
       <div className={styles.replenish}>

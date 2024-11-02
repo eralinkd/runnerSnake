@@ -1,11 +1,10 @@
-import CurrencyCardInfo from '../../../../shared/CurrencyCard/CurrencyCardInfo/CurrencyCardInfo';
 import arrow from '../../../../assets/arrow-bottom.svg';
+import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 // import clsx from 'clsx';
 import styles from './SwapCard.module.scss';
 
 const SwapCard = ({ props }) => {
   const gradient = props.gradient;
-  console.log(gradient);
 
   return (
     <article

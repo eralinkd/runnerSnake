@@ -1,5 +1,5 @@
 import Bitcoin from '../../../assets/bitcoin.png';
-import CurrencyCard from '../../../shared/CurrencyCard/CurrencyCard';
+import CurrencyCard from './CurrencyCard/CurrencyCard';
 import Scoin from '../../../assets/scoin.png';
 import Ton from '../../../assets/ton.png';
 import usdt from '../../../assets/usdt.png';

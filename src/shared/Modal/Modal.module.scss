@@ -6,6 +6,11 @@
   height: 100vh;
   z-index: 10;
   backdrop-filter: blur(5px);
+  opacity: 0;
+  transition: all 0.3s ease 0s;
+  &.done {
+    opacity: 1;
+  }
 }
 
 .container {
