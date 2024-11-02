@@ -1,10 +1,12 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { useBodyLock } from '../../hooks/useBodyLock.js';
 import ReactPortal from '../ReactPortal/ReactPortal';
 import styles from './Modal.module.scss';
+import { CSSTransition } from 'react-transition-group';
 
 const Modal = ({ children, className, isOpen, handleClose }) => {
+  const nodeRef = useRef(null);
   const closeOnEscape = useCallback(
     (e) => {
       if (e.key === 'Escape') {
@@ -23,16 +25,28 @@ const Modal = ({ children, className, isOpen, handleClose }) => {
 
   useBodyLock(isOpen);
 
-  if (!isOpen) return null;
-
   return (
-    <ReactPortal wrapperId="#modal">
-      <div onClick={handleClose} className={clsx(styles.popup, className)}>
-        <div className={styles.container}>
-          <div onClick={(e) => e.stopPropagation()}>{children}</div>
+    <CSSTransition
+      in={isOpen}
+      timeout={100}
+      nodeRef={nodeRef}
+      classNames={{
+        enterDone: styles.done,
+      }}
+      unmountOnExit
+    >
+      <ReactPortal wrapperId="#modal">
+        <div
+          ref={nodeRef}
+          onClick={handleClose}
+          className={clsx(styles.popup, className)}
+        >
+          <div className={styles.container}>
+            <div onClick={(e) => e.stopPropagation()}>{children}</div>
+          </div>
         </div>
-      </div>
-    </ReactPortal>
+      </ReactPortal>
+    </CSSTransition>
   );
 };
 

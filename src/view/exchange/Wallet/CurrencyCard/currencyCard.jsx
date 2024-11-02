@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import dots from '../../../../assets/dots.svg';
+import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
+import replenishModalState from '../../../../state/replenishModalState';
+import withdrawModalState from '../../../../state/withdrawModalState';
 import styles from './CurrencyCard.module.scss';
-import dots from '../../assets/dots.svg';
-import replenishModalState from '../../state/replenishModalState';
-import CurrencyCardInfo from './CurrencyCardInfo/CurrencyCardInfo';
-import withdrawModalState from '../../state/withdrawModalState';
 
 const gradients = {
   purple: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
