@@ -3,5 +3,5 @@ export const historySort = [
 	{ value: 'date', label: 'По дате' },
 	{ value: 'replenish', label: 'Пополнение' },
 	{ value: 'withdraw', label: 'Вывод' },
-	{ value: 'swap', label: 'обмен' },
+	{ value: 'swap', label: 'Oбмен' },
 ];

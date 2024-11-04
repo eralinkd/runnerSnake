@@ -3,8 +3,11 @@ import HistoryModal from './HistoryModal/HistoryModal';
 import { Select } from '../../../shared/Select/Select';
 import { historySort } from '../../../constants/filterModels.js';
 import styles from './History.module.scss';
+import { useState } from 'react';
 
 const History = () => {
+  const [optionSelected, setOptionSelected] = useState(null);
+
   return (
     <>
       <section className={styles.section}>
@@ -20,8 +23,8 @@ const History = () => {
           <Select
             label="Сортировать"
             options={historySort}
-            value={''}
-            onSelect={(option) => console.log(option)}
+            value={optionSelected}
+            onSelect={({ value }) => setOptionSelected(value)}
           />
           <ul className={styles.list}>
             <HistoryCard />
