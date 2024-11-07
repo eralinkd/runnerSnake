@@ -2,8 +2,9 @@ import History from './History/History';
 import Swap from './Swap/Swap';
 import Wallet from './Wallet/Wallet';
 import clsx from 'clsx';
+import { useRef, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import styles from './Exchange.module.scss';
-import { useState } from 'react';
 
 const activeTabs = [
   { name: 'Кошелёк' },
@@ -13,10 +14,13 @@ const activeTabs = [
 
 const Exchange = () => {
   const [activeTab, setActiveTab] = useState('Кошелёк');
+  const nodeRefWallet = useRef(null);
+  const nodeRefSwap = useRef(null);
+  const nodeRefHistory = useRef(null);
 
   return (
     <>
-      <section className="section">
+      <div className="exchange">
         <ul className={styles.nav}>
           {activeTabs.map((tab, index) => (
             <li
@@ -31,10 +35,54 @@ const Exchange = () => {
             </li>
           ))}
         </ul>
-        {activeTab === 'Кошелёк' && <Wallet />}
-        {activeTab === 'Обмен' && <Swap />}
-        {activeTab === 'История' && <History />}
-      </section>
+        {activeTab === 'Кошелёк' && (
+          <CSSTransition
+            in={activeTab === 'Кошелёк'}
+            nodeRef={nodeRefWallet}
+            timeout={100}
+            classNames={{
+              enterDone: styles.done,
+            }}
+            appear
+          >
+            <section ref={nodeRefWallet} className={styles.section}>
+              <Wallet />
+            </section>
+          </CSSTransition>
+        )}
+
+        {activeTab === 'Обмен' && (
+          <CSSTransition
+            in={activeTab === 'Обмен'}
+            nodeRef={nodeRefSwap}
+            timeout={100}
+            classNames={{
+              enterDone: styles.done,
+            }}
+            appear
+          >
+            <section ref={nodeRefSwap} className={styles.section}>
+              <Swap />
+            </section>
+          </CSSTransition>
+        )}
+
+        {activeTab === 'История' && (
+          <CSSTransition
+            in={activeTab === 'История'}
+            nodeRef={nodeRefHistory}
+            timeout={100}
+            classNames={{
+              enterDone: styles.done,
+            }}
+            appear
+          >
+            <section ref={nodeRefHistory} className={styles.section}>
+              <History />
+            </section>
+          </CSSTransition>
+        )}
+      </div>
     </>
   );
 };
