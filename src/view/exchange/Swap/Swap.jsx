@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import SwapCard from './SwapCard/SwapCard';
 import scoin from '../../../assets/scoin.png';
-import styles from './Swap.module.scss';
 import ton from '../../../assets/ton.png';
+import styles from './Swap.module.scss';
 
 const swapCards = [
   {
