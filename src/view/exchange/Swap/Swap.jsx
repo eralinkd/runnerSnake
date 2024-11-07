@@ -20,21 +20,27 @@ const swapCards = [
 ];
 
 const Swap = () => {
+  const [cards, setCards] = useState(swapCards);
+
+  const revertCards = () => {
+    setCards([cards[1], cards[0]]);
+  };
+
   return (
-    <div className={styles.section}>
+    <section className={styles.section}>
       <div className={styles.container}>
-        <SwapCard props={swapCards[0]}></SwapCard>
+        <SwapCard props={cards[0]}></SwapCard>
         <div className={styles.swapButtonContainer}>
           <p className="f-14">1 SCoin = 0.001897645789 TON</p>
-          <button></button>
+          <button onClick={() => revertCards()}></button>
         </div>
 
-        <SwapCard props={swapCards[1]}></SwapCard>
+        <SwapCard props={cards[1]}></SwapCard>
         <button type="button" className={styles.button}>
           Вывести
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 
