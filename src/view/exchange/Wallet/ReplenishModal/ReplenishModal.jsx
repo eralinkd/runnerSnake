@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import clsx from 'clsx';
 import replenishModalState from '../../../../state/replenishModalState.js';
 import Modal from '../../../../shared/Modal/Modal.jsx';
-import { useState } from 'react';
+import copy from '../../../../assets/copy.svg';
 import styles from './ReplenishModal.module.scss';
 
 const ReplenishModal = () => {
@@ -39,8 +40,15 @@ const ReplenishModal = () => {
         </div>
         <div className={styles.link}>
           <span className="f-10">1Cd8nZHAYFH7ZG8aJ1wfhCXhHuxzeRtqoB</span>
-          <button className="f-10" type="button" onClick={handleCopy}>
-            {isCopy ? 'Скопировано' : 'Копировать'}
+          <button
+            className={styles.copyButton}
+            type="button"
+            onClick={handleCopy}
+          >
+            <span className="f-10">
+              {isCopy ? 'Скопировано' : 'Копировать'}
+            </span>
+            <img src={copy} alt="" />
           </button>
         </div>
       </div>

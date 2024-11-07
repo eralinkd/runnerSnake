@@ -10,7 +10,7 @@ const History = () => {
 
   return (
     <>
-      <section className={styles.section}>
+      <div className={styles.section}>
         <div className={styles.container}>
           {/* <button
             style={{ '--border-gradient': gradient }}
@@ -32,7 +32,7 @@ const History = () => {
             <HistoryCard />
           </ul>
         </div>
-      </section>
+      </div>
       <HistoryModal />
     </>
   );

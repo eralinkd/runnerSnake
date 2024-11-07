@@ -1,15 +1,25 @@
+import { useState } from 'react';
 import clsx from 'clsx';
 import Modal from '../../../../shared/Modal/Modal';
 import HistoryModalState from '../../../../state/historyModalState';
+import copy from '../../../../assets/copy.svg';
 import styles from './HistoryModal.module.scss';
 
 const HistoryModal = () => {
+  const [isCopy, setIsCopy] = useState(false);
+
   const isOpen = HistoryModalState((state) => state.isOpen);
   const closeModal = HistoryModalState((state) => state.closeModal);
   const { title, imgSrc } = HistoryModalState((state) => state.modalData);
 
+  const handleCopy = () => {
+    setIsCopy(true);
+    navigator.clipboard.writeText('1Cd8nZHAYFH7ZG8aJ1wfhCXhHuxzeRtqoB');
+  };
+
   const handleClose = () => {
     closeModal();
+    setIsCopy(false);
   };
 
   return (
@@ -30,8 +40,20 @@ const HistoryModal = () => {
               </div>
               <div className={styles.currencyName}>{title}</div>
             </div>
-            <div className={styles.wallet}>
-              <span className="f-10">1Cd8nZHAYFH7ZG8aJ1wfhCXhHuxzeRtqoB</span>
+            <div className={styles.walletContainer}>
+              <span className={clsx('f-10', styles.wallet)}>
+                1Cd8nZHAYFH7ZG8aJ1wfhCXhHuxzeRtqoB
+              </span>
+              <button
+                className={styles.copyButton}
+                type="button"
+                onClick={handleCopy}
+              >
+                <span className="f-10">
+                  {isCopy ? 'Скопировано' : 'Копировать'}
+                </span>
+                <img src={copy} alt="" />
+              </button>
             </div>
           </div>
         </div>

@@ -46,21 +46,19 @@ const cardsList = [
 const Wallet = () => {
   return (
     <>
-      <section className="section">
-        <div className={styles.container}>
-          <div className={styles.list}>
-            {cardsList.map((card) => (
-              <CurrencyCard
-                key={card.id}
-                title={card.title}
-                imgSrc={card.imgSrc}
-                type={card.type}
-                color={card.color}
-              />
-            ))}
-          </div>
+      <div className={styles.container}>
+        <div className={styles.list}>
+          {cardsList.map((card) => (
+            <CurrencyCard
+              key={card.id}
+              title={card.title}
+              imgSrc={card.imgSrc}
+              type={card.type}
+              color={card.color}
+            />
+          ))}
         </div>
-      </section>
+      </div>
       <ReplenishModal />
       <WithdrawModal />
     </>
