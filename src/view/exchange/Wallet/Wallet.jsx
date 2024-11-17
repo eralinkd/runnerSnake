@@ -1,61 +1,38 @@
-import Bitcoin from '../../../assets/bitcoin.png';
 import CurrencyCard from './CurrencyCard/CurrencyCard';
-import Scoin from '../../../assets/scoin.png';
-import Ton from '../../../assets/ton.png';
-import usdt from '../../../assets/usdt.png';
-import styles from './Wallet.module.scss';
 import ReplenishModal from './ReplenishModal/ReplenishModal';
 import WithdrawModal from './WithdrawModal/WithdrawModal';
-
-//временная переменная, потом с бд будет приходить
-const cardsList = [
-  {
-    id: 1,
-    color: 'purple',
-    title: 'SCoin',
-    type: 'token',
-    cardType: '',
-    imgSrc: Scoin,
-  },
-  {
-    id: 2,
-    color: 'yellow',
-    title: 'BITCOIN',
-    type: 'Coin',
-    cardType: '',
-    imgSrc: Bitcoin,
-  },
-  {
-    id: 3,
-    color: 'green',
-    title: 'USDT',
-    type: 'Coin',
-    cardType: '',
-    imgSrc: usdt,
-  },
-  {
-    id: 4,
-    color: 'blue',
-    title: 'TON',
-    type: 'Coin',
-    cardType: '',
-    imgSrc: Ton,
-  },
-];
+import { useEffect, useState } from 'react';
+import { fetchCryptos } from '../../../api/exchangeApi';
+import styles from './Wallet.module.scss';
 
 const Wallet = () => {
+  const [cryptos, setCryptos] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await fetchCryptos();
+        setCryptos(data);
+      } catch (err) {
+        console.log(err);
+        setError('Failed to fetch data');
+      }
+    };
+
+    getData();
+  }, []);
+
+  if (error) return <div className={styles.container}>{error}</div>;
+  if (!cryptos?.length)
+    return <div className={styles.container}>Loading...</div>;
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.list}>
-          {cardsList.map((card) => (
-            <CurrencyCard
-              key={card.id}
-              title={card.title}
-              imgSrc={card.imgSrc}
-              type={card.type}
-              color={card.color}
-            />
+          {cryptos?.map((currency) => (
+            <CurrencyCard key={currency.fullName} item={currency} />
           ))}
         </div>
       </div>

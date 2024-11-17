@@ -1,3 +1,7 @@
+import Bitcoin from '../../../../assets/bitcoin.png';
+import SCoin from '../../../../assets/scoin.png';
+import Ton from '../../../../assets/ton.png';
+import Usdt from '../../../../assets/usdt.png';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dots from '../../../../assets/dots.svg';
@@ -7,18 +11,31 @@ import withdrawModalState from '../../../../state/withdrawModalState';
 import styles from './CurrencyCard.module.scss';
 
 const gradients = {
-  purple: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
-  yellow: 'linear-gradient(90deg, #f7b733, #fc4a1a)',
-  green: 'linear-gradient(90deg, #56ab2f, #a8e063)',
-  blue: 'linear-gradient(90deg, #36d1dc, #5b86e5)',
+  SCoin: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
+  BTC: ' linear-gradient(90deg, #EA4335 0%, #FBBC05 100%)',
+  USDT: 'linear-gradient(90deg, #107C10 0%, #5DC21E 100%)',
+  TON: 'linear-gradient(90deg, #005FED 0%, #0099FF 100%)',
+  Stars: 'linear-gradient(90deg, #EB001B 0%, #FF3333 100%)',
+  default: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
 };
 
-const CurrencyCard = ({ title, type, imgSrc, color }) => {
+const currencyImages = {
+  BTC: Bitcoin,
+  SCoin: SCoin,
+  TON: Ton,
+  USDT: Usdt,
+  default: SCoin,
+};
+
+const CurrencyCard = ({ item }) => {
+  const { simpleName: title, type, swap, withdraw, replenishment } = item;
+  const imgSrc = currencyImages[title] || currencyImages.default;
+
   const [show, setShow] = useState(false);
   const openModal = replenishModalState((state) => state.openModal);
   const openWithDrawModal = withdrawModalState((state) => state.openModal);
 
-  const gradientStyle = gradients[color] || gradients.purple;
+  const gradientStyle = gradients[title] || gradients.default;
 
   const replenishModalOpen = () => {
     openModal(title, imgSrc);
@@ -63,20 +80,29 @@ const CurrencyCard = ({ title, type, imgSrc, color }) => {
           </button>
         </div>
         <div className={clsx(styles.buttons, show && styles.show)}>
-          <button
-            onClick={withdrawModalOpen}
-            type="button"
-            className={clsx(styles.button, 'f-16', styles.darkButton)}
-          >
-            Вывести
-          </button>
-          <button
-            onClick={replenishModalOpen}
-            type="button"
-            className={clsx(styles.button, 'f-16')}
-          >
-            Пополнить
-          </button>
+          {swap && (
+            <button type="button" className={clsx(styles.button, 'f-16')}>
+              Обмен
+            </button>
+          )}
+          {withdraw && (
+            <button
+              onClick={withdrawModalOpen}
+              type="button"
+              className={clsx(styles.button, 'f-16')}
+            >
+              Вывести
+            </button>
+          )}
+          {replenishment && (
+            <button
+              onClick={replenishModalOpen}
+              type="button"
+              className={clsx(styles.button, 'f-16')}
+            >
+              Пополнить
+            </button>
+          )}
         </div>
       </div>
     </article>

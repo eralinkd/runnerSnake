@@ -20,7 +20,7 @@ const Exchange = () => {
 
   return (
     <>
-      <div className="exchange">
+      <div className={styles.exchange}>
         <ul className={styles.nav}>
           {activeTabs.map((tab, index) => (
             <li
