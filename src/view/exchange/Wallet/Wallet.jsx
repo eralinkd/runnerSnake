@@ -1,40 +1,41 @@
 import CurrencyCard from './CurrencyCard/CurrencyCard';
 import ReplenishModal from './ReplenishModal/ReplenishModal';
 import WithdrawModal from './WithdrawModal/WithdrawModal';
-import { useEffect, useState } from 'react';
 import { fetchCryptos } from '../../../api/exchangeApi';
 import styles from './Wallet.module.scss';
+import { useQuery } from '@tanstack/react-query';
+import Spinner from '../../../shared/Spinner/Spinner';
 
 const Wallet = () => {
-  const [cryptos, setCryptos] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await fetchCryptos();
-        setCryptos(data);
-      } catch (err) {
-        console.log(err);
-        setError('Failed to fetch data');
-      }
-    };
-
-    getData();
-  }, []);
-
-  if (error) return <div className={styles.container}>{error}</div>;
-  if (!cryptos?.length)
-    return <div className={styles.container}>Loading...</div>;
+  const {
+    data: cryptos,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['cryptos'],
+    queryFn: fetchCryptos,
+  });
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.list}>
-          {cryptos?.map((currency) => (
-            <CurrencyCard key={currency.fullName} item={currency} />
-          ))}
-        </div>
+        {isLoading && !isError && (
+          <div className={styles.spinnerContainer}>
+            <Spinner />
+          </div>
+        )}
+        {isError && (
+          <div className={styles.container}>
+            <p className="error">Failed to fetch data</p>
+          </div>
+        )}
+        {cryptos && !isError && (
+          <div className={styles.list}>
+            {cryptos.map((currency) => (
+              <CurrencyCard key={currency.fullName} item={currency} />
+            ))}
+          </div>
+        )}
       </div>
       <ReplenishModal />
       <WithdrawModal />

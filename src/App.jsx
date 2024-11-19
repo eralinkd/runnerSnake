@@ -11,6 +11,7 @@ import sImg from './assets/navIcons/s.svg';
 import styles from './App.module.scss';
 import { useState } from 'react';
 import clsx from 'clsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const menuComponents = {
   Биржа: <Exchange />,
@@ -28,31 +29,41 @@ const menuIcons = {
   Профиль: pImg,
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 10, // Время в миллисекундах
+    },
+  },
+});
+
 function App() {
   const [activeComponent, setActiveComponent] = useState('Биржа');
 
   return (
-    <main className={styles.app}>
-      <div className={styles.viewContainer}>
-        {menuComponents[activeComponent]}
-      </div>
+    <QueryClientProvider client={queryClient}>
+      <main className={styles.app}>
+        <div className={styles.viewContainer}>
+          {menuComponents[activeComponent]}
+        </div>
 
-      <ul className={styles.nav}>
-        {Object.keys(menuComponents).map((menuItem) => (
-          <li
-            key={menuItem}
-            className={clsx(
-              'f-12',
-              menuItem === activeComponent && styles.active
-            )}
-            onClick={() => setActiveComponent(menuItem)}
-          >
-            <img src={menuIcons[menuItem]} alt={`${menuItem} icon`} />
-            {menuItem}
-          </li>
-        ))}
-      </ul>
-    </main>
+        <ul className={styles.nav}>
+          {Object.keys(menuComponents).map((menuItem) => (
+            <li
+              key={menuItem}
+              className={clsx(
+                'f-12',
+                menuItem === activeComponent && styles.active
+              )}
+              onClick={() => setActiveComponent(menuItem)}
+            >
+              <img src={menuIcons[menuItem]} alt={`${menuItem} icon`} />
+              {menuItem}
+            </li>
+          ))}
+        </ul>
+      </main>
+    </QueryClientProvider>
   );
 }
 

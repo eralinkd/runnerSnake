@@ -8,13 +8,16 @@ const api = axios.create({
 });
 
 export const fetchCryptos = async () => {
-	try {
-		const response = await api.get('/payment/cryptos');
-		return response.data;
-	} catch (error) {
-		console.error('Error fetching cryptos:', error);
-		throw error;
-	}
+	// try {
+	// 	const response = await api.get('/payment/cryptos');
+	// 	return response.data;
+	// } catch (error) {
+	// 	console.error('Error fetching cryptos:', error);
+	// 	throw error;
+	// }
+	const { data } = await api.get('/payment/cryptos')
+
+	return data
 };
 
 export default api;

@@ -3,6 +3,12 @@
   margin: 0 auto;
   padding: 0 15px;
 }
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .list {
   display: flex;
   flex-direction: column;
