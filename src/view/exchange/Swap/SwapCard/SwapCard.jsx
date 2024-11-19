@@ -22,9 +22,11 @@ const SwapCard = ({ props }) => {
     { value: '8', label: '**' },
     { value: '9', label: '***' },
     { value: '10', label: '****' },
-  ]
+  ];
 
-  const [selected, setOptionSelected] = useState(options.find((option) => option?.label === props.coin));
+  const [selected, setOptionSelected] = useState(
+    options.find((option) => option?.label === props.coin)
+  );
 
   const selectRef = useRef(null);
 
@@ -37,17 +39,24 @@ const SwapCard = ({ props }) => {
     handleClose();
   };
 
-
   return (
     <article
       className={styles.article}
       style={{ '--border-gradient': gradient }}
     >
       <div className={styles.balance}>
-        <p className='f-30'>0.<span className='f-23'>00</span></p>
-        <p className={clsx('f-10', styles.balanceText)}>0.00 {selected.label}</p>
+        <p className="f-30">
+          0.<span className="f-23">00</span>
+        </p>
+        <p className={clsx('f-10', styles.balanceText)}>
+          0.00 {selected.label}
+        </p>
       </div>
-      <div className={clsx(styles.currencyContainer, isOpen && styles.opened)} ref={selectRef} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={clsx(styles.currencyContainer, isOpen && styles.opened)}
+        ref={selectRef}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <CurrencyCardInfo
           className={styles.currencyInfo}
           title={selected.label}
@@ -55,15 +64,12 @@ const SwapCard = ({ props }) => {
           text={'Token'}
         ></CurrencyCardInfo>
 
-
-
         <button type="button" className={styles.moreActions}>
           <img src={arrow} alt="icon arrow" />
         </button>
 
         <ul className={styles.options}>
           {options?.map((option) => {
-            console.log(selected)
             const isSelected = selected.value === option?.value;
 
             return (
