@@ -20,4 +20,10 @@ export const fetchCryptos = async () => {
 	return data
 };
 
+export const withdrawBalance = async (data) => {
+	console.log('data', data);
+	const response = await api.post(`/users/withdrawBalance/1`, data);
+	return response.data;
+}
+
 export default api;
