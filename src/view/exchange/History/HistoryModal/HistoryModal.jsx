@@ -10,7 +10,16 @@ const HistoryModal = () => {
 
   const isOpen = HistoryModalState((state) => state.isOpen);
   const closeModal = HistoryModalState((state) => state.closeModal);
-  const { title, imgSrc } = HistoryModalState((state) => state.modalData);
+  const { title, imgSrc, operation } = HistoryModalState(
+    (state) => state.modalData
+  );
+
+  const currentOperation =
+    operation === 'WITHDRAW'
+      ? 'Вывод средств'
+      : operation === 'SWAP'
+      ? 'Обмен'
+      : 'Пополнение';
 
   const handleCopy = () => {
     setIsCopy(true);
@@ -32,7 +41,7 @@ const HistoryModal = () => {
             <div className={clsx('f-10', styles.infoItem)}>7:03</div>
             <div className={clsx('f-10', styles.infoItem)}>SWAP</div>
           </div>
-          <h2 className={clsx(styles.title, 'f-18')}>Вывод средств</h2>
+          <h2 className={clsx(styles.title, 'f-18')}>{currentOperation}</h2>
           <div className={styles.line}>
             <div className={styles.currency}>
               <div className={styles.currencyImage}>

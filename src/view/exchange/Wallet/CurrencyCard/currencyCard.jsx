@@ -1,7 +1,3 @@
-import Bitcoin from '../../../../assets/bitcoin.png';
-import SCoin from '../../../../assets/scoin.png';
-import Ton from '../../../../assets/ton.png';
-import Usdt from '../../../../assets/usdt.png';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dots from '../../../../assets/dots.svg';
@@ -9,6 +5,7 @@ import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardIn
 import replenishModalState from '../../../../state/replenishModalState';
 import withdrawModalState from '../../../../state/withdrawModalState';
 import styles from './CurrencyCard.module.scss';
+import { currencyImages } from '../../../../constants/currency';
 
 const gradients = {
   SCoin: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
@@ -19,17 +16,16 @@ const gradients = {
   default: 'linear-gradient(106.24deg, #5C6AC4 -3.53%, #9C27B0 117.96%)',
 };
 
-const currencyImages = {
-  BTC: Bitcoin,
-  SCoin: SCoin,
-  TON: Ton,
-  USDT: Usdt,
-  default: SCoin,
-};
-
 const CurrencyCard = ({ item }) => {
-  const { simpleName: title, type, swap, withdraw, replenishment } = item;
-  const imgSrc = currencyImages[title] || currencyImages.default;
+  const {
+    simpleName: title,
+    apiName,
+    type,
+    swap,
+    withdraw,
+    replenishment,
+  } = item;
+  const imgSrc = currencyImages[apiName] || currencyImages.default;
 
   const [show, setShow] = useState(false);
   const openModal = replenishModalState((state) => state.openModal);
