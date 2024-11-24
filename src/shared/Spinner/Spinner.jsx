@@ -1,7 +1,8 @@
+import clsx from 'clsx';
 import styles from './Spinner.module.scss';
 
-const Spinner = () => {
-  return <span className={styles.loader}></span>;
+const Spinner = ({ className }) => {
+  return <span className={clsx(styles.loader, className)}></span>;
 };
 
 export default Spinner;

@@ -1,26 +1,30 @@
 import clsx from 'clsx';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import {
+  validatePaymentAddress,
+  withdrawBalance,
+} from '../../../../api/exchangeApi';
 import withdrawModalState from '../../../../state/withdrawModalState';
 import Modal from '../../../../shared/Modal/Modal';
 import styles from './WithdrawModal.module.scss';
-import { withdrawBalance } from '../../../../api/exchangeApi';
-import { useMutation } from '@tanstack/react-query';
 
 const WithdrawModal = () => {
   const isOpen = withdrawModalState((state) => state.isOpen);
   const closeModal = withdrawModalState((state) => state.closeModal);
   const { title, imgSrc } = withdrawModalState((state) => state.modalData);
 
-  // Состояние для полей суммы и адреса
+  // Состояние для полей ввода и ошибки
   const [amount, setAmount] = useState('');
   const [address, setAddress] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Функция для закрытия модального окна
   const handleClose = () => {
     closeModal();
   };
 
-  const mutation = useMutation({
+  const withdrawMutation = useMutation({
     mutationFn: (data) => withdrawBalance(data),
     onSuccess: (response) => {
       console.log('Withdrawal successful:', response);
@@ -28,17 +32,51 @@ const WithdrawModal = () => {
     },
     onError: (error) => {
       console.error('Error withdrawing funds:', error);
+      setError('Ошибка при выводе средств. Попробуйте еще раз.');
     },
   });
 
-  // Функция для отправки запроса на вывод средств
+  // Функция для проверки адреса и выполнения запроса на вывод средств
   const handleWithdraw = async () => {
-    const data = {
-      crypto: title,
-      amount: parseFloat(amount),
-      address: address,
-    };
-    mutation.mutate(data);
+    setError(''); // Очистить предыдущие ошибки
+    setIsLoading(true); // Включить состояние загрузки
+
+    // Проверка полей
+    if (!amount || parseFloat(amount) <= 0) {
+      setError('Введите корректную сумму.');
+      setIsLoading(false);
+      return;
+    }
+    if (!address) {
+      setError('Введите адрес кошелька.');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const validationResponse = await validatePaymentAddress({
+        crypto: title,
+        address: address,
+      });
+
+      if (!validationResponse.result) {
+        setError('Адрес кошелька недействителен.');
+        setIsLoading(false);
+        return;
+      }
+
+      const withdrawData = {
+        crypto: title,
+        amount: parseFloat(amount),
+        address: address,
+      };
+      withdrawMutation.mutate(withdrawData);
+    } catch (err) {
+      console.error('Validation error:', err);
+      setError('Ошибка при проверке адреса. Попробуйте снова.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -69,11 +107,13 @@ const WithdrawModal = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
+            {error && <div className={styles.error}>{error}</div>}
           </div>
           <button
             type="button"
             className={styles.button}
             onClick={handleWithdraw}
+            disabled={isLoading}
           >
             Вывести
           </button>

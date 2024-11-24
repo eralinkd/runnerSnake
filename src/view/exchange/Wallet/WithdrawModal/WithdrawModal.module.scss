@@ -15,6 +15,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  max-width: 260px;
 }
 
 .close {
@@ -104,4 +105,17 @@ input::-webkit-inner-spin-button {
   background: linear-gradient(106.24deg, #5c6ac4 -3.53%, #9c27b0 117.96%);
   font-weight: 700;
   font-size: 16px;
+  transition: all 0.3s ease 0s;
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+.error {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.2;
+  color: red;
 }

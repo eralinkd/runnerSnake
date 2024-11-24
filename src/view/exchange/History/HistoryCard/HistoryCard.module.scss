@@ -9,9 +9,8 @@
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 1fr 23px 1fr;
-  align-items: flex-end;
+  display: flex;
+  align-items: center;
   gap: 5px;
   @media (min-width: 350px) {
     gap: 10px;
@@ -47,19 +46,21 @@
 }
 
 .arrow {
+  flex: 0 0 23px;
   width: 100%;
   height: 14px;
   align-self: center;
 }
 
 .value {
-  text-align: center;
-  & > span {
-    color: $red;
-  }
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  flex: 0 1 50%;
 }
 
 .currencyContainer {
+  flex: 0 1 50%;
   display: flex;
   align-items: center;
   gap: 5px;

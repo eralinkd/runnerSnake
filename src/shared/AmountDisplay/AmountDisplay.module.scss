@@ -1,0 +1,17 @@
+.amountDisplay {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.integerPart {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: Koulen;
+}
+
+.decimalPart {
+  font-family: Koulen;
+  font-size: 21px;
+  font-weight: 700;
+  vertical-align: baseline;
+}
