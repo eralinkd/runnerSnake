@@ -5,7 +5,25 @@ const api = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
 	},
+	withCredentials: true,
 });
+
+const setupAxiosInterceptors = (toastrRef) => {
+	axiosInstance.interceptors.response.use(
+		(response) => response,
+		(error) => {
+			alert(`API call failed. Error: ${error}`);
+			// if (toastrRef && toastrRef.current) {
+			// 	toastrRef.current.notify("Something went wrong", "error");
+			// } else {
+			// 	console.log("toastrRef BROKEN!!!!!!", toastrRef);
+			// }
+			return new Promise(() => { });
+		}
+	);
+};
+
+export { axiosInstance, setupAxiosInterceptors };
 
 export const fetchCryptos = async () => {
 	const { data } = await api.get('/payment/cryptos')
