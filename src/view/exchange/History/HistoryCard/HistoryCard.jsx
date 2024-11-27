@@ -31,12 +31,29 @@ const HistoryCard = ({ item }) => {
             <div className={clsx('f-10', styles.infoItem)}>{paymentType}</div>
           )}
         </div>
-        <div className={styles.value}>
-          <AmountDisplay
-            amount={amount.toFixed(2)}
-            operationType={paymentType}
-          />
-        </div>
+        {paymentType === 'SWAP' ? (
+          <div className={styles.swapContainer}>
+            <CurrencyCardInfo
+              className={styles.currencyInfo}
+              title={crypto}
+              imgSrc={imgSrc}
+              text={
+                <AmountDisplay
+                  amount={amount.toFixed(2)}
+                  operationType={paymentType}
+                  className={styles.smallNumbers}
+                />
+              }
+            />
+          </div>
+        ) : (
+          <div className={styles.value}>
+            <AmountDisplay
+              amount={amount.toFixed(2)}
+              operationType={paymentType}
+            />
+          </div>
+        )}
         {paymentType === 'SWAP' && (
           <div className={clsx(styles.arrow)}>
             <img src={swap} alt="" />
@@ -55,13 +72,15 @@ const HistoryCard = ({ item }) => {
                 : 'Поплнение'
             }
           />
-          <button
-            onClick={openWithdraw}
-            type="button"
-            className={styles.moreActions}
-          >
-            <img src={dots} alt="icon dots" />
-          </button>
+          {paymentType !== 'SWAP' && (
+            <button
+              onClick={openWithdraw}
+              type="button"
+              className={styles.moreActions}
+            >
+              <img src={dots} alt="icon dots" />
+            </button>
+          )}
         </div>
       </div>
     </article>
