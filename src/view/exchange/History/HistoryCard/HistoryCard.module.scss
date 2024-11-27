@@ -59,6 +59,21 @@
   flex: 0 1 50%;
 }
 
+.swapContainer {
+  display: flex;
+  align-self: flex-end;
+  flex: 0 1 50%;
+}
+
+.smallNumbers {
+  & > span:first-child {
+    font-size: 14px;
+  }
+  & > span:last-child {
+    font-size: 12px;
+  }
+}
+
 .currencyContainer {
   flex: 0 1 50%;
   display: flex;

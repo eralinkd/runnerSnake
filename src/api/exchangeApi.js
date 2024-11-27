@@ -8,8 +8,8 @@ const api = axios.create({
 	withCredentials: true,
 });
 
-const setupAxiosInterceptors = (toastrRef) => {
-	axiosInstance.interceptors.response.use(
+export const setupAxiosInterceptors = (toastrRef) => {
+	api.interceptors.response.use(
 		(response) => response,
 		(error) => {
 			alert(`API call failed. Error: ${error}`);
@@ -22,8 +22,6 @@ const setupAxiosInterceptors = (toastrRef) => {
 		}
 	);
 };
-
-export { axiosInstance, setupAxiosInterceptors };
 
 export const fetchCryptos = async () => {
 	const { data } = await api.get('/payment/cryptos')
