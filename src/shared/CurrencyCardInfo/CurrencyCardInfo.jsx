@@ -9,7 +9,9 @@ const CurrencyCardInfo = ({ imgSrc, title, text, className }) => {
       </div>
       <div className={styles.currencyInfo}>
         <h2 className={styles.currencyName}>{title}</h2>
-        <span className={clsx(styles.currencyType, 'f-10')}>{text}</span>
+        {text && (
+          <span className={clsx(styles.currencyType, 'f-10')}>{text}</span>
+        )}
       </div>
     </div>
   );
