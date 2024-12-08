@@ -224,6 +224,21 @@
         column-gap: 11px;
         row-gap: 55px;
 
+        .friendCardWrapper {
+            overflow: visible;
+        }
+
+        .avatarWrapper {
+            position: absolute;
+            top: -44px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            width: 89px;
+            height: 89px;
+            flex-shrink: 0;
+        }
+
         .friendCard {
             padding-top: 51px;
             max-width: 169px;
@@ -233,7 +248,6 @@
             flex-direction: column;
             align-items: center;
             border-radius: 15px;
-            border: 1px solid #FFF;
             background: $darkGreyBGcolor;
             backdrop-filter: blur(6px);
             background-image: url('../../assets/profile/friendBg1.svg');
@@ -241,17 +255,7 @@
             background-position: center bottom;
             cursor: pointer;
 
-            .avatar {
-                position: absolute;
-                top: -44px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 89px;
-                border: 1px solid #FFF;
-                width: 89px;
-                height: 89px;
-                flex-shrink: 0;
-            }
+            .avatar {}
 
             .username {
                 color: #FFF;
@@ -456,7 +460,7 @@
         width: 100%;
         padding: 8px 13px 12px 14px;
         border-radius: 15px;
-        border: 1px solid #FFF;
+        // border: 1px solid #FFF;
         background: $darkGreyBGcolor;
         backdrop-filter: blur(6px);
         display: flex;

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 
+import ComponentWithBorder from '../../shared/ComponentWithBorder/ComponentWithBorder';
 import SCoin from '../../assets/profile/snake.svg';
 import abu from '../../assets/temp/abu.png';
 import arrRight from '../../assets/taskArrowToRight.svg';
@@ -91,17 +92,22 @@ const Profile = () => {
 
       <div className={styles.friendsBlock}>
         <h3>Прибыль от друзей</h3>
+
         <div className={styles.friends}>
-          <div className={styles.friendCard}>
-            <img className={styles.avatar} src={abu} alt='avatar'></img>
-            <p className={styles.username}>abu_chuligan</p>
-            <p className={styles.value}>
-              <img src={snake} alt='snake'></img>
-              137.009.277
-            </p>
-            <p className={styles.profit}>Ваша прибыль</p>
-            <p className={styles.profitValue}>567</p>
-          </div>
+          <ComponentWithBorder className={styles.friendCardWrapper}>
+            <div className={styles.friendCard}>
+            <ComponentWithBorder className={styles.avatarWrapper}>
+              <img className={styles.avatar} src={abu} alt='avatar'></img>
+            </ComponentWithBorder>
+              <p className={styles.username}>abu_chuligan</p>
+              <p className={styles.value}>
+                <img src={snake} alt='snake'></img>
+                137.009.277
+              </p>
+              <p className={styles.profit}>Ваша прибыль</p>
+              <p className={styles.profitValue}>567</p>
+            </div>
+          </ComponentWithBorder>
 
           <div className={styles.emptyCard}>
             <p><img src={person} alt='person icon'></img>+</p>
@@ -126,60 +132,66 @@ const Profile = () => {
         </ul>
 
         <div className={styles.tasksList}>
-          <div className={styles.task}>
-            <div className={styles.headingContainer}>
-              <p className={styles.heading}>
-                <img src={taskImg} alt='task img'></img>
-                Lorem ipsum dolor sit
-              </p>
-              <div className={styles.taskNavigate}>
-                <img src={arrRight} alt='arrow right'></img>
+          <ComponentWithBorder>
+            <div className={styles.task}>
+              <div className={styles.headingContainer}>
+                <p className={styles.heading}>
+                  <img src={taskImg} alt='task img'></img>
+                  Lorem ipsum dolor sit
+                </p>
+                <div className={styles.taskNavigate}>
+                  <img src={arrRight} alt='arrow right'></img>
+                </div>
+              </div>
+              <div className={styles.info}>
+                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
+                <p className={styles.reward}>
+                  <img src={snake} alt='snake'></img>
+                  5.000
+                </p>
               </div>
             </div>
-            <div className={styles.info}>
-              <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
-              <p className={styles.reward}>
-                <img src={snake} alt='snake'></img>
-                5.000
-              </p>
-            </div>
-          </div>
-          <div className={styles.task}>
-            <div className={styles.headingContainer}>
-              <p className={styles.heading}>
-                <img src={taskImg} alt='task img'></img>
-                Lorem ipsum dolor sit
-              </p>
-              <div className={styles.taskNavigate}>
-                <img src={arrRight} alt='arrow right'></img>
+          </ComponentWithBorder>
+          <ComponentWithBorder>
+            <div className={styles.task}>
+              <div className={styles.headingContainer}>
+                <p className={styles.heading}>
+                  <img src={taskImg} alt='task img'></img>
+                  Lorem ipsum dolor sit
+                </p>
+                <div className={styles.taskNavigate}>
+                  <img src={arrRight} alt='arrow right'></img>
+                </div>
+              </div>
+              <div className={styles.info}>
+                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
+                <p className={styles.reward}>
+                  <img src={snake} alt='snake'></img>
+                  5.000
+                </p>
               </div>
             </div>
-            <div className={styles.info}>
-              <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
-              <p className={styles.reward}>
-                <img src={snake} alt='snake'></img>
-                5.000
-              </p>
-            </div>
-          </div>
-          <div className={styles.task}>
-            <div className={styles.headingContainer}>
-              <p className={styles.heading}>
-                <img src={taskImg} alt='task img'></img>
-                Lorem ipsum dolor sit
-              </p>
-              <div className={styles.taskNavigate}>
-                <img src={arrRight} alt='arrow right'></img>
+          </ComponentWithBorder>
+          <ComponentWithBorder>
+            <div className={styles.task}>
+              <div className={styles.headingContainer}>
+                <p className={styles.heading}>
+                  <img src={taskImg} alt='task img'></img>
+                  Lorem ipsum dolor sit
+                </p>
+                <div className={styles.taskNavigate}>
+                  <img src={arrRight} alt='arrow right'></img>
+                </div>
+              </div>
+              <div className={styles.info}>
+                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
+                <p className={styles.reward}>
+                  <img src={snake} alt='snake'></img>
+                  5.000
+                </p>
               </div>
             </div>
-            <div className={styles.info}>
-              <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
-              <p className={styles.reward}>
-                <img src={snake} alt='snake'></img>
-                5.000
-              </p>
-            </div>
-          </div>
+          </ComponentWithBorder>
         </div>
       </div>
 
