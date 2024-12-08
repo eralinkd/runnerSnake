@@ -5,24 +5,25 @@ import arrow from '../../../../assets/arrow-bottom.svg';
 import clsx from 'clsx';
 import styles from './SwapCard.module.scss';
 import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
+import { currencyImages } from '../../../../constants/currency';
+
+const options = [
+  { value: '1', label: 'SCOIN' },
+  { value: '2', label: 'TON' },
+  { value: '3', label: 'BitCoin' },
+  { value: '4', label: 'ScamCoin' },
+  { value: '5', label: 'NotScamCoin' },
+  { value: '6', label: 'KolyaHater' },
+  { value: '7', label: 'UlichniyDancer' },
+  { value: '8', label: '**' },
+  { value: '9', label: '***' },
+  { value: '10', label: '****' },
+];
 
 const SwapCard = ({ props }) => {
   const gradient = props.gradient;
-
+  const imgSrc = currencyImages[props.coin] || currencyImages.default;
   const [isOpen, setIsOpen] = useState(false);
-
-  const options = [
-    { value: '1', label: 'SCoin' },
-    { value: '2', label: 'TON' },
-    { value: '3', label: 'BitCoin' },
-    { value: '4', label: 'ScamCoin' },
-    { value: '5', label: 'NotScamCoin' },
-    { value: '6', label: 'KolyaHater' },
-    { value: '7', label: 'UlichniyDancer' },
-    { value: '8', label: '**' },
-    { value: '9', label: '***' },
-    { value: '10', label: '****' },
-  ];
 
   const [selected, setOptionSelected] = useState(
     options.find((option) => option?.label === props.coin)
@@ -60,7 +61,7 @@ const SwapCard = ({ props }) => {
         <CurrencyCardInfo
           className={styles.currencyInfo}
           title={selected.label}
-          imgSrc={props.coinImg}
+          imgSrc={imgSrc}
           text={'Token'}
         ></CurrencyCardInfo>
 
@@ -81,7 +82,9 @@ const SwapCard = ({ props }) => {
                 <CurrencyCardInfo
                   className={styles.currencyInfo}
                   title={option.label}
-                  imgSrc={props.coinImg}
+                  imgSrc={
+                    currencyImages[option.label] || currencyImages.default
+                  }
                   text={'Token'}
                 ></CurrencyCardInfo>
               </li>

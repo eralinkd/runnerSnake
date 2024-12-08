@@ -1,4 +1,4 @@
-@use './variables' as var;
+@use './variables' as *;
 
 .app {
   position: relative;
@@ -6,59 +6,7 @@
 
 .viewContainer {
   width: 100%;
-  max-width: calc(var.$pageContentWidth + 20px);
-  padding: 0 10px 120px 10px;
+  max-width: calc($pageContentWidth + 20px);
+  padding: 0 10px 100px 10px;
   margin: 0 auto;
-}
-
-.nav {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  height: 66px;
-  background-color: var.$almost-black;
-  user-select: none;
-
-  li {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 7px;
-    color: var.$light-gray;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease 0s;
-    border-radius: 10px;
-    width: 85%;
-    height: 85%;
-    margin: auto;
-
-    @media (any-hover: hover) {
-      &:hover {
-        color: var.$white;
-        background-color: var.$deep-gray;
-        img {
-          filter: invert(100%);
-        }
-      }
-    }
-
-    &.active {
-      color: var.$white;
-      background-color: var.$deep-gray;
-      img {
-        filter: invert(100%);
-      }
-    }
-
-    img {
-      width: 32px;
-      height: 32px;
-      transition: all 0.2s ease 0s;
-      margin-bottom: -3px;
-    }
-  }
 }

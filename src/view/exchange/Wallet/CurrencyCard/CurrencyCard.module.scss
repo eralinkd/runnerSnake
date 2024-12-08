@@ -1,10 +1,13 @@
 @use '../../../../variables.scss' as *;
 
 .article {
-  max-width: 400px;
-  border-radius: 10px;
   position: relative;
-  overflow: hidden;
+}
+
+.currencyCardWrapper {
+  &::before {
+    border-radius: 10px;
+  }
 }
 
 .content {

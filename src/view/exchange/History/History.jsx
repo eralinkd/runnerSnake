@@ -18,9 +18,8 @@ const History = () => {
 
     if (telegramInitData?.user?.id) {
       setUserId(telegramInitData.user.id);
+      console.log(telegramInitData.user.id);
     }
-
-    console.log(telegramInitData.user.id);
   }, []);
 
   const {
