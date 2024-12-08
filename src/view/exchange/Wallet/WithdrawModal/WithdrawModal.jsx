@@ -36,6 +36,14 @@ const WithdrawModal = () => {
     },
   });
 
+  const validateAddressMutation = useMutation({
+    mutationFn: (data) => validatePaymentAddress(data),
+    onError: (error) => {
+      console.error('Validation error:', error);
+      setError('Ошибка при проверке адреса. Попробуйте снова.');
+    },
+  });
+
   // Функция для проверки адреса и выполнения запроса на вывод средств
   const handleWithdraw = async () => {
     setError(''); // Очистить предыдущие ошибки
@@ -54,7 +62,7 @@ const WithdrawModal = () => {
     }
 
     try {
-      const validationResponse = await validatePaymentAddress({
+      const validationResponse = await validateAddressMutation.mutateAsync({
         crypto: title,
         address: address,
       });

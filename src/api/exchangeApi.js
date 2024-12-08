@@ -34,6 +34,11 @@ export const withdrawBalance = async (data) => {
 	return response.data;
 }
 
+export const replenishBalance = async (data) => {
+	const response = await api.post(`/users/replenishBalance/1`, data);
+	return response.data;
+}
+
 export const validatePaymentAddress = async (data) => {
 	const response = await api.post(`/payment/validate`, data);
 	return response.data; // Предполагается, что объект содержит поле `result`
