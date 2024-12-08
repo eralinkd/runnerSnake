@@ -1,17 +1,18 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import Exchange from './view/exchange/Exchange';
 import Game from './view/game/Game';
 import Inventory from './view/inventory/Inventory';
 import Profile from './view/profile/Profile';
 import Store from './view/store/Store';
 import bImg from './assets/navIcons/b.svg';
+import clsx from 'clsx';
 import gImg from './assets/navIcons/g.svg';
 import iImg from './assets/navIcons/i.svg';
 import pImg from './assets/navIcons/p.svg';
 import sImg from './assets/navIcons/s.svg';
 import styles from './App.module.scss';
 import { useState } from 'react';
-import clsx from 'clsx';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const menuComponents = {
   Биржа: <Exchange />,
@@ -32,7 +33,7 @@ const menuIcons = {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 10, // Время в миллисекундах
+      staleTime: 1000 * 60 * 10,
     },
   },
 });
@@ -43,6 +44,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <main className={styles.app}>
+      <div className={styles.topNav}>{activeComponent}</div>
         <div className={styles.viewContainer}>
           {menuComponents[activeComponent]}
         </div>

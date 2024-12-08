@@ -79,11 +79,17 @@ h6 {
 //========================================================================================================================================================
 
 * {
-  font-family: 'Istok Web', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
   line-height: 25.91px;
+}
+
+.inter {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .koulen {
@@ -183,8 +189,10 @@ body {
   }
 
   > main {
+    margin-top: var.$topNavHeight;
     flex: 1 1 auto;
-    background: url('./assets/mainBg.svg') no-repeat center bottom;
-    background-size: contain;
+    background: url('./assets/mainBg.svg') no-repeat center top;
+    // background-size: cover;
+    // background-attachment: fixed;
   }
 }

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,regular,500,600,700,800,900&display=swap');
+//old font
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+//legacy
 $fontFamily: 'Roboto';
 $fontSize: 16px;
 $minWidth: 320;
@@ -16,3 +21,20 @@ $dark-gray-purple: #44424d;
 $deep-gray: #24222d;
 $almost-black: #191722;
 $dark-gray: #292732;
+
+
+$frameWidth: 405px;
+$pageContentWidth: 345px;
+$topNavHeight: 50px;
+$topNavGrad: linear-gradient(180deg, rgba(82, 75, 138, 0.6) -167%, rgba(5, 0, 50, 0.6) 175%);
+$topNavBorderGrad: linear-gradient(90deg, #FFFFFF 0%, #FF24B0 24%, #7000AE 47%, #1500CE 69.5%, #3485FF 100%);
+
+
+$darkGreyBGcolor: rgba(32, 32, 42, .95);
+
+$pink: #FF24B0;
+
+
+
+
+

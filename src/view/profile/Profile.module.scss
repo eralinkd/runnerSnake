@@ -1,0 +1,204 @@
+@use '../../variables' as *;
+
+.profile {
+    max-width: 345px;
+    margin: auto;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 11px;
+
+    img {
+        width: 119px;
+        height: 119px;
+        flex-shrink: 0;
+        border-radius: 119px;
+        border: 1px solid #FFF;
+    }
+
+    p {
+        color: #FFF;
+        font-family: "Open Sans";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.6px;
+    }
+}
+
+.userStats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12px;
+
+    .balance {
+        align-self: flex-start;
+
+        p {
+            color: #FFF;
+            font-family: "Open Sans";
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.36px;
+        }
+
+        .value {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #FFF;
+            font-family: "Open Sans";
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+
+            img {
+                width: 41px;
+                height: 41px;
+            }
+        }
+    }
+
+    .cards {
+        margin-top: 12px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .cardOuter {
+            padding: 1px;
+            background: linear-gradient(90deg, #7000AE 0%, #FF24B0 23.35%, rgba(255, 36, 176, 0) 75.16%);
+            border-radius: 15px;
+            max-width: 169px;
+            height: 83px;
+            width: 100%;
+
+            &.energy {
+                background: linear-gradient(90deg, #1500CE 0%, #3485FF 23.35%, rgba(52, 133, 255, 0) 75.16%);
+            }
+        }
+
+        .card {
+            padding: 9px 10px 6px 10px;
+            height: 81px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 15px;
+            background: $darkGreyBGcolor;
+            backdrop-filter: blur(6px);
+
+
+            .heading {
+                display: flex;
+                align-items: flex-start;
+                gap: 6px;
+                padding-top: 3px;
+                color: #FFF;
+                font-family: "Open Sans";
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                letter-spacing: -0.36px;
+
+                img {
+                    margin-top: -5px;
+                }
+            }
+
+            .value {
+                color: #FFF;
+                font-family: "Open Sans";
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                padding-left: 35px;
+
+                &.heart {
+                    padding-left: 42px;
+                }
+            }
+        }
+    }
+}
+
+.ref {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+
+    h3 {
+        color: #FFF;
+        font-family: "Open Sans";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.6px;
+    }
+
+    p,
+    span {
+        max-width: 271px;
+        color: #FFF;
+        font-family: "Open Sans";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        .pink {
+            color: $pink;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        margin-top: 8px;
+        gap: 9px;
+
+        .invite {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-family: "Open Sans";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            letter-spacing: -0.42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(21, 0, 206, 0.94) 0%, rgba(112, 0, 174, 0.94) 49.51%, rgba(255, 36, 176, 0.94) 89.78%, rgba(255, 255, 255, 0.94) 108.82%);
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+
+        .copy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: linear-gradient(270deg, rgba(112, 0, 174, 0.94) 0%, rgba(255, 36, 176, 0.94) 40.65%, rgba(255, 255, 255, 0.94) 148.81%);
+            backdrop-filter: blur(6px);
+            cursor: pointer;
+        }
+    }
+}
