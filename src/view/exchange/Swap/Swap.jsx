@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import SwapCard from './SwapCard/SwapCard';
 import { fetchCryptos } from '../../../api/exchangeApi';
 import { getUser } from '../../../api/userApi';
-import scoin from '../../../assets/scoin.png';
 import styles from './Swap.module.scss';
-import ton from '../../../assets/ton.png';
 
 const swapCards = [
   {
@@ -42,7 +40,6 @@ const Swap = () => {
     setIsSwapping(true);
     setTimeout(() => {
       setCards([cards[1], cards[0]]);
-    }, 200);
     }, 200);
 
     setTimeout(() => {
