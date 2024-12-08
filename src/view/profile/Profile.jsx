@@ -10,8 +10,14 @@ import snake from '../../assets/snake.svg';
 import styles from './Profile.module.scss';
 
 const Profile = () => {
-  const miniAppUrl = window.location.href;
-  const message = `Проверьте этот MiniApp: ${miniAppUrl}`;
+
+  const handleShare = async () => {
+  
+    const message = `dsfndshfns !!!`
+    const link = `https://t.me/share/url?url=t.me/snake_runner_dev_bot/snake_runner_dev/gameapp?startapp=rp_1365932&text=${message}`;
+    
+  };
+
   return (
     <div className={styles.profile}>
       <div className={styles.userInfo}>
@@ -86,33 +92,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-const handleShare = async () => {
-  // Получаем текущий URL MiniApp
-  const miniAppUrl = window.location.href;
-  const message = `Проверьте этот MiniApp: ${miniAppUrl}`;
-
-  // Проверяем, доступен ли Web Share API
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: 'Мой MiniApp',
-        text: message,
-        url: miniAppUrl,
-      });
-      // console.log('Ссылка успешно поделилась');
-    } catch (error) {
-      // console.error('Ошибка при использовании Web Share API:', error);
-    }
-  } else {
-    // Если Web Share API недоступен, копируем ссылку в буфер обмена
-    try {
-      await navigator.clipboard.writeText(message);
-      alert('Ссылка скопирована в буфер обмена. Вы можете вставить её в сообщение.');
-    } catch (error) {
-      // console.error('Не удалось скопировать ссылку:', error);
-      // alert('Не удалось скопировать ссылку. Пожалуйста, попробуйте вручную.');
-    }
-  }
-};
