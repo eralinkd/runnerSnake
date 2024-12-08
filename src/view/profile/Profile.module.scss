@@ -236,6 +236,10 @@
             border: 1px solid #FFF;
             background: $darkGreyBGcolor;
             backdrop-filter: blur(6px);
+            background-image: url('../../assets/profile/friendBg1.svg');
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            cursor: pointer;
 
             .avatar {
                 position: absolute;
@@ -300,6 +304,19 @@
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
+            }
+        }
+
+        .emptyCard {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            p {
+                display: flex;
+                font-size: 32px;
+                gap: 5px;
+                padding-left: 20px;
             }
         }
     }
