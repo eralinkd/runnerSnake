@@ -25,10 +25,7 @@ const Exchange = () => {
           {activeTabs.map((tab, index) => (
             <li
               key={index}
-              className={clsx(
-                'f-23 bold',
-                activeTab === tab.name && styles.active
-              )}
+              className={clsx(activeTab === tab.name && styles.active)}
               onClick={() => setActiveTab(tab.name)}
             >
               {tab.name}

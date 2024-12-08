@@ -1,117 +1,116 @@
 @use '../../../variables' as *;
 
 .container {
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 0 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .card {
-    width: 100%;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 100%;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 
-    &.slideOutDown {
-        animation: slideOutDown 0.2s forwards;
-    }
+  &.slideOutDown {
+    animation: slideOutDown 0.2s forwards;
+  }
 
-    &.slideOutUp {
-        animation: slideOutUp 0.2s forwards;
-    }
+  &.slideOutUp {
+    animation: slideOutUp 0.2s forwards;
+  }
 
-    &.slideInDown {
-        animation: slideInDown 0.2s forwards;
-    }
+  &.slideInDown {
+    animation: slideInDown 0.2s forwards;
+  }
 
-    &.slideInUp {
-        animation: slideInUp 0.2s forwards;
-    }
+  &.slideInUp {
+    animation: slideInUp 0.2s forwards;
+  }
 }
 
 @keyframes slideOutDown {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
-    100% {
-        transform: translateY(100px);
-        opacity: .4;
-    }
+  100% {
+    transform: translateY(100px);
+    opacity: 0.4;
+  }
 }
 
 @keyframes slideOutUp {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
-    100% {
-        transform: translateY(-100px);
-        opacity: .4;
-    }
+  100% {
+    transform: translateY(-100px);
+    opacity: 0.4;
+  }
 }
 
 @keyframes slideInDown {
-    0% {
-        transform: translateY(-100px);
-        opacity: .4;
-    }
+  0% {
+    transform: translateY(-100px);
+    opacity: 0.4;
+  }
 
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideInUp {
-    0% {
-        transform: translateY(100px);
-        opacity: .4;
-    }
+  0% {
+    transform: translateY(100px);
+    opacity: 0.4;
+  }
 
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .swapButtonContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 297px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 297px;
 
-    p {
-        color: $light-gray;
-    }
+  p {
+    color: $light-gray;
+  }
 
-    button {
-        width: 79px;
-        height: 34px;
-        border-radius: 17px;
-        background: url('../../../assets/exchange/swap/arrow.svg') center no-repeat;
-        background-size: 16px 19px;
-        background-color: $almost-black;
-    }
+  button {
+    width: 79px;
+    height: 34px;
+    border-radius: 17px;
+    background: url('../../../assets/exchange/swap/arrow.svg') center no-repeat;
+    background-size: 16px 19px;
+    background-color: $almost-black;
+  }
 }
 
 .button {
-    border-radius: 10px;
-    width: 243px;
-    height: 57px;
-    background: linear-gradient(106.24deg, #5c6ac4 -3.53%, #9c27b0 117.96%);
-    font-weight: 700;
-    font-size: 18px;
-    transition: all 0.3s ease 0s;
-    margin-top: 40px;
+  border-radius: 10px;
+  width: 243px;
+  height: 57px;
+  background: linear-gradient(106.24deg, #5c6ac4 -3.53%, #9c27b0 117.96%);
+  font-weight: 700;
+  font-size: 18px;
+  transition: all 0.3s ease 0s;
+  margin-top: 40px;
 
-    @media (any-hover: hover) {
-        &:hover {
-            opacity: 0.4;
-        }
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.4;
     }
+  }
 }
