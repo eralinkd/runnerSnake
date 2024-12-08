@@ -8,7 +8,6 @@ import { getHistory } from '../../../api/exchangeApi.js';
 import { historySort } from '../../../constants/filterModels.js';
 import styles from './History.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { useStore } from 'zustand';
 
 const History = () => {
   const [optionSelected, setOptionSelected] = useState(historySort[0].value);
@@ -20,8 +19,8 @@ const History = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['history', userId, optionSelected],
-    queryFn: () => getHistory(userId, optionSelected),
+    queryKey: ['history', optionSelected],
+    queryFn: () => getHistory( optionSelected),
     // enabled: !!userId,
     keepPreviousData: true,
   });

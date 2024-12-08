@@ -43,16 +43,16 @@ function App() {
   const setUserId = useStore((state) => state.setUserId);
   const [activeComponent, setActiveComponent] = useState('Биржа');
 
-  useEffect(() => {
-    const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
+  // useEffect(() => {
+  //   const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
 
-    if (telegramInitData?.user?.id) {
-      setUserId(telegramInitData.user.id);
-      console.log('Telegram user.id:', telegramInitData.user.id);
-    } else {
-      console.error('Не удалось получить Telegram user.id');
-    }
-  }, []);
+  //   if (telegramInitData?.user?.id) {
+  //     setUserId(telegramInitData.user.id);
+  //     console.log('Telegram user.id:', telegramInitData.user.id);
+  //   } else {
+  //     console.error('Не удалось получить Telegram user.id');
+  //   }
+  // }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
