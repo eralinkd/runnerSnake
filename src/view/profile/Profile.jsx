@@ -1,9 +1,11 @@
-import SCoin from '../../assets/temp/SCoin.png';
+import SCoin from '../../assets/profile/snake.svg';
+import abu from '../../assets/temp/abu.png';
 import avatar from '../../assets/temp/avatar.svg';
 import clsx from 'clsx';
 import copy from '../../assets/profile/copy.svg';
 import heart from '../../assets/profile/heart.svg';
 import lightning from '../../assets/profile/lightning.svg';
+import snake from '../../assets/snake.svg';
 import styles from './Profile.module.scss';
 
 const Profile = () => {
@@ -54,6 +56,42 @@ const Profile = () => {
           <div className={styles.invite}>Пригласить друга
           </div>
           <div className={styles.copy}><img src={copy} alt='copy'></img></div>
+        </div>
+      </div>
+
+      <div className={styles.friendsBlock}>
+        <h3>Прибыль от друзей</h3>
+        <div className={styles.friends}>
+          <div className={styles.friendCard}>
+            <img className={styles.avatar} src={abu} alt='avatar'></img>
+            <p className={styles.username}>abu_chuligan</p>
+            <p className={styles.value}>
+              <img src={snake} alt='snake'></img>
+              137.009.277
+            </p>
+            <p className={styles.profit}>Ваша прибыль</p>
+            <p className={styles.profitValue}>567</p>
+          </div>
+          <div className={styles.friendCard}>
+            <img className={styles.avatar} src={abu} alt='avatar'></img>
+            <p className={styles.username}>abu_chuligan</p>
+            <p className={styles.value}>
+              <img src={snake} alt='snake'></img>
+              137.009.277
+            </p>
+            <p className={styles.profit}>Ваша прибыль</p>
+            <p className={styles.profitValue}>567</p>
+          </div>
+          <div className={styles.friendCard}>
+            <img className={styles.avatar} src={abu} alt='avatar'></img>
+            <p className={styles.username}>abu_chuligan</p>
+            <p className={styles.value}>
+              <img src={snake} alt='snake'></img>
+              137.009.277
+            </p>
+            <p className={styles.profit}>Ваша прибыль</p>
+            <p className={styles.profitValue}>567</p>
+          </div>
         </div>
       </div>
     </div>
