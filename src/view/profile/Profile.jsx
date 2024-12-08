@@ -13,9 +13,9 @@ const Profile = () => {
 
   const handleShare = async () => {
   
-    const message = `dsfndshfns !!!!`
-    const link = `https://t.me/share/url?url=t.me/snake_runner_dev_bot/snake_runner_dev/gameapp?startapp=rp_1365932&text=${message}`;
-    
+    const message = `dsfndshfns !!!`
+    const link = `https://t.me/share/url?url=t.me/snake_runner_dev_bot/start?startapp=rp_1365932&text=${message}`;
+    window.location.href = link;
   };
 
   return (
