@@ -12,11 +12,21 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
+    if (config.noUID) return config;
+
     const { userId } = useStore.getState();
     if (userId) {
-      const separator = config.url.includes('?') ? '&' : '?';
-      config.url = `${config.url}${separator}userId=${userId}`;
+      const originalUrl = config.url || '';
+      const [urlWithoutHash, hash] = originalUrl.split('#');
+      const hasQueryParams = urlWithoutHash.includes('?');
+      const separator = hasQueryParams ? '&' : '?';
+      
+      const newUrl = `${urlWithoutHash}${userId}${separator}${hash ? `#${hash}` : ''}`;
+      config.url = newUrl;
+      
+      delete config.noUID;
     }
+
     return config;
   },
   (error) => {
@@ -29,7 +39,7 @@ export const setupAxiosInterceptors = (toastrRef) => {
     (response) => response,
     (error) => {
       alert(`API вызов завершился с ошибкой: ${error}`);
-      
+
       // if (toastrRef && toastrRef.current) {
       //   toastrRef.current.notify("Что-то пошло не так", "error");
       // } else {

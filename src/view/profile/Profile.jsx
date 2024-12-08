@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import ComponentWithBorder from '../../shared/ComponentWithBorder/ComponentWithBorder';
 import SCoin from '../../assets/profile/snake.svg';
@@ -7,6 +7,7 @@ import arrRight from '../../assets/taskArrowToRight.svg';
 import avatar from '../../assets/temp/avatar.svg';
 import clsx from 'clsx';
 import copy from '../../assets/profile/copy.svg';
+import { getUser } from '../../api/userApi';
 import heart from '../../assets/profile/heart.svg';
 import lightning from '../../assets/profile/lightning.svg';
 import person from '../../assets/person.svg';
@@ -17,6 +18,7 @@ import taskImg from '../../assets/temp/task.svg';
 const Profile = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [activeTaskGroup, setActiveTaskGroup] = useState('main');
+  const [user, setUser] = useState({});
   const timeoutRef = useRef(null);
   const message = `dsfndshfns !!!`
   const shareLink = `https://t.me/share/url?url=t.me/snake_runner_dev_bot/snake_runner_dev?startapp=rp_1365932&text=${message}`;
@@ -39,6 +41,10 @@ const Profile = () => {
       timeoutRef.current = null;
     }, 700);
   };
+
+  useEffect(() => {
+    getUser().then((data) => { setUser(data) });
+  }, []);
 
   return (
     <div className={styles.profile}>
@@ -63,7 +69,7 @@ const Profile = () => {
                 <img src={heart} alt='heart icon'></img>
                 Жизни
               </p>
-              <p className={clsx(styles.value, styles.heart)}>12</p>
+              <p className={clsx(styles.value, styles.heart)}>{user.health}</p>
             </div>
           </div>
 
@@ -73,7 +79,7 @@ const Profile = () => {
                 <img src={lightning} alt='lightning icon'></img>
                 Энергия
               </p>
-              <p className={styles.value}>1000</p>
+              <p className={styles.value}>{user.energy}</p>
             </div>
           </div>
         </div>
@@ -95,6 +101,9 @@ const Profile = () => {
 
         <div className={styles.friends}>
           <FriendCard></FriendCard>
+          {user?.refs?.map((referal, index) =>
+            <FriendCard item={referal} key={index}></FriendCard>
+          )}
 
           <div className={styles.emptyCard} onClick={handleShare}>
             <p><img src={person} alt='person icon'></img>+</p>
@@ -108,12 +117,12 @@ const Profile = () => {
         <ul>
           <li
             onClick={() => setActiveTaskGroup('main')}
-            className={activeTaskGroup === 'main' && styles.active}>
+            className={activeTaskGroup === 'main' ? styles.active : ''}>
             <span>Основные</span>
           </li>
           <li
             onClick={() => setActiveTaskGroup('daily')}
-            className={clsx(styles.second, activeTaskGroup === 'daily' && styles.active)}>
+            className={clsx(styles.second, activeTaskGroup === 'daily' ? styles.active : '')}>
             <span className={styles.second}>Ежедневные</span>
           </li>
         </ul>
@@ -138,7 +147,7 @@ const Profile = () => {
 
 export default Profile;
 
-export const FriendCard = () => {
+export const FriendCard = (item) => {
   return (
     <ComponentWithBorder className={styles.friendCardWrapper}>
       <div className={styles.friendCard}>

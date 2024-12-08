@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react';
+
 import SwapCard from './SwapCard/SwapCard';
+import { fetchCryptos } from '../../../api/exchangeApi';
+import { getUser } from '../../../api/userApi';
 import scoin from '../../../assets/scoin.png';
 import styles from './Swap.module.scss';
 import ton from '../../../assets/ton.png';
-import { useState } from 'react';
 
 const swapCards = [
   {
@@ -23,12 +26,25 @@ const swapCards = [
 const Swap = () => {
   const [cards, setCards] = useState(swapCards);
   const [isSwapping, setIsSwapping] = useState(false);
+  const [user, setUser] = useState({});
+  const [cryptos, setCryptos] = useState([]);
+
+  useEffect(() => {
+    getUser().then((data) => {
+      setUser(data)
+      console.log(data);
+    });
+    fetchCryptos().then((data) => {
+      setCryptos(data);
+      console.log(data);
+    });
+  }, []);
 
   const revertCards = () => {
     setIsSwapping(true);
     setTimeout(() => {
       setCards([cards[1], cards[0]]);
-    }, 200); 
+    }, 200);
 
     setTimeout(() => {
       setIsSwapping(false);
@@ -39,7 +55,7 @@ const Swap = () => {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.card} ${isSwapping ? styles.slideOutDown : styles.slideInUp}`}>
-          <SwapCard props={cards[0]} />
+          <SwapCard options={cryptos} props={cards[0]} />
         </div>
         <div className={styles.swapButtonContainer}>
           <p className="f-14">1 SCoin = 0.001897645789 TON</p>

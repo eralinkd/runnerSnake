@@ -10,6 +10,7 @@ const SwapCard = ({ props }) => {
   const gradient = props.gradient;
 
   const [isOpen, setIsOpen] = useState(false);
+  // const [options, setOptions] = useState(props.options);
 
   const options = [
     { value: '1', label: 'SCoin' },
