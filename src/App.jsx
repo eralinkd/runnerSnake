@@ -44,7 +44,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <main className={styles.app}>
-      <div className={styles.topNav}>{activeComponent}</div>
         <div className={styles.viewContainer}>
           {menuComponents[activeComponent]}
         </div>

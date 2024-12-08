@@ -44,10 +44,14 @@ export const validatePaymentAddress = async (data) => {
 	return response.data; // Предполагается, что объект содержит поле `result`
 };
 
-export const getHistory = async () => {
-	const { data } = await api.post('/users/history/1')
+export const getHistory = async (userId, filter) => {
+	const tmpData = {
+		filter
+	}
 
-	return data
-}
+	const { data } = await api.get(`/users/history/1`, tmpData);
+
+	return data;
+};
 
 export default api;
