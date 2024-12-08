@@ -1,34 +1,24 @@
+import { useEffect, useState } from 'react';
+
 import HistoryCard from './HistoryCard/HistoryCard';
 import HistoryModal from './HistoryModal/HistoryModal';
 import { Select } from '../../../shared/Select/Select';
-import { historySort } from '../../../constants/filterModels.js';
-import { useEffect, useState } from 'react';
-import { getHistory } from '../../../api/exchangeApi.js';
-import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../../shared/Spinner/Spinner';
+import { getHistory } from '../../../api/exchangeApi.js';
+import { historySort } from '../../../constants/filterModels.js';
 import styles from './History.module.scss';
+import { useQuery } from '@tanstack/react-query';
 
 const History = () => {
-  const [userId, setUserId] = useState(null);
   const [optionSelected, setOptionSelected] = useState(historySort[0].value);
-
-  // Инициализация Telegram Web App
-  useEffect(() => {
-    const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
-
-    if (telegramInitData?.user?.id) {
-      setUserId(telegramInitData.user.id);
-      console.log(telegramInitData.user.id);
-    }
-  }, []);
 
   const {
     data: history,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['history', userId, optionSelected],
-    queryFn: () => getHistory(userId, optionSelected),
+    queryKey: ['history', optionSelected],
+    queryFn: () => getHistory(optionSelected),
     // enabled: !!userId,
     keepPreviousData: true,
   });

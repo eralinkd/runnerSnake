@@ -94,22 +94,9 @@ const Profile = () => {
         <h3>Прибыль от друзей</h3>
 
         <div className={styles.friends}>
-          <ComponentWithBorder className={styles.friendCardWrapper}>
-            <div className={styles.friendCard}>
-            <ComponentWithBorder className={styles.avatarWrapper}>
-              <img className={styles.avatar} src={abu} alt='avatar'></img>
-            </ComponentWithBorder>
-              <p className={styles.username}>abu_chuligan</p>
-              <p className={styles.value}>
-                <img src={snake} alt='snake'></img>
-                137.009.277
-              </p>
-              <p className={styles.profit}>Ваша прибыль</p>
-              <p className={styles.profitValue}>567</p>
-            </div>
-          </ComponentWithBorder>
+          <FriendCard></FriendCard>
 
-          <div className={styles.emptyCard}>
+          <div className={styles.emptyCard} onClick={handleShare}>
             <p><img src={person} alt='person icon'></img>+</p>
           </div>
         </div>
@@ -132,66 +119,10 @@ const Profile = () => {
         </ul>
 
         <div className={styles.tasksList}>
-          <ComponentWithBorder>
-            <div className={styles.task}>
-              <div className={styles.headingContainer}>
-                <p className={styles.heading}>
-                  <img src={taskImg} alt='task img'></img>
-                  Lorem ipsum dolor sit
-                </p>
-                <div className={styles.taskNavigate}>
-                  <img src={arrRight} alt='arrow right'></img>
-                </div>
-              </div>
-              <div className={styles.info}>
-                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
-                <p className={styles.reward}>
-                  <img src={snake} alt='snake'></img>
-                  5.000
-                </p>
-              </div>
-            </div>
-          </ComponentWithBorder>
-          <ComponentWithBorder>
-            <div className={styles.task}>
-              <div className={styles.headingContainer}>
-                <p className={styles.heading}>
-                  <img src={taskImg} alt='task img'></img>
-                  Lorem ipsum dolor sit
-                </p>
-                <div className={styles.taskNavigate}>
-                  <img src={arrRight} alt='arrow right'></img>
-                </div>
-              </div>
-              <div className={styles.info}>
-                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
-                <p className={styles.reward}>
-                  <img src={snake} alt='snake'></img>
-                  5.000
-                </p>
-              </div>
-            </div>
-          </ComponentWithBorder>
-          <ComponentWithBorder>
-            <div className={styles.task}>
-              <div className={styles.headingContainer}>
-                <p className={styles.heading}>
-                  <img src={taskImg} alt='task img'></img>
-                  Lorem ipsum dolor sit
-                </p>
-                <div className={styles.taskNavigate}>
-                  <img src={arrRight} alt='arrow right'></img>
-                </div>
-              </div>
-              <div className={styles.info}>
-                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
-                <p className={styles.reward}>
-                  <img src={snake} alt='snake'></img>
-                  5.000
-                </p>
-              </div>
-            </div>
-          </ComponentWithBorder>
+
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
         </div>
       </div>
 
@@ -206,3 +137,47 @@ const Profile = () => {
 };
 
 export default Profile;
+
+export const FriendCard = () => {
+  return (
+    <ComponentWithBorder className={styles.friendCardWrapper}>
+      <div className={styles.friendCard}>
+        <ComponentWithBorder className={styles.avatarWrapper}>
+          <img className={styles.avatar} src={abu} alt='avatar'></img>
+        </ComponentWithBorder>
+        <p className={styles.username}>abu_chuligan</p>
+        <p className={styles.value}>
+          <img src={snake} alt='snake'></img>
+          137.009.277
+        </p>
+        <p className={styles.profit}>Ваша прибыль</p>
+        <p className={styles.profitValue}>567</p>
+      </div>
+    </ComponentWithBorder>
+  )
+}
+
+export const TaskCard = () => {
+  return (
+    <ComponentWithBorder>
+      <div className={styles.task}>
+        <div className={styles.headingContainer}>
+          <p className={styles.heading}>
+            <img src={taskImg} alt='task img'></img>
+            Lorem ipsum dolor sit
+          </p>
+          <div className={styles.taskNavigate}>
+            <img src={arrRight} alt='arrow right'></img>
+          </div>
+        </div>
+        <div className={styles.info}>
+          <p className={styles.description}>Lorem ipsum dolor sit amet consectetur. Suspendisse placerat</p>
+          <p className={styles.reward}>
+            <img src={snake} alt='snake'></img>
+            5.000
+          </p>
+        </div>
+      </div>
+    </ComponentWithBorder>
+  )
+}
