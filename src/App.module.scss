@@ -20,6 +20,7 @@
   height: 66px;
   background-color: var.$almost-black;
   user-select: none;
+  z-index: 30;
 
   li {
     display: flex;
