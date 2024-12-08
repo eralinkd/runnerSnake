@@ -51,7 +51,7 @@ const CurrencyCard = ({ item }) => {
   }, [show]);
 
   return (
-    <ComponentWithBorder>
+    <ComponentWithBorder className={styles.currencyCardWrapper}>
       <article className={styles.article}>
         <div className={styles.content}>
           <CurrencyCardInfo

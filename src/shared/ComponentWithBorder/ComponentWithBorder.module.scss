@@ -1,10 +1,9 @@
 .gradientBorderWrapper {
-  position: relative;
-  padding: 1px;
-  border-width: 1px;
   overflow: hidden;
+  position: relative;
+  padding: 1px; // толщина бордера
+  border-width: 1px;
   &::before {
-    border-radius: 15px;
     content: '';
     position: absolute;
     top: 0;
@@ -12,6 +11,11 @@
     right: 0;
     bottom: 0;
     z-index: 0;
-    background: linear-gradient(180deg, #ffffff82 -13.73%, rgba(255, 255, 255, 0) 124.02%);
+    border-radius: 15px;
+    background: linear-gradient(
+      180deg,
+      #ffffff82 -13.73%,
+      rgba(255, 255, 255, 0) 124.02%
+    );
   }
 }

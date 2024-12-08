@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import HistoryCard from './HistoryCard/HistoryCard';
 import HistoryModal from './HistoryModal/HistoryModal';
 import { Select } from '../../../shared/Select/Select';
@@ -12,15 +11,13 @@ import { useQuery } from '@tanstack/react-query';
 const History = () => {
   const [optionSelected, setOptionSelected] = useState(historySort[0].value);
 
-
-
   const {
     data: history,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ['history', optionSelected],
-    queryFn: () => getHistory( optionSelected),
+    queryFn: () => getHistory(optionSelected),
     // enabled: !!userId,
     keepPreviousData: true,
   });
