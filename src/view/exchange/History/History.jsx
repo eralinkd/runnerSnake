@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import HistoryCard from './HistoryCard/HistoryCard';
 import HistoryModal from './HistoryModal/HistoryModal';
 import { Select } from '../../../shared/Select/Select';
