@@ -18,9 +18,9 @@ const History = () => {
 
     if (telegramInitData?.user?.id) {
       setUserId(telegramInitData.user.id);
-    } else {
-      console.error('Не удалось получить Telegram user.id');
     }
+
+    console.log(telegramInitData.user.id);
   }, []);
 
   const {
