@@ -5,10 +5,13 @@ import clsx from 'clsx';
 import copy from '../../assets/profile/copy.svg';
 import heart from '../../assets/profile/heart.svg';
 import lightning from '../../assets/profile/lightning.svg';
+import person from '../../assets/person.svg';
 import snake from '../../assets/snake.svg';
 import styles from './Profile.module.scss';
 
 const Profile = () => {
+  const miniAppUrl = window.location.href;
+  const message = `Проверьте этот MiniApp: ${miniAppUrl}`;
   return (
     <div className={styles.profile}>
       <div className={styles.userInfo}>
@@ -53,7 +56,7 @@ const Profile = () => {
         <p>Приглашай пользователей Telegram и получи <span className={styles.pink}>10%</span> с их прибыли</p>
 
         <div className={styles.buttons}>
-          <div className={styles.invite}>Пригласить друга
+          <div className={styles.invite} onClick={handleShare}>Пригласить друга
           </div>
           <div className={styles.copy}><img src={copy} alt='copy'></img></div>
         </div>
@@ -72,25 +75,9 @@ const Profile = () => {
             <p className={styles.profit}>Ваша прибыль</p>
             <p className={styles.profitValue}>567</p>
           </div>
-          <div className={styles.friendCard}>
-            <img className={styles.avatar} src={abu} alt='avatar'></img>
-            <p className={styles.username}>abu_chuligan</p>
-            <p className={styles.value}>
-              <img src={snake} alt='snake'></img>
-              137.009.277
-            </p>
-            <p className={styles.profit}>Ваша прибыль</p>
-            <p className={styles.profitValue}>567</p>
-          </div>
-          <div className={styles.friendCard}>
-            <img className={styles.avatar} src={abu} alt='avatar'></img>
-            <p className={styles.username}>abu_chuligan</p>
-            <p className={styles.value}>
-              <img src={snake} alt='snake'></img>
-              137.009.277
-            </p>
-            <p className={styles.profit}>Ваша прибыль</p>
-            <p className={styles.profitValue}>567</p>
+
+          <div className={styles.emptyCard}>
+            <p><img src={person} alt='person icon'></img>+</p>
           </div>
         </div>
       </div>
@@ -99,3 +86,33 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
+const handleShare = async () => {
+  // Получаем текущий URL MiniApp
+  const miniAppUrl = window.location.href;
+  const message = `Проверьте этот MiniApp: ${miniAppUrl}`;
+
+  // Проверяем, доступен ли Web Share API
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Мой MiniApp',
+        text: message,
+        url: miniAppUrl,
+      });
+      // console.log('Ссылка успешно поделилась');
+    } catch (error) {
+      // console.error('Ошибка при использовании Web Share API:', error);
+    }
+  } else {
+    // Если Web Share API недоступен, копируем ссылку в буфер обмена
+    try {
+      await navigator.clipboard.writeText(message);
+      alert('Ссылка скопирована в буфер обмена. Вы можете вставить её в сообщение.');
+    } catch (error) {
+      // console.error('Не удалось скопировать ссылку:', error);
+      // alert('Не удалось скопировать ссылку. Пожалуйста, попробуйте вручную.');
+    }
+  }
+};
