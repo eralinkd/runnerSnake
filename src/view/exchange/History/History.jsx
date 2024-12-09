@@ -18,7 +18,6 @@ const History = () => {
   } = useQuery({
     queryKey: ['history', optionSelected],
     queryFn: () => getHistory(optionSelected),
-    // enabled: !!userId,
     keepPreviousData: true,
   });
 

@@ -23,19 +23,16 @@ function App() {
   useEffect(() => {
     try {
       const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
-      const { id, first_name, last_name, username, photo_url } = telegramInitData.user;
+      const { first_name, last_name, username, photo_url } =
+        telegramInitData.user;
       setUserData({ first_name, last_name, username, photo_url });
 
       if (telegramInitData?.user?.id) {
         setUserId(telegramInitData.user.id);
-      } else {
-        console.error('Не удалось получить Telegram user.id');
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error initializing Telegram Web App:', error);
     }
-    
   }, []);
 
   const activeComponent = menuItems.find(

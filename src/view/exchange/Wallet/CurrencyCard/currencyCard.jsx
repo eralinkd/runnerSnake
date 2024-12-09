@@ -18,7 +18,7 @@ import styles from './CurrencyCard.module.scss';
 // };
 // const gradientStyle = gradients[title] || gradients.default;
 
-const CurrencyCard = ({ item }) => {
+const CurrencyCard = ({ item, amount }) => {
   const {
     simpleName: title,
     apiName,
@@ -28,17 +28,9 @@ const CurrencyCard = ({ item }) => {
     replenishment,
   } = item;
   const imgSrc = currencyImages[apiName] || currencyImages.default;
-
   const [show, setShow] = useState(false);
   const openModal = replenishModalState((state) => state.openModal);
   const openWithDrawModal = withdrawModalState((state) => state.openModal);
-
-  const replenishModalOpen = () => {
-    openModal(title, imgSrc);
-  };
-  const withdrawModalOpen = () => {
-    openWithDrawModal(title, imgSrc);
-  };
 
   useEffect(() => {
     if (show) {
@@ -61,10 +53,16 @@ const CurrencyCard = ({ item }) => {
             text={type}
           />
           <div className={clsx(styles.actions, show && styles.hide)}>
-            <span className={styles.value}>
-              <span className="f-30">0.</span>
-              <span className="f-23">00</span>
-            </span>
+            {amount ? (
+              <span className={styles.value}>
+                {parseFloat(amount).toFixed(2)}
+              </span>
+            ) : (
+              <span className={styles.value}>
+                <span className="f-30">0.</span>
+                <span className="f-23">00</span>
+              </span>
+            )}
             <button
               onClick={() => setShow((prev) => !prev)}
               className={styles.moreActions}
@@ -80,7 +78,7 @@ const CurrencyCard = ({ item }) => {
             )}
             {withdraw && (
               <button
-                onClick={withdrawModalOpen}
+                onClick={() => openWithDrawModal(title, imgSrc)}
                 type="button"
                 className={clsx(styles.button, 'f-16')}
               >
@@ -89,9 +87,10 @@ const CurrencyCard = ({ item }) => {
             )}
             {replenishment && (
               <button
-                onClick={replenishModalOpen}
+                onClick={() => openModal(title, imgSrc)}
                 type="button"
                 className={clsx(styles.button, 'f-16')}
+                disabled
               >
                 Пополнить
               </button>
