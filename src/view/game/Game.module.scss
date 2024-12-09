@@ -39,6 +39,20 @@
     flex-direction: column;
     gap: 13px;
 
+    .outer {
+        padding: 1px;
+        background: linear-gradient(90deg, #1500CE 0%, #3485FF 23.35%, rgba(52, 133, 255, 0) 75.16%);
+        border-radius: 6px;
+        width: 101px;
+        height: 30px;
+        width: 100%;
+        flex-shrink: 0;
+
+        &.healthOuter {
+            background: linear-gradient(90deg, #7000AE 0%, #FF24B0 23.35%, rgba(255, 36, 176, 0) 75.16%);
+        }
+    }
+
     .energy,
     .health {
         display: flex;
@@ -49,12 +63,42 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 600;
-        line-height: normal;
-        padding: 6px 10px 4px 12px;
-        border-radius: 6px;
         width: 99px;
         height: 28px;
-        flex-shrink: 0;
+        line-height: normal;
+        padding: 6px 10px 4px 6px;
+        border-radius: 6px;
         background-color: $darkGreyBGcolor;
+
+        &.health img {
+            width: 24px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+    }
+}
+
+.progress {
+    svg {
+        position: absolute;
+        bottom: -202px;
+        left: 50%;
+        translate: -50% 0;
+        width: 100vw;
+        max-width: 404px;
+        height: 404px;
+        transform: rotate(180deg);
+
+        .progressBar {
+            fill: none;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.3s ease;
+            // filter: drop-shadow(0px 0px 3px rgba(255, 0, 255, 0.8));
+        }
+
+        .backgroundBar {
+            fill: none;
+            stroke: #333;
+        }
     }
 }
