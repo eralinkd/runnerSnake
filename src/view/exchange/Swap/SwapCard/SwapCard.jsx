@@ -1,34 +1,17 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 import arrow from '../../../../assets/arrow-bottom.svg';
 import clsx from 'clsx';
+import { currencyImages } from '../../../../constants/currency';
 import styles from './SwapCard.module.scss';
 import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
-import { currencyImages } from '../../../../constants/currency';
 
-const options = [
-  { value: '1', label: 'SCOIN' },
-  { value: '2', label: 'TON' },
-  { value: '3', label: 'BitCoin' },
-  { value: '4', label: 'ScamCoin' },
-  { value: '5', label: 'NotScamCoin' },
-  { value: '6', label: 'KolyaHater' },
-  { value: '7', label: 'UlichniyDancer' },
-  { value: '8', label: '**' },
-  { value: '9', label: '***' },
-  { value: '10', label: '****' },
-];
-
-const SwapCard = ({ props }) => {
-  const gradient = props.gradient;
-  const imgSrc = currencyImages[props.coin] || currencyImages.default;
+const SwapCard = ({balances, props, options, onSelect }) => {
+  const gradient = 'linear-gradient(106.24deg, rgb(92, 106, 196) -3.53%, rgb(156, 39, 176) 117.96%)'
   const [isOpen, setIsOpen] = useState(false);
-  // const [options, setOptions] = useState(props.options);
 
-  const [selected, setOptionSelected] = useState(
-    options.find((option) => option?.label === props.coin)
-  );
+  const [selected, setOptionSelected] = useState({});
 
   const selectRef = useRef(null);
 
@@ -38,8 +21,14 @@ const SwapCard = ({ props }) => {
 
   const handleSelect = (option) => () => {
     setOptionSelected(option);
+    onSelect(option);
     handleClose();
   };
+
+  useEffect(() => {
+    if (!props || !options) return;
+    setOptionSelected(options.find((option) => option?.fullName === props?.fullName));
+  }, [options, props]);
 
   return (
     <article
@@ -48,10 +37,10 @@ const SwapCard = ({ props }) => {
     >
       <div className={styles.balance}>
         <p className="f-30">
-          0.<span className="f-23">00</span>
+          {balances && balances[selected?.apiName]}
         </p>
         <p className={clsx('f-10', styles.balanceText)}>
-          0.00 {selected.label}
+        {balances && balances[selected?.apiName]} {selected.simpleName}
         </p>
       </div>
       <div
@@ -61,32 +50,34 @@ const SwapCard = ({ props }) => {
       >
         <CurrencyCardInfo
           className={styles.currencyInfo}
-          title={selected.label}
-          imgSrc={imgSrc}
-          text={'Token'}
+          title={selected.fullName}
+          imgSrc={
+            currencyImages[selected?.apiName] || currencyImages.default
+          }
+          text={props?.type}
         ></CurrencyCardInfo>
 
         <button type="button" className={styles.moreActions}>
           <img src={arrow} alt="icon arrow" />
         </button>
 
-        <ul className={styles.options}>
+        <ul className={styles.options} style={{zIndex: 1000}}>
           {options?.map((option) => {
-            const isSelected = selected.value === option?.value;
+            const isSelected = selected.fullName === option?.fullName;
 
             return (
               <li
                 className={clsx(styles.option, isSelected && styles.isSelected)}
-                key={option.label}
+                key={option.fullName}
                 onClick={handleSelect(option)}
               >
                 <CurrencyCardInfo
                   className={styles.currencyInfo}
-                  title={option.label}
+                  title={option.fullName}
                   imgSrc={
-                    currencyImages[option.label] || currencyImages.default
+                    currencyImages[option.apiName] || currencyImages.default
                   }
-                  text={'Token'}
+                  text={option.type}
                 ></CurrencyCardInfo>
               </li>
             );

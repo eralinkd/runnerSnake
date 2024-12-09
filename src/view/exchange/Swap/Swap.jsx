@@ -5,22 +5,8 @@ import { fetchCryptos } from '../../../api/exchangeApi';
 import { getUser } from '../../../api/userApi';
 import styles from './Swap.module.scss';
 
-const swapCards = [
-  {
-    type: 'send',
-    gradient:
-      'linear-gradient(106.24deg, rgb(92, 106, 196) -3.53%, rgb(156, 39, 176) 117.96%)',
-    coin: 'SCOIN',
-  },
-  {
-    type: 'receive',
-    gradient: 'linear-gradient(90deg, rgb(54, 209, 220), rgb(91, 134, 229))',
-    coin: 'TON',
-  },
-];
-
 const Swap = () => {
-  const [cards, setCards] = useState(swapCards);
+  const [cards, setCards] = useState([]);
   const [isSwapping, setIsSwapping] = useState(false);
   const [user, setUser] = useState({});
   const [cryptos, setCryptos] = useState([]);
@@ -28,11 +14,10 @@ const Swap = () => {
   useEffect(() => {
     getUser().then((data) => {
       setUser(data)
-      console.log(data);
     });
     fetchCryptos().then((data) => {
       setCryptos(data);
-      console.log(data);
+      setCards([data[0], data[1]])
     });
   }, []);
 
@@ -50,8 +35,8 @@ const Swap = () => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={`${styles.card} ${isSwapping ? styles.slideOutDown : styles.slideInUp}`}>
-          <SwapCard options={cryptos} props={cards[0]} />
+        <div className={`${styles.card} ${isSwapping ? styles.slideOutDown : styles.slideInUp}`} style={{zIndex: 1}}>
+          <SwapCard balances={user.balances} options={cryptos} props={cards[0]} onSelect={(option) => setCards([option, cards[1]])} />
         </div>
         <div className={styles.swapButtonContainer}>
           <p className="f-14">1 SCoin = 0.001897645789 TON</p>
@@ -61,11 +46,12 @@ const Swap = () => {
           className={`${styles.card} ${
             isSwapping ? styles.slideOutUp : styles.slideInDown
           }`}
+          style={{zIndex: 0}}
         >
-          <SwapCard props={cards[1]} />
+          <SwapCard balances={user.balances} options={cryptos} props={cards[1]} onSelect={(option) => setCards([cards[0], option])}/>
         </div>
         <button type="button" className={styles.button}>
-          Вывести
+          Обменять
         </button>
       </div>
     </section>
