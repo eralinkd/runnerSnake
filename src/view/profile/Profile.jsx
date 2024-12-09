@@ -14,8 +14,10 @@ import person from '../../assets/person.svg';
 import snake from '../../assets/snake.svg';
 import styles from './Profile.module.scss';
 import taskImg from '../../assets/temp/task.svg';
+import useStore from '../../state/store';
 
 const Profile = () => {
+  const userData = useStore((state) => state.userData);
   const [isCopied, setIsCopied] = useState(false);
   const [activeTaskGroup, setActiveTaskGroup] = useState('main');
   const [user, setUser] = useState({});
@@ -49,8 +51,8 @@ const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.userInfo}>
-        <img alt='avatar' src={avatar}></img>
-        <p>pussykiller</p>
+        <img alt='avatar' src={userData?.photoUrl || avatar}></img>
+        <p>{userData?.username || 'pussykiller'}</p>
       </div>
 
       <div className={styles.userStats}>
@@ -58,7 +60,7 @@ const Profile = () => {
           <p>Ваш баланс</p>
           <p className={styles.value}>
             <img src={SCoin} alt='SCoin logo'></img>
-            137.009.277
+            {user?.balances?.SCOIN}
           </p>
         </div>
 
@@ -100,9 +102,24 @@ const Profile = () => {
         <h3>Прибыль от друзей</h3>
 
         <div className={styles.friends}>
-          <FriendCard></FriendCard>
-          {user?.refs?.map((referal, index) =>
-            <FriendCard item={referal} key={index}></FriendCard>
+          {/* <FriendCard></FriendCard> */}
+          {user?.refs?.map((item, index) =>
+            <>
+              <ComponentWithBorder className={styles.friendCardWrapper}>
+                <div className={styles.friendCard}>
+                  <ComponentWithBorder className={styles.avatarWrapper}>
+                    <img className={styles.avatar} src={ avatar} alt='avatar'></img>
+                  </ComponentWithBorder>
+                  <p className={styles.username}>{item.name}</p>
+                  <p className={styles.value}>
+                    <img src={snake} alt='snake'></img>
+                    {item.balance}
+                  </p>
+                  <p className={styles.profit}>Ваша прибыль</p>
+                  <p className={styles.profitValue}>{item.profit}</p>
+                </div>
+              </ComponentWithBorder>
+              </>
           )}
 
           <div className={styles.emptyCard} onClick={handleShare}>
@@ -146,25 +163,6 @@ const Profile = () => {
 };
 
 export default Profile;
-
-export const FriendCard = (item) => {
-  return (
-    <ComponentWithBorder className={styles.friendCardWrapper}>
-      <div className={styles.friendCard}>
-        <ComponentWithBorder className={styles.avatarWrapper}>
-          <img className={styles.avatar} src={abu} alt='avatar'></img>
-        </ComponentWithBorder>
-        <p className={styles.username}>abu_chuligan</p>
-        <p className={styles.value}>
-          <img src={snake} alt='snake'></img>
-          137.009.277
-        </p>
-        <p className={styles.profit}>Ваша прибыль</p>
-        <p className={styles.profitValue}>567</p>
-      </div>
-    </ComponentWithBorder>
-  )
-}
 
 export const TaskCard = () => {
   return (
