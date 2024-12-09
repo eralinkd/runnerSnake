@@ -1,0 +1,9 @@
+.section {
+  margin-top: 30px;
+}
+
+.list {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, 1fr);
+}

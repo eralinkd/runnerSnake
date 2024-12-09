@@ -2,8 +2,9 @@
 
 .nav {
   width: calc(100% - 40px);
-  max-width: 420px;
+  max-width: 360px;
   position: fixed;
+  z-index: 30;
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
@@ -53,6 +54,10 @@
       &::after {
         width: 4px;
         height: 4px;
+      }
+      & > svg path {
+        stroke: url(#hover-gradient);
+        stroke-width: 2;
       }
     }
   }
