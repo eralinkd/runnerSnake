@@ -1,20 +1,16 @@
-import { useRef, useState } from 'react';
-
+import { useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { activeTabs } from '../../constants/constants.js';
+import { activeTabOnExchange } from '../../state/activeTabOnExchange.js';
 import History from './History/History';
 import Swap from './Swap/Swap';
 import Wallet from './Wallet/Wallet';
 import clsx from 'clsx';
 import styles from './Exchange.module.scss';
 
-const activeTabs = [
-  { name: 'Кошелёк' },
-  { name: 'Обмен' },
-  { name: 'История' },
-];
-
 const Exchange = () => {
-  const [activeTab, setActiveTab] = useState('Кошелёк');
+  const activeTab = activeTabOnExchange((state) => state.activeTab);
+  const setActiveTab = activeTabOnExchange((state) => state.setActiveTab);
   const nodeRefWallet = useRef(null);
   const nodeRefSwap = useRef(null);
   const nodeRefHistory = useRef(null);

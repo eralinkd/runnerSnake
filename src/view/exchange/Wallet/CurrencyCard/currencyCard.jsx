@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { currencyImages } from '../../../../constants/currency';
+import { currencyImages } from '../../../../constants/constants.js';
 import ComponentWithBorder from '../../../../shared/ComponentWithBorder/ComponentWithBorder.jsx';
 import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 import replenishModalState from '../../../../state/replenishModalState';
 import withdrawModalState from '../../../../state/withdrawModalState';
+import { activeTabOnExchange } from '../../../../state/activeTabOnExchange';
+import { activeTabs } from '../../../../constants/constants';
 import dots from '../../../../assets/dots.svg';
 import clsx from 'clsx';
 import styles from './CurrencyCard.module.scss';
@@ -31,6 +33,7 @@ const CurrencyCard = ({ item, amount }) => {
   const [show, setShow] = useState(false);
   const openModal = replenishModalState((state) => state.openModal);
   const openWithDrawModal = withdrawModalState((state) => state.openModal);
+  const setActiveTab = activeTabOnExchange((state) => state.setActiveTab);
 
   useEffect(() => {
     if (show) {
@@ -72,7 +75,11 @@ const CurrencyCard = ({ item, amount }) => {
           </div>
           <div className={clsx(styles.buttons, show && styles.show)}>
             {swap && (
-              <button type="button" className={clsx(styles.button, 'f-16')}>
+              <button
+                onClick={() => setActiveTab(activeTabs[1].name)}
+                type="button"
+                className={clsx(styles.button, 'f-16')}
+              >
                 Обмен
               </button>
             )}

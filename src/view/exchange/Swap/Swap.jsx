@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 import SwapCard from './SwapCard/SwapCard';
 import SwapModal from './SwapModal/SwapModal';
-import { currencyImages } from '../../../constants/currency';
 import { fetchCryptos } from '../../../api/exchangeApi';
 import { getUser } from '../../../api/userApi';
 import { postSwap } from '../../../api/userApi';
 import styles from './Swap.module.scss';
 import swapModalState from '../../../state/swapModalState';
+import { currencyImages } from '../../../constants/constants';
 
 const Swap = () => {
   const [cards, setCards] = useState([]);
@@ -18,14 +18,13 @@ const Swap = () => {
   const [targetV, setTargetV] = useState(0);
   const openModal = swapModalState((state) => state.openModal);
 
-
   useEffect(() => {
     getUser().then((data) => {
-      setUser(data)
+      setUser(data);
     });
     fetchCryptos().then((data) => {
       setCryptos(data);
-      setCards([data[0], data[1]])
+      setCards([data[0], data[1]]);
     });
   }, []);
 
@@ -54,14 +53,18 @@ const Swap = () => {
   };
 
   const handleTransaction = () => {
-    const params = { from: cards[0].apiName, to: cards[1].apiName, amount: sourceV };
+    const params = {
+      from: cards[0].apiName,
+      to: cards[1].apiName,
+      amount: sourceV,
+    };
     postSwap(params).then((data) => {
       if (data.success) {
         openModal(
           cards[1].simpleName,
           currencyImages[cards[1].apiName],
-          targetV,
-        )
+          targetV
+        );
       }
     });
   };
@@ -69,7 +72,12 @@ const Swap = () => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={`${styles.card} ${isSwapping ? styles.slideOutDown : styles.slideInUp}`} style={{ zIndex: 1 }}>
+        <div
+          className={`${styles.card} ${
+            isSwapping ? styles.slideOutDown : styles.slideInUp
+          }`}
+          style={{ zIndex: 1 }}
+        >
           <SwapCard
             onChange={handleSourceChange}
             balances={user.balances}
@@ -85,8 +93,9 @@ const Swap = () => {
           <button onClick={() => revertCards()}></button>
         </div>
         <div
-          className={`${styles.card} ${isSwapping ? styles.slideOutUp : styles.slideInDown
-            }`}
+          className={`${styles.card} ${
+            isSwapping ? styles.slideOutUp : styles.slideInDown
+          }`}
           style={{ zIndex: 0 }}
         >
           <SwapCard
@@ -96,9 +105,14 @@ const Swap = () => {
             oppositeV={sourceV}
             options={cryptos}
             props={cards[1]}
-            onSelect={(option) => setCards([cards[0], option])} />
+            onSelect={(option) => setCards([cards[0], option])}
+          />
         </div>
-        <button onClick={handleTransaction} type="button" className={styles.button}>
+        <button
+          onClick={handleTransaction}
+          type="button"
+          className={styles.button}
+        >
           Обменять
         </button>
       </div>

@@ -2,10 +2,10 @@ import dots from '../../../../assets/dots.svg';
 import swap from '../../../../assets/swap-arrows.svg';
 import clsx from 'clsx';
 import historyModalState from '../../../../state/HistoryModalState';
-import { currencyImages } from '../../../../constants/currency';
 import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 import styles from './HistoryCard.module.scss';
 import AmountDisplay from '../../../../shared/AmountDisplay/AmountDisplay';
+import { currencyImages } from '../../../../constants/constants';
 
 const HistoryCard = ({ item }) => {
   const { paymentType, crypto, createAt, amount, source } = item;

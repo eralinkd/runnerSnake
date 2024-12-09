@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 import arrow from '../../../../assets/arrow-bottom.svg';
 import clsx from 'clsx';
-import { currencyImages } from '../../../../constants/currency';
 import styles from './SwapCard.module.scss';
 import { useOnClickOutside } from '../../../../hooks/useOnClickOutside';
+import { currencyImages } from '../../../../constants/constants';
 
 const SwapCard = ({
   balances,
@@ -14,10 +14,11 @@ const SwapCard = ({
   props,
   options,
   onSelect,
-  onChange }) => {
-
+  onChange,
+}) => {
   const [inputValue, setInputValue] = useState('');
-  const gradient = 'linear-gradient(106.24deg, rgb(92, 106, 196) -3.53%, rgb(156, 39, 176) 117.96%)'
+  const gradient =
+    'linear-gradient(106.24deg, rgb(92, 106, 196) -3.53%, rgb(156, 39, 176) 117.96%)';
   const [isOpen, setIsOpen] = useState(false);
 
   const [selected, setOptionSelected] = useState({});
@@ -35,14 +36,14 @@ const SwapCard = ({
 
   useEffect(() => {
     if (!props || !options) return;
-    setOptionSelected(options.find((option) => option?.fullName === props?.fullName));
+    setOptionSelected(
+      options.find((option) => option?.fullName === props?.fullName)
+    );
   }, [options, props]);
 
   useEffect(() => {
     setInputValue(currentV);
   }, [currentV]);
-
-  
 
   const handleChange = (e) => {
     if (e.target.value > balances[selected?.apiName]) {
@@ -58,7 +59,13 @@ const SwapCard = ({
       style={{ '--border-gradient': gradient }}
     >
       <div className={styles.balance}>
-        <input type="number" onChange={handleChange} value={inputValue} placeholder="0.00" className={clsx(styles.input, 'f-30')}></input>
+        <input
+          type="number"
+          onChange={handleChange}
+          value={inputValue}
+          placeholder="0.00"
+          className={clsx(styles.input, 'f-30')}
+        ></input>
         <p className={clsx('f-10', styles.balanceText)}>
           {balances && balances[selected?.apiName]} {selected.simpleName}
         </p>
@@ -71,9 +78,7 @@ const SwapCard = ({
         <CurrencyCardInfo
           className={styles.currencyInfo}
           title={selected.fullName}
-          imgSrc={
-            currencyImages[selected?.apiName] || currencyImages.default
-          }
+          imgSrc={currencyImages[selected?.apiName] || currencyImages.default}
           text={props?.type}
         ></CurrencyCardInfo>
 
