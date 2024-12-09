@@ -3,7 +3,7 @@
 .game {
     display: flex;
     flex-direction: column;
-    min-height: 85vh;
+    min-height: calc(100vh - 100px);
     justify-content: space-between;
     padding: 13px 0 0 0;
 }
@@ -79,6 +79,52 @@
 }
 
 .progress {
+
+    .progressMessage {
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        margin-bottom: -8px;
+
+        .progressMessageText {
+            color: #FFF;
+            font-family: "Open Sans";
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.36px;
+        }
+
+        .progressMessageReward {
+            display: flex;
+            align-items: flex-end;
+            color: #FFF;
+            font-family: "Open Sans";
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 600;
+
+            img {
+                width: 31.061px;
+                height: 31.061px;
+                flex-shrink: 0;
+            }
+
+            span {
+                color: #8D8D8D;
+                font-family: "Open Sans";
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                letter-spacing: -0.36px;
+            }
+        }
+    }
+
     svg {
         position: absolute;
         bottom: -202px;
@@ -98,7 +144,24 @@
 
         .backgroundBar {
             fill: none;
-            stroke: #333;
+            stroke: $darkGreyBGcolor;
+        }
+    }
+}
+
+.gameField {
+    position: relative;
+    img {
+        position: absolute;
+        left: 50%;
+        top: -400px;
+        translate: -50% 0;
+        max-width: calc(100vw - 30px);
+        margin: auto;
+        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+
+        &.tap {
+            scale: 1.1;
         }
     }
 }

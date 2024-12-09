@@ -2,11 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 import energy from '../../assets/game/energy.svg';
+import game from '../../assets/game/game.svg';
 import health from '../../assets/game/h.png';
+import sSnake from '../../assets/snake.svg';
 import snake from '../../assets/profile/snake.svg';
 import styles from './Game.module.scss';
 
 const Game = () => {
+  const [tapped, setTapped] = useState(false);
   const [circleData, setCircleData] = useState({
     radius: 0,
     circumference: 0,
@@ -38,6 +41,10 @@ const Game = () => {
   const strokeDashoffset =
     circleData.circumference - (circleData.circumference * progress) / 100;
 
+  const handleTap = () => {
+    setTapped(!tapped);
+  };
+
   return (
     <div className={styles.game}>
       <div className={styles.topMenu}>
@@ -62,9 +69,18 @@ const Game = () => {
         </div>
       </div>
 
-      <div className={styles.gameField}>g</div>
+      <div className={styles.gameField}>
+        <img className={clsx(styles.game, tapped ? styles.tap : '')} onClick={handleTap} src={game} alt="game"></img>
+      </div>
 
       <div className={styles.progress}>
+        <div className={styles.progressMessage}>
+          <p className={styles.progressMessageText}>До следующей лиги:</p>
+          <p className={styles.progressMessageReward}>
+            <img src={sSnake} alt="snake"></img>
+            137.009<span>/345.000</span>
+          </p>
+        </div>
         <svg ref={svgRef} width="100%" height="202px">
           <defs>
             <defs>
@@ -92,7 +108,7 @@ const Game = () => {
             r={circleData.radius}
             style={{
               strokeWidth: 19,
-              
+
             }}
           />
 
