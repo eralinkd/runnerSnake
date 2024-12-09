@@ -11,7 +11,7 @@ export const postTap = async () => {
 };
 
 export const postSwap = async (params) => { 
-    const { data } = await api.get(`/users/swap/`, {params: params}) 
+    const { data } = await api.post(`/users/swap/`, {params: params}) 
     return data;
 };
 
