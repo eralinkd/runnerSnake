@@ -14,7 +14,7 @@ const activeTabs = [
 ];
 
 const Exchange = () => {
-  const [activeTab, setActiveTab] = useState('Обмен');
+  const [activeTab, setActiveTab] = useState('Кошелёк');
   const nodeRefWallet = useRef(null);
   const nodeRefSwap = useRef(null);
   const nodeRefHistory = useRef(null);
