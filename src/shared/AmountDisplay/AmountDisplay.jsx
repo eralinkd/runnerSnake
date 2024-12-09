@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import styles from './AmountDisplay.module.scss'; // Подключите стили
 
 const AmountDisplay = ({ amount, operationType, className }) => {
-  const [integerPart, decimalPart] = amount.split('.');
+  const [integerPart, decimalPart] = amount.toString().split('.');
 
   const getColorByOperation = (type) => {
     switch (type) {

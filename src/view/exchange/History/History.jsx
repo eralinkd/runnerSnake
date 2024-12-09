@@ -35,7 +35,7 @@ const History = () => {
               <p className="error">Failed to fetch data</p>
             </div>
           )}
-          {history?.length && (
+          {history && (
             <>
               <Select
                 label="Сортировать"
@@ -43,11 +43,17 @@ const History = () => {
                 value={optionSelected}
                 onSelect={({ value }) => setOptionSelected(value)}
               />
-              <ul className={styles.list}>
-                {history?.map((item, idx) => (
-                  <HistoryCard item={item} key={idx} />
-                ))}
-              </ul>
+              {history?.length > 0 ? (
+                <ul className={styles.list}>
+                  {history.map((item, idx) => (
+                    <HistoryCard item={item} key={idx} />
+                  ))}
+                </ul>
+              ) : (
+                <div className={styles.full}>
+                  <p>Истории пока нет...</p>
+                </div>
+              )}
             </>
           )}
         </div>

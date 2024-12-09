@@ -14,9 +14,9 @@ export const currencyImages = {
 export const historySort = [
 	{ value: 'NONE', label: 'Сортировать' },
 	{ value: 'DATE', label: 'По дате' },
-	{ value: 'replenish', label: 'Пополнение' },
-	{ value: 'withdraw', label: 'Вывод' },
-	{ value: 'swap', label: 'Oбмен' },
+	{ value: 'REPLENISHMENT', label: 'Пополнение' },
+	{ value: 'WITHDRAW', label: 'Вывод' },
+	{ value: 'SWAP', label: 'Oбмен' },
 ];
 
 export const activeTabs = [
