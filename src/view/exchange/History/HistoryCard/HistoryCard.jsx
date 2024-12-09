@@ -2,18 +2,20 @@ import dots from '../../../../assets/dots.svg';
 import swap from '../../../../assets/swap-arrows.svg';
 import clsx from 'clsx';
 import historyModalState from '../../../../state/HistoryModalState';
-import { currencyImages } from '../../../../constants/currency';
 import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
 import styles from './HistoryCard.module.scss';
 import AmountDisplay from '../../../../shared/AmountDisplay/AmountDisplay';
+import { currencyImages } from '../../../../constants/constants';
 
 const HistoryCard = ({ item }) => {
-  const { paymentType, crypto, createAt, amount } = item;
+  const { paymentType, crypto, createAt, amount, source } = item;
   const imgSrc = currencyImages[crypto] || currencyImages.default;
   const [date, time] = createAt.split(' ');
   const [year, month, day] = date.split('-');
   const formattedDate = `${day}/${month}/${year}`;
   const formattedTime = time;
+
+  const [cryptoTo, amountTo] = source.split('|');
 
   const openHistoryModal = historyModalState((state) => state.openModal);
 
@@ -35,11 +37,11 @@ const HistoryCard = ({ item }) => {
           <div className={styles.swapContainer}>
             <CurrencyCardInfo
               className={styles.currencyInfo}
-              title={crypto}
-              imgSrc={imgSrc}
+              title={cryptoTo}
+              imgSrc={currencyImages[cryptoTo] || currencyImages.default}
               text={
                 <AmountDisplay
-                  amount={amount.toFixed(2)}
+                  amount={amountTo}
                   operationType={paymentType}
                   className={styles.smallNumbers}
                 />
@@ -49,8 +51,9 @@ const HistoryCard = ({ item }) => {
         ) : (
           <div className={styles.value}>
             <AmountDisplay
-              amount={amount.toFixed(2)}
+              amount={amount}
               operationType={paymentType}
+              className={styles.smallNumbers}
             />
           </div>
         )}
@@ -65,11 +68,11 @@ const HistoryCard = ({ item }) => {
             title={crypto}
             imgSrc={imgSrc}
             text={
-              paymentType === 'WITHDRAW'
-                ? 'Вывод средств'
-                : paymentType === 'SWAP'
-                ? 'Обмен'
-                : 'Поплнение'
+              <AmountDisplay
+                amount={parseFloat(amount).toFixed(2)}
+                operationType={paymentType}
+                className={styles.smallNumbers}
+              />
             }
           />
           {paymentType !== 'SWAP' && (

@@ -4,9 +4,9 @@ import HistoryModal from './HistoryModal/HistoryModal';
 import { Select } from '../../../shared/Select/Select';
 import Spinner from '../../../shared/Spinner/Spinner';
 import { getHistory } from '../../../api/exchangeApi.js';
-import { historySort } from '../../../constants/filterModels.js';
 import styles from './History.module.scss';
 import { useQuery } from '@tanstack/react-query';
+import { historySort } from '../../../constants/constants.js';
 
 const History = () => {
   const [optionSelected, setOptionSelected] = useState(historySort[0].value);
@@ -18,7 +18,6 @@ const History = () => {
   } = useQuery({
     queryKey: ['history', optionSelected],
     queryFn: () => getHistory(optionSelected),
-    // enabled: !!userId,
     keepPreviousData: true,
   });
 

@@ -27,7 +27,7 @@ const StoreCard = ({ card }) => {
           <div className={styles.actions}>
             <div className={styles.price}>
               <img src={snakeIcon} alt="icon" />
-              <span className={styles.value}>123K</span>
+              <span className={styles.value}>10</span>
             </div>
             {/* <div className={styles.price}>
               <img src={usdtIcon} alt="icon" />

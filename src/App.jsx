@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Navigation from './shared/Navigation/Navigation';
 import { menuItems } from './constants/menuItems';
-import {postAddRef} from './api/userApi'
+import { postAddRef } from './api/userApi';
 import styles from './App.module.scss';
 import { useEffect } from 'react';
 import { useNavigationStore } from './state/activePageModal';
@@ -26,16 +26,14 @@ function App() {
   useEffect(() => {
     try {
       const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
-      const { id, first_name, last_name, username, photo_url } = telegramInitData.user;
+      const { first_name, last_name, username, photo_url } =
+        telegramInitData.user;
       setUserData({ first_name, last_name, username, photo_url });
 
       if (telegramInitData?.user?.id) {
         setUserId(telegramInitData.user.id);
-      } else {
-        console.error('Не удалось получить Telegram user.id');
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error initializing Telegram Web App:', error);
     }
 
@@ -46,7 +44,6 @@ function App() {
     if (refCode) {
       postAddRef(refCode);
     }
-
   }, []);
 
   const activeComponent = menuItems.find(

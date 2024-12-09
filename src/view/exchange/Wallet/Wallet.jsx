@@ -5,8 +5,12 @@ import { fetchCryptos } from '../../../api/exchangeApi';
 import styles from './Wallet.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../../shared/Spinner/Spinner';
+import { getUser } from '../../../api/userApi';
+import { useEffect, useState } from 'react';
 
 const Wallet = () => {
+  const [balances, setBalance] = useState(null);
+
   const {
     data: cryptos,
     isLoading,
@@ -15,6 +19,15 @@ const Wallet = () => {
     queryKey: ['cryptos'],
     queryFn: fetchCryptos,
   });
+
+  const { data: balancesResponse, isError: isBalancesError } = useQuery({
+    queryKey: ['balances'],
+    queryFn: getUser,
+  });
+
+  useEffect(() => {
+    if (!isBalancesError) setBalance(balancesResponse?.balances);
+  }, [balancesResponse]);
 
   return (
     <>
@@ -31,9 +44,16 @@ const Wallet = () => {
         )}
         {cryptos && !isError && (
           <div className={styles.list}>
-            {cryptos.map((currency) => (
-              <CurrencyCard key={currency.fullName} item={currency} />
-            ))}
+            {cryptos.map((currency) => {
+              const amount = balances?.[currency.apiName];
+              return (
+                <CurrencyCard
+                  key={currency.fullName}
+                  item={currency}
+                  amount={amount}
+                />
+              );
+            })}
           </div>
         )}
       </div>

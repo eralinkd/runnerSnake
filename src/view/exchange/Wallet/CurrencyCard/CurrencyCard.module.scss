@@ -66,6 +66,8 @@
   }
   &:disabled {
     cursor: not-allowed;
+    background-color: $deep-gray;
+    opacity: 0.5;
   }
 }
 

@@ -1,7 +1,7 @@
 import api from './config';
 
 export const fetchCryptos = async () => {
-	const { data } = await api.get('/payment/cryptos', {noUID: true})
+	const { data } = await api.get('/payment/cryptos', { noUID: true })
 	return data
 };
 
@@ -16,7 +16,7 @@ export const replenishBalance = async (data) => {
 }
 
 export const validatePaymentAddress = async (data) => {
-	const response = await api.post(`/payment/validate/`, data);
+	const response = await api.post(`/payment/validate`, data, { noUID: true });
 	return response.data;
 };
 

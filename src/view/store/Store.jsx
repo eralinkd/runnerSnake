@@ -6,19 +6,19 @@ import StoreModal from './StoreModal/StoreModal';
 const data = [
   {
     title: 'Шлем',
-    SCoinPrice: 123,
+    SCoinPrice: 10,
     OtherPrice: 123,
     imgSrc: testImage,
   },
   {
     title: 'Кольчуга',
-    SCoinPrice: 123,
+    SCoinPrice: 10,
     OtherPrice: 123,
     imgSrc: testImage,
   },
   {
     title: 'Кольчуга',
-    SCoinPrice: 123,
+    SCoinPrice: 10,
     OtherPrice: 123,
     imgSrc: testImage,
   },

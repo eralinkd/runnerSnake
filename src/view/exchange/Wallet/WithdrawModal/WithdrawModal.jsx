@@ -67,7 +67,7 @@ const WithdrawModal = () => {
         address: address,
       });
 
-      if (!validationResponse.result) {
+      if (!validationResponse?.result) {
         setError('Адрес кошелька недействителен.');
         setIsLoading(false);
         return;

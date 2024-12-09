@@ -76,7 +76,7 @@ const StoreModal = () => {
           <div className={styles.prices}>
             <div className={styles.price}>
               <img src={snakeIcon} alt="icon" />
-              <span className={styles.value}>123K</span>
+              <span className={styles.value}>10</span>
             </div>
           </div>
         </>
@@ -93,10 +93,10 @@ const StoreModal = () => {
 
     if (response.success) {
       return (
-        <>
+        <div className={styles.success}>
           <img src={purchaseIcon} alt="purchase" />
           <h2 className={styles.title}>Товар добавлен!</h2>
-        </>
+        </div>
       );
     }
 
