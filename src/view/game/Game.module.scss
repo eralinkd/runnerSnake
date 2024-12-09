@@ -160,13 +160,13 @@
         top: -50%;
         max-height: 60vh;
         // top: -400px;
-        transform: translate(-50%, -47%);
+        transform: translate(-50%, -52%);
         max-width: calc(100vw - 30px);
         margin: auto;
         transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
 
         &.tap {
-            transform: translate(-46%, -43%);
+            transform: translate(-46%, -49%);
             scale: 1.1;
         }
     }

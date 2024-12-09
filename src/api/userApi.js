@@ -6,7 +6,7 @@ export const postWithdrawBalance = async () => {
 };
 
 export const postTap = async () => {
-	const { data } = await api.get(`/users/tap/`)
+	const { data } = await api.post(`/users/tap/`)
 	return data;
 };
 
