@@ -64,7 +64,17 @@
 
 .balance .balanceText {
   color: $light-gray;
-  margin-top: -13px;
+  margin-top: -2px;
+}
+
+.balance {
+  input {
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    height: 35px;
+    margin-top: 8px;
+  }
 }
 
 .currencyContainer {
