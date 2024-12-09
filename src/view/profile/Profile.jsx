@@ -16,14 +16,15 @@ import taskImg from '../../assets/temp/task.svg';
 import useStore from '../../state/store';
 
 const Profile = () => {
+  const userId = useStore((state) => state.userId);
   const userData = useStore((state) => state.userData);
   const [isCopied, setIsCopied] = useState(false);
   const [activeTaskGroup, setActiveTaskGroup] = useState('main');
   const [user, setUser] = useState({});
   const timeoutRef = useRef(null);
   const message = `dsfndshfns !!!`
-  const shareLink = `https://t.me/share/url?url=t.me/snake_runner_dev_bot/snake_runner_dev?startapp=rp_1365932&text=${message}`;
-  const copyLink = `https://t.me/snake_runner_dev_bot/snake_runner_dev?startapp=rp_1365932`;
+  const shareLink = `https://t.me/share/url?url=t.me/snake_runner_dev_bot/snake_runner_dev?startapp=${userId}&text=${message}`;
+  const copyLink = `https://t.me/snake_runner_dev_bot/snake_runner_dev?startapp=${userId}`;
 
   const handleShare = async () => {
     window.location.href = shareLink;

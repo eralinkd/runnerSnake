@@ -2,10 +2,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Navigation from './shared/Navigation/Navigation';
 import { menuItems } from './constants/menuItems';
+import {postAddRef} from './api/userApi'
 import styles from './App.module.scss';
 import { useEffect } from 'react';
 import { useNavigationStore } from './state/activePageModal';
 import useStore from './state/store';
+import { useTelegramQueryParams } from './hooks/useTelegramQueryParams';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +21,7 @@ function App() {
   const setUserId = useStore((state) => state.setUserId);
   const setUserData = useStore((state) => state.setUserData);
   const activePage = useNavigationStore((state) => state.activePage);
+  const getQueryParams = useTelegramQueryParams();
 
   useEffect(() => {
     try {
@@ -35,7 +38,15 @@ function App() {
     catch (error) {
       console.error('Error initializing Telegram Web App:', error);
     }
-    
+
+    const queryParams = getQueryParams();
+
+    const refCode = queryParams?.start_param;
+
+    if (refCode) {
+      postAddRef(refCode);
+    }
+
   }, []);
 
   const activeComponent = menuItems.find(

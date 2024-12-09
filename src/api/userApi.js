@@ -20,7 +20,7 @@ export const postReplenishBalance = async () => {
     return data;
 };
 
-export const postAddRef = async () => { 
+export const postAddRef = async (refUserId) => { 
     const { data } = await api.get(`/users/addRef/${refUserId}/`) 
     return data;
 };
