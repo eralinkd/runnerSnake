@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 
 import ComponentWithBorder from '../../shared/ComponentWithBorder/ComponentWithBorder';
 import SCoin from '../../assets/profile/snake.svg';
-import abu from '../../assets/temp/abu.png';
 import arrRight from '../../assets/taskArrowToRight.svg';
 import avatar from '../../assets/temp/avatar.svg';
 import clsx from 'clsx';
