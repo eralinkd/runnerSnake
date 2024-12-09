@@ -1,11 +1,12 @@
 @use '../../variables.scss' as *;
 
-.game {
+.gamePage {
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 100px);
     justify-content: space-between;
     padding: 13px 0 0 0;
+    position: relative;
 }
 
 .topMenu {
@@ -111,6 +112,7 @@
                 width: 31.061px;
                 height: 31.061px;
                 flex-shrink: 0;
+                margin-right: 4px;
             }
 
             span {
@@ -127,7 +129,7 @@
 
     svg {
         position: absolute;
-        bottom: -202px;
+        bottom: -302px;
         left: 50%;
         translate: -50% 0;
         width: 100vw;
@@ -151,16 +153,20 @@
 
 .gameField {
     position: relative;
+
     img {
         position: absolute;
         left: 50%;
-        top: -400px;
-        translate: -50% 0;
+        top: -50%;
+        max-height: 60vh;
+        // top: -400px;
+        transform: translate(-50%, -47%);
         max-width: calc(100vw - 30px);
         margin: auto;
         transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
 
         &.tap {
+            transform: translate(-46%, -43%);
             scale: 1.1;
         }
     }

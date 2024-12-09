@@ -46,7 +46,7 @@ const Game = () => {
   };
 
   return (
-    <div className={styles.game}>
+    <div className={styles.gamePage}>
       <div className={styles.topMenu}>
         <p className={styles.balance}>
           <img src={snake} alt="snake" />
