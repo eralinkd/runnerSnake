@@ -14,6 +14,8 @@ const Game = () => {
   const [currentProgress, setCurrentProgress] = useState(0);
   const [currentCoins, setCurrentCoins] = useState(0);
   const [strokeDashoffset, setStrokeDashoffset] = useState(0);
+  const [energyProgress, setEnergyProgress] = useState(0);
+  const [healthProgress, setHealthProgress] = useState(0);
   const [user, setUser] = useState({});
   const [circleData, setCircleData] = useState({
     radius: 0,
@@ -57,6 +59,8 @@ const Game = () => {
       setUser(data);
       setCurrentProgress(data.stageProgress);
       setCurrentCoins(data.balances.SCOIN);
+      setEnergyProgress(data.energy);
+      setHealthProgress(data.health);
     })
   }, []);
 
@@ -84,6 +88,8 @@ const Game = () => {
     postTap().then((data) => {
       setCurrentCoins(currentCoins + data.amount);
       setCurrentProgress(currentProgress + data.amount);
+      setEnergyProgress(data.energy);
+      setHealthProgress(data.health);
     })
   };
 
@@ -98,14 +104,14 @@ const Game = () => {
           <div className={styles.outer}>
             <div className={styles.energy}>
               <img src={energy} alt="energy" />
-              <p>{user.energy}</p>
+              <p>{energyProgress}</p>
             </div>
           </div>
 
           <div className={clsx(styles.outer, styles.healthOuter)}>
             <div className={styles.health}>
               <img src={health} alt="health" />
-              <p>{user.health}</p>
+              <p>{healthProgress}</p>
             </div>
           </div>
         </div>
