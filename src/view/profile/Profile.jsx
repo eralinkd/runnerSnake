@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 
 import ComponentWithBorder from '../../shared/ComponentWithBorder/ComponentWithBorder';
 import SCoin from '../../assets/profile/snake.svg';
-import abu from '../../assets/temp/abu.png';
 import arrRight from '../../assets/taskArrowToRight.svg';
 import avatar from '../../assets/temp/avatar.svg';
 import clsx from 'clsx';
@@ -51,8 +50,8 @@ const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.userInfo}>
-        <img alt='avatar' src={userData?.photoUrl || avatar}></img>
-        <p>{userData?.username || 'pussykiller'}</p>
+        <img alt='avatar' src={userData?.photo_url || avatar}></img>
+        <p>{userData?.first_name || 'pussykiller'}</p>
       </div>
 
       <div className={styles.userStats}>
@@ -102,10 +101,9 @@ const Profile = () => {
         <h3>Прибыль от друзей</h3>
 
         <div className={styles.friends}>
-          {/* <FriendCard></FriendCard> */}
           {user?.refs?.map((item, index) =>
             <>
-              <ComponentWithBorder className={styles.friendCardWrapper}>
+              <ComponentWithBorder className={styles.friendCardWrapper} key={index}>
                 <div className={styles.friendCard}>
                   <ComponentWithBorder className={styles.avatarWrapper}>
                     <img className={styles.avatar} src={ avatar} alt='avatar'></img>
