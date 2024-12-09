@@ -1,3 +1,4 @@
+import { getUser, postTap } from '../../api/userApi';
 import { useEffect, useRef, useState } from 'react';
 
 import clsx from 'clsx';
@@ -10,6 +11,10 @@ import styles from './Game.module.scss';
 
 const Game = () => {
   const [tapped, setTapped] = useState(false);
+  const [currentProgress, setCurrentProgress] = useState(0);
+  const [currentCoins, setCurrentCoins] = useState(0);
+  const [strokeDashoffset, setStrokeDashoffset] = useState(0);
+  const [user, setUser] = useState({});
   const [circleData, setCircleData] = useState({
     radius: 0,
     circumference: 0,
@@ -37,12 +42,49 @@ const Game = () => {
     return () => window.removeEventListener('resize', updateCircleData);
   }, []);
 
-  const progress = 35;
-  const strokeDashoffset =
-    circleData.circumference - (circleData.circumference * progress) / 100;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (tapped) {
+        setTapped(false);
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  })
+
+  useEffect(() => {
+    getUser().then((data) => {
+      setUser(data);
+      setCurrentProgress(data.stageProgress);
+      setCurrentCoins(data.balances.SCOIN);
+    })
+  }, []);
+
+  useEffect(() => {
+    if (currentProgress === 0) {
+      setStrokeDashoffset(0);
+    }
+    else {
+      const progressWidth = currentProgress / +user.stage.needProgress * 100 / 2;
+      setStrokeDashoffset(circleData.circumference - (circleData.circumference * progressWidth) / 100);
+    }
+  }, [currentProgress])
+
+  // useEffect(() => {
+  //   if (tapped) {
+  //     postTap().then((data) => {
+  //       setCurrentCoins(currentCoins + data.amount);
+  //       setCurrentProgress(currentProgress + data.amount);
+  //     })
+  //   }
+  // }, [tapped])
 
   const handleTap = () => {
     setTapped(!tapped);
+    postTap().then((data) => {
+      setCurrentCoins(currentCoins + data.amount);
+      setCurrentProgress(currentProgress + data.amount);
+    })
   };
 
   return (
@@ -50,20 +92,20 @@ const Game = () => {
       <div className={styles.topMenu}>
         <p className={styles.balance}>
           <img src={snake} alt="snake" />
-          137.009.277
+          {currentCoins}
         </p>
         <div className={styles.stats}>
           <div className={styles.outer}>
             <div className={styles.energy}>
               <img src={energy} alt="energy" />
-              <p>1000</p>
+              <p>{user.energy}</p>
             </div>
           </div>
 
           <div className={clsx(styles.outer, styles.healthOuter)}>
             <div className={styles.health}>
               <img src={health} alt="health" />
-              <p>12</p>
+              <p>{user.health}</p>
             </div>
           </div>
         </div>
@@ -78,7 +120,7 @@ const Game = () => {
           <p className={styles.progressMessageText}>До следующей лиги:</p>
           <p className={styles.progressMessageReward}>
             <img src={sSnake} alt="snake"></img>
-            137.009<span>/345.000</span>
+            {currentProgress}<span>/{user?.stage?.needProgress}</span>
           </p>
         </div>
         <svg ref={svgRef} width="100%" height="202px">
