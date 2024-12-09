@@ -35,7 +35,7 @@ const History = () => {
               <p className="error">Failed to fetch data</p>
             </div>
           )}
-          {history && (
+          {history?.length && (
             <>
               <Select
                 label="Сортировать"
