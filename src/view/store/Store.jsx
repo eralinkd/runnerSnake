@@ -1,37 +1,35 @@
 import StoreCard from './StoreCard/StoreCard';
-import testImage from '../../assets/store/tets.png';
 import styles from './Store.module.scss';
 import StoreModal from './StoreModal/StoreModal';
-
-const data = [
-  {
-    title: 'Шлем',
-    SCoinPrice: 10,
-    OtherPrice: 123,
-    imgSrc: testImage,
-  },
-  {
-    title: 'Кольчуга',
-    SCoinPrice: 10,
-    OtherPrice: 123,
-    imgSrc: testImage,
-  },
-  {
-    title: 'Кольчуга',
-    SCoinPrice: 10,
-    OtherPrice: 123,
-    imgSrc: testImage,
-  },
-];
+import { fetchProducts } from '../../api/storeApi';
+import Spinner from '../../shared/Spinner/Spinner';
+import { useQuery } from '@tanstack/react-query';
 
 const Store = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+  });
+
   return (
     <section className={styles.section}>
-      <ul className={styles.list}>
-        {data?.map((card) => (
-          <StoreCard key={card.title} card={card} />
-        ))}
-      </ul>
+      {isLoading && !isError && (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      )}
+      {isError && (
+        <div className={styles.container}>
+          <p className="error">Failed to fetch data</p>
+        </div>
+      )}
+      {data && !isError && (
+        <ul className={styles.list}>
+          {data.map((card) => (
+            <StoreCard key={card.title} card={card} />
+          ))}
+        </ul>
+      )}
       <StoreModal />
     </section>
   );
