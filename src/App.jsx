@@ -5,8 +5,8 @@ import { menuItems } from './constants/menuItems';
 import { postAddRef } from './api/userApi';
 import styles from './App.module.scss';
 import { useEffect } from 'react';
-import { useNavigationStore } from './state/activePageModal';
-import useStore from './state/store';
+import { useNavigationStore } from './state/ActivePageModal';
+import useStore from './state/Store';
 import { useTelegramQueryParams } from './hooks/useTelegramQueryParams';
 
 const queryClient = new QueryClient({

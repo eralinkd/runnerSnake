@@ -10,7 +10,6 @@ import { currencyImages } from '../../../../constants/constants';
 const SwapCard = ({
   balances,
   currentV,
-  oppositeV,
   props,
   options,
   onSelect,

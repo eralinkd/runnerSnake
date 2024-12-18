@@ -34,7 +34,7 @@ api.interceptors.request.use(
   }
 );
 
-export const setupAxiosInterceptors = (toastrRef) => {
+export const setupAxiosInterceptors = () => {
   api.interceptors.response.use(
     (response) => response,
     (error) => {

@@ -1,5 +1,5 @@
 import { menuItems } from '../../constants/menuItems';
-import { useNavigationStore } from '../../state/activePageModal';
+import { useNavigationStore } from '../../state/ActivePageModal';
 import styles from './Navigation.module.scss';
 import clsx from 'clsx';
 
