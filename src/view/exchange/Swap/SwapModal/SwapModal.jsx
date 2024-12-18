@@ -1,7 +1,7 @@
 import Modal from '../../../../shared/Modal/Modal.jsx';
 import clsx from 'clsx';
 import styles from './SwapModal.module.scss';
-import swapModalState from '../../../../state/swapModalState.js';
+import swapModalState from '../../../../state/SwapModalState.js';
 
 const SwapModal = () => {
     const isOpen = swapModalState((state) => state.isOpen);

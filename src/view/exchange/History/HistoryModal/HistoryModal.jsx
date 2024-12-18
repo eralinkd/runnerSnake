@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import Modal from '../../../../shared/Modal/Modal';
-import HistoryModalState from '../../../../state/historyModalState';
+import HistoryModalState from '../../../../state/HistoryModalState';
 import copy from '../../../../assets/copy.svg';
 import styles from './HistoryModal.module.scss';
 

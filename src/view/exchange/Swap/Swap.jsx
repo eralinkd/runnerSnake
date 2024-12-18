@@ -6,7 +6,7 @@ import { fetchCryptos } from '../../../api/exchangeApi';
 import { getUser } from '../../../api/userApi';
 import { postSwap } from '../../../api/userApi';
 import styles from './Swap.module.scss';
-import swapModalState from '../../../state/swapModalState';
+import swapModalState from '../../../state/SwapModalState';
 import { currencyImages } from '../../../constants/constants';
 
 const Swap = () => {

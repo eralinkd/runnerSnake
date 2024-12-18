@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { replenishBalance } from '../../../../api/exchangeApi.js';
-import replenishModalState from '../../../../state/replenishModalState.js';
+import replenishModalState from '../../../../state/ReplenishModalState.js';
 import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo.jsx';
 import Modal from '../../../../shared/Modal/Modal.jsx';
 import copy from '../../../../assets/copy.svg';

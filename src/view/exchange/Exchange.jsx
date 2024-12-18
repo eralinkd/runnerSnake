@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { activeTabs } from '../../constants/constants.js';
-import { activeTabOnExchange } from '../../state/activeTabOnExchange.js';
+import { activeTabOnExchange } from '../../state/ActiveTabOnExchange.js';
 import History from './History/History';
 import Swap from './Swap/Swap';
 import Wallet from './Wallet/Wallet';

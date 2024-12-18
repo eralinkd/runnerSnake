@@ -13,7 +13,7 @@ import person from '../../assets/person.svg';
 import snake from '../../assets/snake.svg';
 import styles from './Profile.module.scss';
 import taskImg from '../../assets/temp/task.svg';
-import useStore from '../../state/store';
+import useStore from '../../state/Store';
 
 const Profile = () => {
   const userId = useStore((state) => state.userId);

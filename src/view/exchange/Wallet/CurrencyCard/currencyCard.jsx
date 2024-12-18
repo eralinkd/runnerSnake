@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { currencyImages } from '../../../../constants/constants.js';
 import ComponentWithBorder from '../../../../shared/ComponentWithBorder/ComponentWithBorder.jsx';
-import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo';
-import replenishModalState from '../../../../state/replenishModalState';
-import withdrawModalState from '../../../../state/withdrawModalState';
-import { activeTabOnExchange } from '../../../../state/activeTabOnExchange';
-import { activeTabs } from '../../../../constants/constants';
+import CurrencyCardInfo from '../../../../shared/CurrencyCardInfo/CurrencyCardInfo.jsx';
+import replenishModalState from '../../../../state/ReplenishModalState.js';
+import withdrawModalState from '../../../../state/WithdrawModalState.js';
+import { activeTabOnExchange } from '../../../../state/ActiveTabOnExchange.js';
+import { activeTabs } from '../../../../constants/constants.js';
 import dots from '../../../../assets/dots.svg';
 import clsx from 'clsx';
 import styles from './CurrencyCard.module.scss';

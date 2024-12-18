@@ -5,7 +5,7 @@ import {
   validatePaymentAddress,
   withdrawBalance,
 } from '../../../../api/exchangeApi';
-import withdrawModalState from '../../../../state/withdrawModalState';
+import withdrawModalState from '../../../../state/WithdrawModalState';
 import Modal from '../../../../shared/Modal/Modal';
 import styles from './WithdrawModal.module.scss';
 
