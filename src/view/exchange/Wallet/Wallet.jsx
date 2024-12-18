@@ -1,4 +1,4 @@
-import CurrencyCard from './CurrencyCard/CurrencyCard';
+import CurrencyCard from './CurrencyCard/currencyCard';
 import ReplenishModal from './ReplenishModal/ReplenishModal';
 import WithdrawModal from './WithdrawModal/WithdrawModal';
 import { fetchCryptos } from '../../../api/exchangeApi';
