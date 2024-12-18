@@ -3,7 +3,7 @@ import storeModalState from '../../../state/StoreModalState.js';
 import Modal from '../../../shared/Modal/Modal.jsx';
 import snakeIcon from '../../../assets/snake.svg';
 import purchaseIcon from '../../../assets/store/purchase.svg';
-// import usdtIcon from '../../../assets/usdt-white.svg';
+import usdtIcon from '../../../assets/usdt-white.svg';
 // import clsx from 'clsx';
 import styles from './StoreModal.module.scss';
 import { useMutation } from '@tanstack/react-query';
@@ -14,7 +14,7 @@ const StoreModal = () => {
   const [userId, setUserId] = useState(null);
   const isOpen = storeModalState((state) => state.isOpen);
   const closeModal = storeModalState((state) => state.closeModal);
-  const { title } = storeModalState((state) => state.modalData);
+  const { title, prices, id } = storeModalState((state) => state.modalData);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
@@ -59,11 +59,11 @@ const StoreModal = () => {
     }, 300);
   };
 
-  const handleBuyProduct = () => {
+  const handleBuyProduct = (currency) => {
     mutate({
       userId: userId,
-      currency: 'SCOIN',
-      productName: title,
+      currency: currency,
+      productName: id,
     });
   };
 
@@ -74,10 +74,15 @@ const StoreModal = () => {
           <h2 className={styles.title}>Купить этот товар?</h2>
           <h4 className={styles.productName}>{title}</h4>
           <div className={styles.prices}>
-            <div className={styles.price}>
-              <img src={snakeIcon} alt="icon" />
-              <span className={styles.value}>10</span>
-            </div>
+            {Object.entries(prices || {}).map(([key, value]) => (
+              <div key={key} className={styles.price}>
+                <img
+                  src={key === 'USDT_TRC20' ? usdtIcon : snakeIcon}
+                  alt="icon"
+                />
+                <span className={styles.value}>{value}</span>
+              </div>
+            ))}
           </div>
         </>
       );
@@ -117,14 +122,23 @@ const StoreModal = () => {
         </div>
         {!response ? (
           <>
-            {!isError && (
-              <button
-                type="button"
-                onClick={handleBuyProduct}
-                className={styles.button}
-              >
-                {isPending ? 'Покупаем...' : 'Подтвердить'}
-              </button>
+            {!isError && prices && Object.keys(prices).length > 0 && (
+              <div className={styles.buttons}>
+                {Object.keys(prices).map((currency) => (
+                  <button
+                    key={currency}
+                    type="button"
+                    onClick={() => handleBuyProduct(currency)}
+                    className={styles.button}
+                  >
+                    {isPending
+                      ? 'Покупаем...'
+                      : `Купить за ${
+                          currency === 'USDT_TRC20' ? 'USDT' : 'SCOIN'
+                        }`}
+                  </button>
+                ))}
+              </div>
             )}
           </>
         ) : (
