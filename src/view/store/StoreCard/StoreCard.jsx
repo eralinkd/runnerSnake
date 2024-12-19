@@ -5,14 +5,18 @@ import testImage from '../../../assets/store/tets.png';
 import arrow from '../../../assets/taskArrowToRight.svg';
 import styles from './StoreCard.module.scss';
 import storeModalState from '../../../state/StoreModalState.js';
+import clsx from 'clsx';
 
 const StoreCard = ({ card }) => {
-  const { name, prices, id } = card;
+  const { name, prices, id, available } = card;
   const openModal = storeModalState((state) => state.openModal);
 
   return (
-    <ComponentWithBorder className={styles.cardWrapper}>
-      <article className={styles.card}>
+    <ComponentWithBorder
+      className={clsx(styles.cardWrapper, !available && styles.unavailable)}
+    >
+      <article className={clsx(styles.card, !available && styles.unavailable)}>
+        <span>Недоступно!</span>
         <button
           type="button"
           onClick={() => openModal(name, prices, id)}

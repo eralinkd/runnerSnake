@@ -71,7 +71,9 @@ const StoreModal = () => {
     if (!response && !isError) {
       return (
         <>
-          <h2 className={styles.title}>Купить этот товар?</h2>
+          <h2 className={styles.title}>
+            {isPending ? 'Покупаем...' : 'Купить этот товар?'}
+          </h2>
           <h4 className={styles.productName}>{title}</h4>
           <div className={styles.prices}>
             {Object.entries(prices || {}).map(([key, value]) => (
@@ -131,11 +133,9 @@ const StoreModal = () => {
                     onClick={() => handleBuyProduct(currency)}
                     className={styles.button}
                   >
-                    {isPending
-                      ? 'Покупаем...'
-                      : `Купить за ${
-                          currency === 'USDT_TRC20' ? 'USDT' : 'SCOIN'
-                        }`}
+                    {`Купить за ${
+                      currency === 'USDT_TRC20' ? 'USDT' : 'SCOIN'
+                    }`}
                   </button>
                 ))}
               </div>
