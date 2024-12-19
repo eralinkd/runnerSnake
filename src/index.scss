@@ -2,6 +2,10 @@
 @use './variables' as var;
 @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Koulen&display=swap');
 
+body {
+  display: none !important;
+}
+
 * {
   padding: 0px;
   margin: 0px;
