@@ -10,7 +10,7 @@
 		"lint": "eslint .",
 		"preview": "vite preview",
 		"predeploy": "npm run build",
-		"deploy": "gh-pages -d dist -t $GITHUB_TOKEN"
+		"deploy": "gh-pages -d dist -r https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/eralinkd/runnerSnake.git"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.62.0",
