@@ -32,7 +32,7 @@ export default [
 			import: importPlugin,
 			'react-hooks': reactHooks,
 			'react-refresh': reactRefresh,
-
+			prettier: 'prettier',
 		},
 		rules: {
 			...js.configs.recommended.rules,
