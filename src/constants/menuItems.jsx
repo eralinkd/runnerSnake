@@ -3,6 +3,7 @@ import Game from '../view/game/Game';
 import Inventory from '../view/inventory/Inventory';
 import Profile from '../view/profile/Profile';
 import Store from '../view/store/Store';
+import Minigames from '../view/minigames/Minigames';
 
 export const menuItems = [
   {
@@ -18,11 +19,15 @@ export const menuItems = [
     component: <Game />,
   },
   {
+    id: 'Миниигры',
+    component: <Minigames />,
+  },
+  {
     id: 'Инвентарь',
     component: <Inventory />,
   },
   {
     id: 'Профиль',
     component: <Profile />,
-  },
+  }
 ];

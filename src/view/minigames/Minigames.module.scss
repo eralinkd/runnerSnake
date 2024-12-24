@@ -1,0 +1,54 @@
+@use '../../variables.scss' as *;
+
+.main {
+  margin-top: 30px;
+}
+
+.section {
+  transition: opacity 0.3s ease 0s;
+  opacity: 0;
+  &.done {
+    opacity: 1;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0 40px 0;
+  user-select: none;
+  li {
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: $dark-gray-purple;
+    position: relative;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 5px;
+    &.active {
+      color: $white;
+      &::before {
+        width: 100%;
+      }
+    }
+    &:hover {
+      color: $white;
+      &::before {
+        width: 100%;
+      }
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: $topNavBorderGrad;
+      transition: all 0.3s ease 0s;
+    }
+  }
+}

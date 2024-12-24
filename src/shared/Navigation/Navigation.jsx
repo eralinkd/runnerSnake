@@ -117,6 +117,10 @@ const Navigation = () => {
               />
             </svg>
           )}
+
+          {menuItem.id === 'Миниигры' && (
+            <p>FF</p>
+          )}
         </li>
       ))}
     </ul>
