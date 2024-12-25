@@ -36,13 +36,14 @@ const Modal = ({ children, className, isOpen, handleClose }) => {
       unmountOnExit
     >
       <ReactPortal wrapperId="#modal">
-        <div
-          ref={nodeRef}
-          onClick={handleClose}
-          className={clsx(styles.popup, className)}
-        >
-          <div className={styles.container}>
-            <div onClick={(e) => e.stopPropagation()}>{children}</div>
+        <div ref={nodeRef} onClick={handleClose} className={styles.popup}>
+          <div className={clsx(styles.container, className)}>
+            <div
+              className={styles.children}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {children}
+            </div>
           </div>
         </div>
       </ReactPortal>

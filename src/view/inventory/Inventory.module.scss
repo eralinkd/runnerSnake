@@ -1,0 +1,109 @@
+@use '../../variables.scss' as *;
+
+.inventory {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+}
+
+.equipmentContainer {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.character {
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 0px 80px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+//SLOTS========================================================================================================================================================
+.slots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slotWrapper {
+  position: absolute;
+  width: 100px;
+  max-height: 120px;
+  cursor: pointer;
+  &::before {
+    background: linear-gradient(180deg, #8b4513 0%, #691ed2 100%);
+  }
+}
+
+.slot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  height: 100%;
+  background-color: $almost-black;
+  border-radius: 15px;
+  user-select: none;
+
+  & > span {
+    text-align: center;
+    font-size: 12px;
+    padding: 0 10px;
+    line-height: 1;
+  }
+}
+
+.helmet {
+  top: 0%;
+  left: 6%;
+}
+
+.armor {
+  top: 50%;
+  left: 1%;
+  transform: translateY(-50%);
+}
+
+.weapon {
+  bottom: 0%;
+  left: 6%;
+}
+
+.shield {
+  top: 0%;
+  right: 1%;
+}
+
+.imgContainer {
+  width: 100%;
+  height: 70px;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.emptySlot {
+  color: $light-gray;
+  font-size: 14px;
+  text-align: center;
+}
