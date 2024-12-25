@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 45px;
+  gap: 35px;
   border-radius: 25px;
   border: 1px solid $grey;
   background: linear-gradient(
@@ -29,7 +29,7 @@
   backdrop-filter: blur(11px);
   user-select: none;
   @media (max-width: 380px) {
-    gap: 35px;
+    gap: 30px;
     width: calc(100% - 20px);
   }
   li {
