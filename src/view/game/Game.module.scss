@@ -151,8 +151,8 @@
 }
 
 .gameField {
-    max-width: 360px;
-    height: 640px;
+    max-width: 384px;
+    height: 240px;
     overflow: hidden;
     margin-top: -50px;
     flex-shrink: 0;
@@ -162,7 +162,7 @@
     .snakeAnimation {
         position: absolute;
         width: fit-content;
-        bottom: -10px;
+        bottom: -35px;
         left: -5px;
         width: 200px;
     }
@@ -170,7 +170,7 @@
     .coinAnimation {
         position: absolute;
         width: fit-content;
-        bottom: -45px;
+        bottom: -75px;
         right: -150px;
         width: 500px;
         transition: right 1.5s ease, opacity 0.1s ease;
