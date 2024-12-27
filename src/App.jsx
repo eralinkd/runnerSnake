@@ -1,11 +1,14 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './shared/Navigation/Navigation';
-import { menuItems } from './constants/menuItems';
-import { postAddRef } from './api/userApi';
+import Exchange from './view/exchange/Exchange';
+import Store from './view/store/Store';
+import Game from './view/game/Game';
+import Minigames from './view/minigames/Minigames';
+import Inventory from './view/inventory/Inventory';
+import Profile from './view/profile/Profile';
 import styles from './App.module.scss';
 import { useEffect } from 'react';
-import { useNavigationStore } from './state/ActivePageModal';
 import useStore from './state/Store';
 import { useTelegramQueryParams } from './hooks/useTelegramQueryParams';
 
@@ -20,7 +23,6 @@ const queryClient = new QueryClient({
 function App() {
   const setUserId = useStore((state) => state.setUserId);
   const setUserData = useStore((state) => state.setUserData);
-  const activePage = useNavigationStore((state) => state.activePage);
   const getQueryParams = useTelegramQueryParams();
 
   useEffect(() => {
@@ -38,7 +40,6 @@ function App() {
     }
 
     const queryParams = getQueryParams();
-
     const refCode = queryParams?.start_param;
 
     if (refCode) {
@@ -46,13 +47,20 @@ function App() {
     }
   }, []);
 
-  const activeComponent = menuItems.find(
-    (item) => item.id === activePage
-  )?.component;
   return (
     <QueryClientProvider client={queryClient}>
       <main className={styles.app}>
-        <div className={styles.viewContainer}>{activeComponent}</div>
+        <div className={styles.viewContainer}>
+          <Routes>
+            <Route path="/" element={<Navigate to={`/game`} replace />} />
+            <Route path={`/exchange`} element={<Exchange />} />
+            <Route path={`/store`} element={<Store />} />
+            <Route path={`/game`} element={<Game />} />
+            <Route path={`/minigames`} element={<Minigames />} />
+            <Route path={`/inventory`} element={<Inventory />} />
+            <Route path={`/profile`} element={<Profile />} />
+          </Routes>
+        </div>
         <Navigation />
       </main>
     </QueryClientProvider>
