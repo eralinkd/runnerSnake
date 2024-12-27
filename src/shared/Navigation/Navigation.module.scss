@@ -32,33 +32,36 @@
     gap: 30px;
     width: calc(100% - 20px);
   }
-  li {
-    min-height: 42px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 9px;
-    align-items: center;
+}
+
+.link {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  min-height: 42px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+  align-items: center;
+  transition: all 0.2s ease 0s;
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    background-color: #fff;
+    border-radius: 50%;
     transition: all 0.2s ease 0s;
-    &::after {
-      content: '';
-      width: 0;
-      height: 0;
-      background-color: #fff;
-      border-radius: 50%;
-      transition: all 0.2s ease 0s;
-      fill: #fff;
-      filter: blur(0.4px);
-    }
-    &.active {
-      &::after {
-        width: 4px;
-        height: 4px;
-      }
-      & > svg path {
-        stroke: url(#hover-gradient);
-        stroke-width: 2;
-      }
-    }
+    fill: #fff;
+    filter: blur(0.4px);
+  }
+}
+
+.active {
+  &::after {
+    width: 4px;
+    height: 4px;
+  }
+  & > svg path {
+    stroke: url(#hover-gradient);
+    stroke-width: 2;
   }
 }

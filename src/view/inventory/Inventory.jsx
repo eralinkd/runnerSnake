@@ -25,9 +25,6 @@ const Inventory = () => {
   });
 
   const handleEquipmentSelect = (type, item) => {
-    console.log('type', type);
-    console.log('item', item);
-
     setSelectedEquipment((prev) => ({
       ...prev,
       [type]: item,
