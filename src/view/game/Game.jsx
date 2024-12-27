@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 import BgAnimation from '../../assets/animations/snake_bg.json';
 import snakeAnimation from '../../assets/animations/snake.json';
+import coin from '../../assets/animations/coin.json';
 
 import clsx from 'clsx';
 import energy from '../../assets/game/energy.svg';
@@ -18,6 +19,7 @@ const Game = () => {
   const [strokeDashoffset, setStrokeDashoffset] = useState(0);
   const [energyProgress, setEnergyProgress] = useState(0);
   const [healthProgress, setHealthProgress] = useState(0);
+  const [coinAnimationStatus, setCoinAnimationStatus] = useState(false);
   const [user, setUser] = useState({});
   const [circleData, setCircleData] = useState({
     radius: 0,
@@ -28,7 +30,7 @@ const Game = () => {
   const svgRef = useRef(null);
   const bgAnimationRef = useRef(null);
   const snakeAnimationRef = useRef(null);
-
+  const coinAnimationRef = useRef(null);
 
   useEffect(() => {
     const updateCircleData = () => {
@@ -77,6 +79,15 @@ const Game = () => {
     snakeAnimationRef.current.play();
   };
 
+  const spawnCoin = () => {
+    coinAnimationRef.current.play();
+    setCoinAnimationStatus(true);
+
+    setTimeout(() => {
+      setCoinAnimationStatus(false);
+    }, 3000);
+  };
+
   return (
     <div className={styles.gamePage}>
       <div className={styles.topMenu}>
@@ -117,7 +128,31 @@ const Game = () => {
           loop={true}
           className={styles.snakeAnimation}
         ></Player>
+
+        <Player
+          ref={coinAnimationRef}
+          src={coin}
+          autoplay={false}
+          loop={false}
+          className={clsx(
+            styles.coinAnimation,
+            coinAnimationStatus && styles.show,
+            !coinAnimationStatus && styles.hide
+          )}
+        ></Player>
       </div>
+
+      <button
+        style={{
+          position: 'absolute',
+          bottom: '-20px',
+          right: '0',
+          zIndex: '70',
+        }}
+        onClick={spawnCoin}
+      >
+        Spawn coin
+      </button>
 
       <div className={styles.progress}>
         <div className={styles.progressMessage}>
