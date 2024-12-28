@@ -151,22 +151,38 @@
 }
 
 .gameField {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+    // margin-top: -50px;
+    flex-shrink: 0;
+    background-color: white;
     position: relative;
-
-    img {
+    
+    .snakeAnimation {
         position: absolute;
-        left: 50%;
-        top: -50%;
-        max-height: 60vh;
-        // top: -400px;
-        transform: translate(-50%, -52%);
-        max-width: calc(100vw - 30px);
-        margin: auto;
-        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+        width: fit-content;
+        bottom: -35px;
+        left: -5px;
+        width: 200px;
+    }
 
-        &.tap {
-            transform: translate(-46%, -49%);
-            scale: 1.1;
+    .coinAnimation {
+        position: absolute;
+        width: fit-content;
+        bottom: -75px;
+        right: -150px;
+        width: 500px;
+        transition: right 1.5s ease, opacity 0.1s ease;
+        opacity: 0;
+
+        &.show {
+            right: 40px;
+            display: block;
+            opacity: 1;
         }
     }
 }

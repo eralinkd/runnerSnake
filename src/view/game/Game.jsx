@@ -1,5 +1,9 @@
-import { getUser, postTap } from '../../api/userApi';
+import { getUser } from '../../api/userApi';
 import { useEffect, useRef, useState } from 'react';
+import { Player } from '@lottiefiles/react-lottie-player';
+import BgAnimation from '../../assets/animations/snake_bg.json';
+import snakeAnimation from '../../assets/animations/snake.json';
+import coin from '../../assets/animations/coin.json';
 
 import clsx from 'clsx';
 import energy from '../../assets/game/energy.svg';
@@ -10,12 +14,12 @@ import snake from '../../assets/profile/snake.svg';
 import styles from './Game.module.scss';
 
 const Game = () => {
-  const [tapped, setTapped] = useState(false);
   const [currentProgress, setCurrentProgress] = useState(0);
   const [currentCoins, setCurrentCoins] = useState(0);
   const [strokeDashoffset, setStrokeDashoffset] = useState(0);
   const [energyProgress, setEnergyProgress] = useState(0);
   const [healthProgress, setHealthProgress] = useState(0);
+  const [coinAnimationStatus, setCoinAnimationStatus] = useState(false);
   const [user, setUser] = useState({});
   const [circleData, setCircleData] = useState({
     radius: 0,
@@ -24,6 +28,9 @@ const Game = () => {
     centerY: 0,
   });
   const svgRef = useRef(null);
+  const bgAnimationRef = useRef(null);
+  const snakeAnimationRef = useRef(null);
+  const coinAnimationRef = useRef(null);
 
   useEffect(() => {
     const updateCircleData = () => {
@@ -45,52 +52,40 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (tapped) {
-        setTapped(false);
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  })
-
-  useEffect(() => {
     getUser().then((data) => {
       setUser(data);
       setCurrentProgress(data.stageProgress);
       setCurrentCoins(data.balances.SCOIN);
       setEnergyProgress(data.energy);
       setHealthProgress(data.health);
-    })
+    });
   }, []);
 
   useEffect(() => {
     if (currentProgress === 0) {
       setStrokeDashoffset(0);
+    } else {
+      const progressWidth =
+        ((currentProgress / +user.stage.needProgress) * 100) / 2;
+      setStrokeDashoffset(
+        circleData.circumference -
+          (circleData.circumference * progressWidth) / 100
+      );
     }
-    else {
-      const progressWidth = currentProgress / +user.stage.needProgress * 100 / 2;
-      setStrokeDashoffset(circleData.circumference - (circleData.circumference * progressWidth) / 100);
-    }
-  }, [currentProgress])
+  }, [currentProgress]);
 
-  // useEffect(() => {
-  //   if (tapped) {
-  //     postTap().then((data) => {
-  //       setCurrentCoins(currentCoins + data.amount);
-  //       setCurrentProgress(currentProgress + data.amount);
-  //     })
-  //   }
-  // }, [tapped])
+  const startAnim = () => {
+    bgAnimationRef.current.play();
+    snakeAnimationRef.current.play();
+  };
 
-  const handleTap = () => {
-    setTapped(!tapped);
-    postTap().then((data) => {
-      setCurrentCoins(currentCoins + data.amount);
-      setCurrentProgress(currentProgress + data.amount);
-      setEnergyProgress(data.energy);
-      setHealthProgress(data.health);
-    })
+  const spawnCoin = () => {
+    coinAnimationRef.current.play();
+    setCoinAnimationStatus(true);
+
+    setTimeout(() => {
+      setCoinAnimationStatus(false);
+    }, 3000);
   };
 
   return (
@@ -117,30 +112,86 @@ const Game = () => {
         </div>
       </div>
 
-      <div className={styles.gameField}>
-        <img className={clsx(styles.game, tapped ? styles.tap : '')} onClick={handleTap} src={game} alt="game"></img>
+      <div className={styles.gameField} onClick={startAnim}>
+        <Player
+          ref={bgAnimationRef}
+          src={BgAnimation}
+          autoplay={false}
+          loop={true}
+          className={styles.animationBG}
+        ></Player>
+
+        <Player
+          ref={snakeAnimationRef}
+          src={snakeAnimation}
+          autoplay={false}
+          loop={true}
+          className={styles.snakeAnimation}
+        ></Player>
+
+        <Player
+          ref={coinAnimationRef}
+          src={coin}
+          autoplay={false}
+          loop={false}
+          className={clsx(
+            styles.coinAnimation,
+            coinAnimationStatus && styles.show,
+            !coinAnimationStatus && styles.hide
+          )}
+        ></Player>
       </div>
+
+      <button
+        style={{
+          position: 'absolute',
+          bottom: '-20px',
+          right: '0',
+          zIndex: '70',
+        }}
+        onClick={spawnCoin}
+      >
+        Spawn coin
+      </button>
 
       <div className={styles.progress}>
         <div className={styles.progressMessage}>
           <p className={styles.progressMessageText}>До следующей лиги:</p>
           <p className={styles.progressMessageReward}>
             <img src={sSnake} alt="snake"></img>
-            {currentProgress}<span>/{user?.stage?.needProgress}</span>
+            {currentProgress}
+            <span>/{user?.stage?.needProgress}</span>
           </p>
         </div>
         <svg ref={svgRef} width="100%" height="202px">
           <defs>
             <defs>
-              <linearGradient id="gradient" x1="328" y1="47" x2="8.98067" y2="213.051" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="gradient"
+                x1="328"
+                y1="47"
+                x2="8.98067"
+                y2="213.051"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stopColor="#3400CE" />
                 <stop offset="0.246272" stopColor="#7000AE" />
                 <stop offset="0.658651" stopColor="#F931B1" />
                 <stop offset="1" stopColor="white" />
               </linearGradient>
 
-              <filter id="blurFilter" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+              <filter
+                id="blurFilter"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feGaussianBlur
+                  in="SourceGraphic"
+                  stdDeviation="4"
+                  result="blur"
+                />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -156,7 +207,6 @@ const Game = () => {
             r={circleData.radius}
             style={{
               strokeWidth: 19,
-
             }}
           />
 
@@ -170,7 +220,7 @@ const Game = () => {
               strokeWidth: 11,
               strokeDasharray: circleData.circumference,
               strokeDashoffset: strokeDashoffset,
-              filter: "url(#blurFilter)"
+              filter: 'url(#blurFilter)',
             }}
           />
         </svg>
