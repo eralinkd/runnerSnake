@@ -99,16 +99,18 @@ const Game = () => {
   const startGame = () => {
     if (gameStarted) return;
     setGameStarted(true);
-    startAnimation();
+    setTimeout(() => {
+      startAnimation();
 
-    postCreateGame().then((data) => {
-      const gameID = data.id;
-      const gameInterval = setInterval(() => {
-        postGameStatus(gameID).then((data) => {
-          gameHandler(data, gameInterval);
-        });
-      }, gameDuration);
-    });
+      postCreateGame().then((data) => {
+        const gameID = data.id;
+        const gameInterval = setInterval(() => {
+          postGameStatus(gameID).then((data) => {
+            gameHandler(data, gameInterval);
+          });
+        }, gameDuration);
+      });
+    }, 700);
   };
 
   const gameHandler = (data, gameInterval) => {
@@ -133,10 +135,12 @@ const Game = () => {
       }
       if (status === 'game_end') {
         clearInterval(gameInterval);
-        setGameStarted(false);
         spawnObstacle();
         setTimeout(() => {
           stopAnimation();
+          setTimeout(() => {
+            setGameStarted(false);
+          }, 600);
         }, gameDuration);
       }
     }
@@ -190,7 +194,10 @@ const Game = () => {
         </div>
       </div>
 
-      <div className={styles.gameField} onClick={startGame}>
+      <div
+        className={clsx(styles.gameField, !gameStarted && styles.closed)}
+        onClick={startGame}
+      >
         <Player
           ref={bgAnimationRef}
           src={BgAnimation}
