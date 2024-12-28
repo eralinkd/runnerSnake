@@ -137,7 +137,7 @@ const Inventory = () => {
           Снаряжение
         </button>
         <button
-          className={clsx(styles.tab, activeTab === 'slider' && styles.active)}
+          className={clsx(styles.tab, activeTab === 'eggs' && styles.active)}
           onClick={() => setActiveTab('slider')}
         >
           Слайдер
