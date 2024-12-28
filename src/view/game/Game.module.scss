@@ -3,7 +3,7 @@
 .gamePage {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 122px);
     justify-content: space-between;
     position: relative;
 }
@@ -157,7 +157,7 @@
     width: 100vw;
     height: auto;
     overflow: hidden;
-    // margin-top: -50px;
+    margin-bottom: -50px;
     flex-shrink: 0;
     background-color: white;
     position: relative;
@@ -175,14 +175,29 @@
         width: fit-content;
         bottom: -75px;
         right: -150px;
+        // right: 116px;
         width: 500px;
-        transition: right 1.5s ease, opacity 0.1s ease;
+        transition: right 3s ease, opacity 0.1s ease;
         opacity: 0;
 
         &.show {
-            right: 40px;
+            // right: 40px;
+            right: 135px;
             display: block;
             opacity: 1;
         }
+
+        &.hide {
+            transition: right 0s ease
+        }
+    }
+
+    .rockAnimation {
+        position: absolute;
+        width: 500px;
+        bottom: -100px;
+        left: 10px;
+        width: 300px;
+        transition: left 3s ease, opacity 0.1s ease;
     }
 }

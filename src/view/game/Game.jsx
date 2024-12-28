@@ -1,13 +1,14 @@
 import { getUser } from '../../api/userApi';
+import { postCreateGame, postGameStatus } from '../../api/gameApi';
 import { useEffect, useRef, useState } from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 import BgAnimation from '../../assets/animations/snake_bg.json';
 import snakeAnimation from '../../assets/animations/snake.json';
 import coin from '../../assets/animations/coin.json';
+import rock from '../../assets/animations/rock.json';
 
 import clsx from 'clsx';
 import energy from '../../assets/game/energy.svg';
-import game from '../../assets/game/game.svg';
 import health from '../../assets/game/h.png';
 import sSnake from '../../assets/snake.svg';
 import snake from '../../assets/profile/snake.svg';
@@ -19,7 +20,6 @@ const Game = () => {
   const [strokeDashoffset, setStrokeDashoffset] = useState(0);
   const [energyProgress, setEnergyProgress] = useState(0);
   const [healthProgress, setHealthProgress] = useState(0);
-  const [coinAnimationStatus, setCoinAnimationStatus] = useState(false);
   const [user, setUser] = useState({});
   const [circleData, setCircleData] = useState({
     radius: 0,
@@ -28,9 +28,14 @@ const Game = () => {
     centerY: 0,
   });
   const svgRef = useRef(null);
+
+  const gameDuration = 3000;
+  const [gameStarted, setGameStarted] = useState(false);
+  const [coinAnimationStatus, setCoinAnimationStatus] = useState(false);
   const bgAnimationRef = useRef(null);
   const snakeAnimationRef = useRef(null);
   const coinAnimationRef = useRef(null);
+  const rockAnimationRef = useRef(null);
 
   useEffect(() => {
     const updateCircleData = () => {
@@ -72,11 +77,69 @@ const Game = () => {
           (circleData.circumference * progressWidth) / 100
       );
     }
+    console.log(currentProgress, circleData.circumference);
   }, [currentProgress]);
 
-  const startAnim = () => {
+  const startAnimation = () => {
+    resetAnimation();
     bgAnimationRef.current.play();
     snakeAnimationRef.current.play();
+  };
+
+  const resetAnimation = () => {
+    bgAnimationRef.current.stop();
+    snakeAnimationRef.current.stop();
+  };
+
+  const stopAnimation = () => {
+    bgAnimationRef.current.pause();
+    snakeAnimationRef.current.pause();
+  };
+
+  const startGame = () => {
+    if (gameStarted) return;
+    setGameStarted(true);
+    startAnimation();
+
+    postCreateGame().then((data) => {
+      const gameID = data.id;
+      const gameInterval = setInterval(() => {
+        postGameStatus(gameID).then((data) => {
+          gameHandler(data, gameInterval);
+        });
+      }, gameDuration);
+    });
+  };
+
+  const gameHandler = (data, gameInterval) => {
+    console.log(data);
+    setEnergyProgress(data.energy);
+    setHealthProgress(data.health);
+    setCurrentProgress(data.progressBarProgress);
+    if (data.content === 'coin') {
+      spawnCoin();
+      setCurrentCoins(data.coins);
+    }
+    if (data.content === 'game_end') {
+      clearInterval(gameInterval);
+      setGameStarted(false);
+      stopAnimation();
+    }
+    if (data.content.includes('|')) {
+      const parts = data.content.split('|');
+      const [type, status] = parts;
+      if (type === 'obstacle') {
+        console.log('obstacle');
+      }
+      if (status === 'game_end') {
+        clearInterval(gameInterval);
+        setGameStarted(false);
+        spawnObstacle();
+        setTimeout(() => {
+          stopAnimation();
+        }, gameDuration);
+      }
+    }
   };
 
   const spawnCoin = () => {
@@ -85,7 +148,22 @@ const Game = () => {
 
     setTimeout(() => {
       setCoinAnimationStatus(false);
+      coinAnimationRef.current.pause();
     }, 3000);
+  };
+
+  const spawnRock = () => {
+    rockAnimationRef.current.play();
+
+    setTimeout(() => {
+      rockAnimationRef.current.pause();
+    }, 3000);
+  };
+
+  const spawnObstacle = () => {
+    const obstacles = [spawnRock];
+
+    obstacles[Math.floor(Math.random() * obstacles.length)]();
   };
 
   return (
@@ -112,7 +190,7 @@ const Game = () => {
         </div>
       </div>
 
-      <div className={styles.gameField} onClick={startAnim}>
+      <div className={styles.gameField} onClick={startGame}>
         <Player
           ref={bgAnimationRef}
           src={BgAnimation}
@@ -140,19 +218,27 @@ const Game = () => {
             !coinAnimationStatus && styles.hide
           )}
         ></Player>
+
+        <Player
+          ref={rockAnimationRef}
+          src={rock}
+          autoplay={false}
+          loop={false}
+          className={clsx(styles.rockAnimation)}
+        ></Player>
       </div>
 
-      <button
+      {/* <button
         style={{
           position: 'absolute',
           bottom: '-20px',
           right: '0',
           zIndex: '70',
         }}
-        onClick={spawnCoin}
+        onClick={spawnRock}
       >
-        Spawn coin
-      </button>
+        Spawn rock
+      </button> */}
 
       <div className={styles.progress}>
         <div className={styles.progressMessage}>
