@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import { minesAmountOptions } from '../../../constants/games';
 import styles from './Minesweeper.module.scss';
 import clsx from 'clsx';
+import scoin from '../../../assets/profile/snake.svg';
+import bomb from '../../../assets/game/bomb.svg';
 
 const Minesweeper = () => {
   const [bet, setBet] = useState('');
   const [field, setField] = useState([]);
   const [openedCells, setOpenedCells] = useState([]);
   const [minesAmount, setMinesAmount] = useState(minesAmountOptions[0]);
+  const [coinssLeft, setCoinssLeft] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
 
   const openCell = (rowIndex, colIndex) => () => {
@@ -26,6 +29,10 @@ const Minesweeper = () => {
     setOpenedCells([]);
   }, [minesAmount]);
 
+  useEffect(() => {
+    setCoinssLeft(25 - minesAmount);
+  }, [minesAmount]);
+
   const handlePlay = () => {
     setGameStarted(true);
     setField(generateField(minesAmount));
@@ -34,6 +41,16 @@ const Minesweeper = () => {
 
   return (
     <div className={styles.page}>
+      <div className={styles.fieldInfo}>
+        <div>
+          <img src={scoin} alt="scoin"></img>
+          {coinssLeft}
+        </div>
+        <div>
+          <img src={bomb} alt="scoin"></img>
+          {minesAmount}
+        </div>
+      </div>
       <div className={styles.gameField}>
         {field.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
