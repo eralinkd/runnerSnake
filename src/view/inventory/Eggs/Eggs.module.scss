@@ -21,8 +21,10 @@
   }
 }
 .title {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 1.2;
+  text-align: center;
 }
 
 //==COUNTER======================================================================================================================================================
@@ -83,6 +85,40 @@
     & > img {
       width: 36px;
       aspect-ratio: 1;
+    }
+  }
+}
+
+.button {
+  position: relative;
+  width: 100%;
+  border-radius: 15px;
+  padding: 12px 0;
+  flex: 1 1 auto;
+  border: 1px solid #fff;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.42px;
+  background: linear-gradient(
+    90deg,
+    rgba(21, 0, 206, 0.94) 0%,
+    rgba(112, 0, 174, 0.94) 49.51%,
+    rgba(255, 36, 176, 0.94) 89.78%,
+    rgba(255, 255, 255, 0.94) 108.82%
+  );
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+.slider {
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    &::after {
+      color: white;
     }
   }
 }

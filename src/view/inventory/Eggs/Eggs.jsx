@@ -1,8 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import ComponentWithBorder from '../../../shared/ComponentWithBorder/ComponentWithBorder.jsx';
 import testImg from '../../../assets/inventory/egg.png';
 import clock from '../../../assets/inventory/clock.svg';
 import 'swiper/css';
+import 'swiper/css/navigation';
 import styles from './Eggs.module.scss';
 
 const TEST_EGGS = [
@@ -48,9 +50,11 @@ const Eggs = () => {
                 </div>
                 <h3 className={styles.title}>{slide.title}</h3>
               </div>
-              <button type="button" className={styles.button}>
-                Разбить яйцо
-              </button>
+              <ComponentWithBorder>
+                <button type="button" className={styles.button}>
+                  Разбить яйцо
+                </button>
+              </ComponentWithBorder>
             </div>
           </SwiperSlide>
         ))}
