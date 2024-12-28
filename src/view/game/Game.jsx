@@ -30,6 +30,7 @@ const Game = () => {
   const svgRef = useRef(null);
 
   const gameDuration = 3000;
+  const animationElementsDuration = 2500;
   const [gameStarted, setGameStarted] = useState(false);
   const [coinAnimationStatus, setCoinAnimationStatus] = useState(false);
   const bgAnimationRef = useRef(null);
@@ -141,7 +142,7 @@ const Game = () => {
           setTimeout(() => {
             setGameStarted(false);
           }, 600);
-        }, gameDuration);
+        }, animationElementsDuration);
       }
     }
   };
@@ -153,7 +154,7 @@ const Game = () => {
     setTimeout(() => {
       setCoinAnimationStatus(false);
       coinAnimationRef.current.pause();
-    }, 3000);
+    }, animationElementsDuration);
   };
 
   const spawnRock = () => {
@@ -161,7 +162,7 @@ const Game = () => {
 
     setTimeout(() => {
       rockAnimationRef.current.pause();
-    }, 3000);
+    }, animationElementsDuration);
   };
 
   const spawnObstacle = () => {
