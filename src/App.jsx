@@ -49,7 +49,6 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
         <main className={styles.app}>
           <div className={styles.viewContainer}>
             <Routes>
@@ -64,7 +63,6 @@ function App() {
           </div>
           <Navigation />
         </main>
-      </BrowserRouter>
     </QueryClientProvider>
   );
 }
