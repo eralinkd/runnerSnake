@@ -6,11 +6,7 @@ import EquipmentModal from './EquipmentModal/EquipmentModal';
 import clsx from 'clsx';
 import styles from './Inventory.module.scss';
 import inventoryModalState from '../../state/inventoryModalState';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import Eggs from './Eggs/Eggs';
 
 const EQUIPMENT_TYPES = {
   HELMET: 'helmet',
@@ -18,19 +14,6 @@ const EQUIPMENT_TYPES = {
   WEAPON: 'weapon',
   SHIELD: 'shield',
 };
-
-const TEST_SLIDES = [
-  { id: 1, title: 'Слайд 1', image: testImg },
-  { id: 2, title: 'Слайд 2', image: testImg },
-  { id: 3, title: 'Слайд 3', image: testImg },
-  { id: 4, title: 'Слайд 4', image: testImg },
-  { id: 5, title: 'Слайд 5', image: testImg },
-  { id: 6, title: 'Слайд 6', image: testImg },
-  { id: 7, title: 'Слайд 7', image: testImg },
-  { id: 8, title: 'Слайд 8', image: testImg },
-  { id: 9, title: 'Слайд 9', image: testImg },
-  { id: 10, title: 'Слайд 10', image: testImg },
-];
 
 const Inventory = () => {
   const openModal = inventoryModalState((state) => state.openModal);
@@ -102,28 +85,6 @@ const Inventory = () => {
     </div>
   );
 
-  const renderSliderContent = () => (
-    <div className={styles.sliderContainer}>
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={20}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        className={styles.swiper}
-      >
-        {TEST_SLIDES.map((slide) => (
-          <SwiperSlide key={slide.id} className={styles.slide}>
-            <div className={styles.slideContent}>
-              <img src={slide.image} alt={slide.title} />
-              <h3>{slide.title}</h3>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-
   return (
     <div className={styles.inventory}>
       <div className={styles.tabs}>
@@ -138,15 +99,13 @@ const Inventory = () => {
         </button>
         <button
           className={clsx(styles.tab, activeTab === 'eggs' && styles.active)}
-          onClick={() => setActiveTab('slider')}
+          onClick={() => setActiveTab('eggs')}
         >
-          Слайдер
+          Яйца
         </button>
       </div>
 
-      {activeTab === 'equipment'
-        ? renderEquipmentContent()
-        : renderSliderContent()}
+      {activeTab === 'equipment' ? renderEquipmentContent() : <Eggs />}
 
       <EquipmentModal />
     </div>
