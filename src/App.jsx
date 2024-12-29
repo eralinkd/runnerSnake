@@ -49,7 +49,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <BrowserRouter>
         <main className={styles.app}>
           <div className={styles.viewContainer}>
             <Routes>
