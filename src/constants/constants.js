@@ -24,9 +24,3 @@ export const activeTabs = [
 	{ name: 'Обмен' },
 	{ name: 'История' },
 ];
-
-export const minigamesTabs = [
-	{ name: 'Сапёр' },
-	{ name: 'Сапёр 2' },
-	{ name: 'Сапёр 3' },
-]
