@@ -30,14 +30,23 @@ const formatTime = (seconds) => {
     .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
-const Timer = ({ seconds: initialSeconds, id, isProcessing }) => {
+const Timer = ({ seconds: initialSeconds, id, isProcessing, onTimerEnd }) => {
   const { timers, setTimer, getTimer } = useTimerStore();
 
   useEffect(() => {
-    if (isProcessing && typeof timers[id] === 'undefined') {
+    if (isProcessing) {
       setTimer(id, initialSeconds);
+    } else {
+      setTimer(id, 0);
     }
   }, [id, initialSeconds, setTimer, isProcessing]);
+
+  useEffect(() => {
+    const timeLeft = getTimer(id);
+    if (timeLeft === 0 && !isProcessing) {
+      onTimerEnd();
+    }
+  }, [getTimer(id), id, isProcessing, onTimerEnd]);
 
   const timeLeft = getTimer(id);
 
@@ -46,6 +55,7 @@ const Timer = ({ seconds: initialSeconds, id, isProcessing }) => {
 
 const Eggs = ({ eggs, refetchInventory }) => {
   const openModal = eggModalState((state) => state.openModal);
+  const { setTimer } = useTimerStore();
 
   const gameDuration = 3000;
   const animationElementsDuration = 2500;
@@ -96,8 +106,6 @@ const Eggs = ({ eggs, refetchInventory }) => {
         {Object.values(eggs)?.map((egg) => {
           const { timers } = useTimerStore();
           const isTimerFinished = timers[egg.name] <= 0;
-          const showCollectButton =
-            egg.status === 'FINISHED' || isTimerFinished;
 
           return (
             <SwiperSlide key={egg.name} className={styles.slide}>
@@ -115,6 +123,7 @@ const Eggs = ({ eggs, refetchInventory }) => {
                       seconds={egg.endsAt}
                       id={egg.name}
                       isProcessing={egg.status === 'PROCESSING'}
+                      onTimerEnd={refetchInventory}
                     />
                   </div>
                   <div className={styles.clockContainer}>
@@ -125,7 +134,7 @@ const Eggs = ({ eggs, refetchInventory }) => {
                 </div>
                 <div className={styles.content}>
                   <div className={styles.animationContainer}>
-                    {!timers[egg.name] > 0 && (
+                    {timers[egg.name] <= 0 && (
                       <img src={testImg} alt={egg.name} />
                     )}
                     {timers[egg.name] > 0 && (
@@ -150,7 +159,7 @@ const Eggs = ({ eggs, refetchInventory }) => {
                   </div>
                   <h3 className={styles.title}>{egg.name}</h3>
                 </div>
-                {egg.status === 'NONE' && !isTimerFinished && (
+                {egg.status === 'NONE' && (
                   <ComponentWithBorder>
                     <button
                       type="button"
@@ -168,7 +177,8 @@ const Eggs = ({ eggs, refetchInventory }) => {
                     </button>
                   </ComponentWithBorder>
                 )}
-                {showCollectButton && (
+                {(egg.status === 'FINISHED' ||
+                  (isTimerFinished && egg.status !== 'NONE')) && (
                   <ComponentWithBorder>
                     <button
                       type="button"
