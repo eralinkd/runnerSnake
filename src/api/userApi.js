@@ -25,6 +25,11 @@ export const postAddRef = async (refUserId) => {
 	return data;
 };
 
+export const postTakeEgg = async (level) => {
+	const { data } = await api.post(`/users/takeEgg/${level}/`)
+	return data;
+};
+
 export const getUser = async () => {
 	const { data } = await api.get(`/users/`)
 	return data;

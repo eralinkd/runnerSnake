@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import Navigation from './shared/Navigation/Navigation';
 import Exchange from './view/exchange/Exchange';
 import Store from './view/store/Store';
@@ -49,20 +49,22 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <main className={styles.app}>
-        <div className={styles.viewContainer}>
-          <Routes>
-            <Route path="/" element={<Navigate to={`/game`} replace />} />
-            <Route path={`/exchange`} element={<Exchange />} />
-            <Route path={`/store`} element={<Store />} />
-            <Route path={`/game`} element={<Game />} />
-            <Route path={`/minigames`} element={<Minigames />} />
-            <Route path={`/inventory`} element={<Inventory />} />
-            <Route path={`/profile`} element={<Profile />} />
-          </Routes>
-        </div>
-        <Navigation />
-      </main>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
+        <main className={styles.app}>
+          <div className={styles.viewContainer}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/game" replace />} />
+              <Route path="/exchange" element={<Exchange />} />
+              <Route path="/store" element={<Store />} />
+              <Route path="/game" element={<Game />} />
+              <Route path="/minigames" element={<Minigames />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </div>
+          <Navigation />
+        </main>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }

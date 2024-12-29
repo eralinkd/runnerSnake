@@ -1,26 +1,26 @@
 export const menuItems = [
 	{
 		id: 'Биржа',
-		path: 'exchange'
+		path: '/exchange'
 	},
 	{
 		id: 'Магазин',
-		path: 'store'
+		path: '/store'
 	},
 	{
 		id: 'Игра',
-		path: 'game'
+		path: '/game'
 	},
 	{
 		id: 'Миниигры',
-		path: 'minigames'
+		path: '/minigames'
 	},
 	{
 		id: 'Инвентарь',
-		path: 'inventory'
+		path: '/inventory'
 	},
 	{
 		id: 'Профиль',
-		path: 'profile'
+		path: '/profile'
 	}
 ]; 

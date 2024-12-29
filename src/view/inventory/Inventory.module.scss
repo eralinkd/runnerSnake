@@ -151,3 +151,24 @@
   &.active {
   }
 }
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  p {
+    color: #ff0000;
+    font-size: 16px;
+  }
+}
