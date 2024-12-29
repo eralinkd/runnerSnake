@@ -1,28 +1,26 @@
 import { useEffect, useState } from 'react';
-import { minesAmountOptions } from '../../../constants/games';
+import {
+  minesAmountOptions,
+  usdtBetAmountOptions,
+  scoinBetAmountOptions,
+} from '../../../constants/games';
 import styles from './Minesweeper.module.scss';
 import clsx from 'clsx';
 import scoin from '../../../assets/profile/snake.svg';
 import bomb from '../../../assets/game/bomb.svg';
+import usdt from '../../../assets/game/usdt.svg';
 
 const Minesweeper = () => {
-  const [bet, setBet] = useState('');
   const [field, setField] = useState([]);
   const [openedCells, setOpenedCells] = useState([]);
-  const [minesAmount, setMinesAmount] = useState(minesAmountOptions[0]);
-  const [coinssLeft, setCoinssLeft] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [coinssLeft, setCoinssLeft] = useState(0);
 
-  const openCell = (rowIndex, colIndex) => () => {
-    if (!gameStarted) return;
-    if (
-      openedCells.some(([row, col]) => row === rowIndex && col === colIndex)
-    ) {
-      return;
-    }
 
-    setOpenedCells((prev) => [...prev, [rowIndex, colIndex]]);
-  };
+  const [minesAmount, setMinesAmount] = useState(minesAmountOptions[0]);
+  const [betAmount, setBetAmount] = useState(usdtBetAmountOptions[0]);
+  const [scoinAmount, setScoinAmount] = useState(scoinBetAmountOptions[0]);
+  const [selectedCurrency, setSelectedCurrency] = useState('usdt');
 
   useEffect(() => {
     setField(generateField(minesAmount));
@@ -32,6 +30,16 @@ const Minesweeper = () => {
   useEffect(() => {
     setCoinssLeft(25 - minesAmount);
   }, [minesAmount]);
+
+  const openCell = (rowIndex, colIndex) => () => {
+    if (!gameStarted) return;
+    if (
+      openedCells.some(([row, col]) => row === rowIndex && col === colIndex)
+    ) {
+      return;
+    }
+    setOpenedCells((prev) => [...prev, [rowIndex, colIndex]]);
+  };
 
   const handlePlay = () => {
     setGameStarted(true);
@@ -77,33 +85,85 @@ const Minesweeper = () => {
       </div>
 
       <div className={styles.optionsField}>
+        <div className={styles.currencySelector}>
+          <div
+            className={clsx(
+              styles.option,
+              selectedCurrency === 'usdt' && styles.selected,
+              gameStarted && styles.disabled
+            )}
+            onClick={() => setSelectedCurrency('usdt')}
+          >
+            <img src={usdt} alt="usdt"></img>
+          </div>
+          <div
+            className={clsx(
+              styles.option,
+              selectedCurrency === 'scoin' && styles.selected,
+              gameStarted && styles.disabled
+            )}
+            onClick={() => setSelectedCurrency('scoin')}
+          >
+            <img src={scoin} alt="usdt"></img>
+          </div>
+        </div>
         <div className={styles.betAmountContainer}>
-          <label>Bet amount</label>
-          <input
-            type="number"
-            onChange={(e) => setBet(e.target.value)}
-            value={bet}
-          ></input>
+          <label>Ставка</label>
+          <div className={styles.betSelector}>
+            {selectedCurrency === 'usdt'
+              ? usdtBetAmountOptions.map((option) => (
+                  <div
+                    key={option}
+                    onClick={() => setBetAmount(option)}
+                    className={clsx(
+                      styles.option,
+                      option === betAmount && styles.selected,
+                      gameStarted && styles.disabled
+                    )}
+                  >
+                    {option}
+                  </div>
+                ))
+              : scoinBetAmountOptions.map((option) => (
+                  <div
+                    key={option}
+                    onClick={() => setScoinAmount(option)}
+                    className={clsx(
+                      styles.option,
+                      option === scoinAmount && styles.selected,
+                      gameStarted && styles.disabled
+                    )}
+                  >
+                    {option}
+                  </div>
+                ))}
+          </div>
         </div>
         <div className={styles.minesAmountContainer}>
-          <label>Mines amount</label>
-          <div className={styles.minesSelector}></div>
-          {minesAmountOptions.map((option) => (
-            <div
-              key={option}
-              onClick={() => setMinesAmount(option)}
-              className={clsx(
-                styles.option,
-                option === minesAmount && styles.selected
-              )}
-            >
-              {option}
-            </div>
-          ))}
+          <label>Количество мин</label>
+          <div className={styles.minesSelector}>
+            {minesAmountOptions.map((option) => (
+              <div
+                key={option}
+                onClick={() => setMinesAmount(option)}
+                className={clsx(
+                  styles.option,
+                  option === minesAmount && styles.selected,
+                  gameStarted && styles.disabled
+                )}
+              >
+                {option}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <button className={styles.playButton} onClick={handlePlay}>
-          Play
+        <button
+          disabled={gameStarted}
+          className={clsx(styles.playButton, gameStarted && styles.disabled)}
+          onClick={handlePlay}
+        >
+          Начать игру
         </button>
       </div>
     </div>

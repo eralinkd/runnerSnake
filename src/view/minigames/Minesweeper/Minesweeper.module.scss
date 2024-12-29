@@ -3,6 +3,7 @@
   align-items: center;
   gap: 30px;
   flex-direction: column;
+  height: calc(100vh - 122px);
 }
 
 .gameField {
@@ -13,40 +14,23 @@
   width: 300px;
   height: 300px;
   position: relative;
-  margin: auto;
 
   .cell {
     background: linear-gradient(to top right, #4be, #81f8fd);
     border-radius: 4px;
     cursor: pointer;
     &[disabled] {
-        cursor: not-allowed;
+      cursor: not-allowed;
     }
   }
 }
 
-.playButton {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  background: linear-gradient(to top right, #81f8fd, #4be);
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  text-shadow: 1px 1px 1px #000;
-  transition: all 0.3s;
-  width: 100%;
-  margin-top: 20px;
-}
-
-
-
 .fieldInfo {
   display: flex;
   width: 300px;
-  margin-top: 60px;
+  margin-top: 20px;
+  height: fit-content;
+  flex-shrink: 0;
 
   & > div {
     width: 100%;
@@ -64,7 +48,96 @@
   }
 }
 
-
 .optionsField {
-  
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  label {
+    font-size: 14px;
+  }
+
+  .minesAmountContainer,
+  .betAmountContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 100%;
+
+    .minesSelector,
+    .betSelector {
+      display: flex;
+      gap: 5px;
+      width: 100%;
+
+      & > div {
+        width: 100%;
+        min-width: 50px;
+        font-size: 16px;
+        border: 1px solid #373752;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        padding: 6px 10px 6px 10px;
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+
+        &.selected {
+          background-color: #df4646;
+          border-color: transparent;
+        }
+      }
+    }
+  }
+
+  .currencySelector {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+
+    & > div {
+      width: 100px;
+      height: 70px;
+      border: 1px solid #373752;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+
+      &.selected {
+        background-color: #b4b4b43c;
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
+
+.playButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  background: linear-gradient(to top right, #81f8fd, #4be);
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  text-shadow: 1px 1px 1px #000;
+  transition: all 0.3s;
+  width: 100%;
+  margin-top: 10px;
+} 
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }
