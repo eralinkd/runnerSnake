@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { useMutation } from '@tanstack/react-query';
 import eggModalState from '../../../state/eggModalState';
 import EggModal from './EggModal/EggModal';
-import { postTakeEgg } from '../../../api/userApi.js';
+import { postTakeEgg, postBreakEgg } from '../../../api/userApi.js';
 
 const formatTime = (seconds) => {
   if (seconds <= 0) return '00:00:00';
@@ -26,42 +26,50 @@ const formatTime = (seconds) => {
     .padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
-const Timer = ({ seconds: initialSeconds, id }) => {
+const Timer = ({ seconds: initialSeconds, id, isProcessing }) => {
   const { timers, setTimer, getTimer } = useTimerStore();
 
   useEffect(() => {
-    if (typeof timers[id] === 'undefined') {
+    if (isProcessing && typeof timers[id] === 'undefined') {
       setTimer(id, initialSeconds);
     }
-  }, [id, initialSeconds, setTimer]);
+  }, [id, initialSeconds, setTimer, isProcessing]);
 
   const timeLeft = getTimer(id);
 
   return <span className={styles.time}>{formatTime(timeLeft)}</span>;
 };
 
-const Eggs = ({ eggs }) => {
+const Eggs = ({ eggs, refetchInventory }) => {
   const openModal = eggModalState((state) => state.openModal);
 
-  const { mutate: takeEgg } = useMutation({
-    mutationFn: (data) => postTakeEgg(data),
+  const { mutate: breakEgg } = useMutation({
+    mutationFn: (data) => postBreakEgg(data),
     onSuccess: (response) => {
-      openModal(response.result);
+      if (!response?.result) openModal(response.result);
+      refetchInventory();
     },
     onError: () => {
       openModal(false);
     },
   });
 
+  const { mutate: takeEgg } = useMutation({
+    mutationFn: (data) => postTakeEgg(data),
+    onSuccess: (response) => {
+      openModal(response.result);
+      refetchInventory();
+    },
+    onError: () => {
+      openModal(false);
+    },
+  });
+
+  const handleBreakEgg = (egg) => {
+    breakEgg(egg.level);
+  };
+
   const handleTakeReward = (egg) => {
-    const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
-    if (telegramInitData?.user?.id) {
-      // takeEgg({
-      //   userId: telegramInitData.user.id,
-      //   level: egg.level,
-      // });
-      takeEgg(egg.level);
-    }
     takeEgg(egg.level);
   };
 
@@ -85,14 +93,18 @@ const Eggs = ({ eggs }) => {
               <div
                 className={clsx(
                   styles.slideContent,
-                  egg.available && styles.unavailable
+                  !egg.available && styles.unavailable
                 )}
               >
                 <span>Заблокировано!</span>
                 <div className={styles.navigation}></div>
                 <div className={styles.counter}>
                   <div className={styles.counterContent}>
-                    <Timer seconds={5} id={egg.name} />
+                    <Timer
+                      seconds={egg.endsAt}
+                      id={egg.name}
+                      isProcessing={egg.status === 'PROCESSING'}
+                    />
                   </div>
                   <div className={styles.clockContainer}>
                     <div className={styles.clock}>
@@ -108,7 +120,11 @@ const Eggs = ({ eggs }) => {
                 </div>
                 {egg.status === 'NONE' && !isTimerFinished && (
                   <ComponentWithBorder>
-                    <button type="button" className={styles.button}>
+                    <button
+                      type="button"
+                      className={styles.button}
+                      onClick={() => handleBreakEgg(egg)}
+                    >
                       Разбить яйцо
                     </button>
                   </ComponentWithBorder>

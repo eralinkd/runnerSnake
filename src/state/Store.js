@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
 const useStore = create((set) => ({
-    userId: 1,
-    setUserId: (id) => set({ userId: id }),
+	userId: 817930953,
+	setUserId: (id) => set({ userId: id }),
 
-    userData: {},
-    setUserData: (data) => set({ userData: data }),
+	userData: {},
+	setUserData: (data) => set({ userData: data }),
 }))
 
 

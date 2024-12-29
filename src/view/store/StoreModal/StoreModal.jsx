@@ -5,25 +5,20 @@ import snakeIcon from '../../../assets/snake.svg';
 import purchaseIcon from '../../../assets/store/purchase.svg';
 import usdtIcon from '../../../assets/usdt-white.svg';
 // import clsx from 'clsx';
-import styles from './StoreModal.module.scss';
+import useStore from '../../../state/Store.js';
 import { useMutation } from '@tanstack/react-query';
 import { buyProduct } from '../../../api/storeApi.js';
 import { useRef } from 'react';
+import styles from './StoreModal.module.scss';
 
 const StoreModal = () => {
-  const [userId, setUserId] = useState(null);
+  const { userId } = useStore.getState();
   const isOpen = storeModalState((state) => state.isOpen);
   const closeModal = storeModalState((state) => state.closeModal);
   const { title, prices, id } = storeModalState((state) => state.modalData);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    const telegramInitData = window.Telegram.WebApp.initDataUnsafe;
-
-    if (telegramInitData?.user?.id) {
-      setUserId(telegramInitData.user.id); // Устанавливаем userId из Telegram
-    }
-
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);

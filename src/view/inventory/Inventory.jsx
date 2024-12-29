@@ -33,6 +33,7 @@ const Inventory = () => {
     data: userData,
     isLoading,
     isError,
+    refetch: refetchInventory,
   } = useQuery({
     queryKey: ['user'],
     queryFn: getUser,
@@ -142,7 +143,10 @@ const Inventory = () => {
           {activeTab === 'equipment' ? (
             renderEquipmentContent()
           ) : (
-            <Eggs eggs={userData?.inventory?.eggs} />
+            <Eggs
+              eggs={userData?.inventory?.eggs}
+              refetchInventory={refetchInventory}
+            />
           )}
 
           <EquipmentModal />
