@@ -15,7 +15,7 @@ const EggModal = () => {
           </div>
         ) : (
           <div className={styles.error}>
-            <h2 className={styles.title}>Не удалось забрать награду</h2>
+            <h2 className={styles.title}>Что-то пошло не так...</h2>
             <p>Попробуйте позже</p>
           </div>
         )}

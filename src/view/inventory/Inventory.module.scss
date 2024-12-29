@@ -29,17 +29,17 @@
 }
 //SLOTS========================================================================================================================================================
 .slots {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .slotWrapper {
-  position: absolute;
-  width: 100px;
-  max-height: 120px;
+  justify-self: center;
+  align-self: center;
+  width: 130px;
+  height: 130px;
   cursor: pointer;
   &::before {
     background: linear-gradient(180deg, #8b4513 0%, #691ed2 100%);
