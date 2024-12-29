@@ -1,6 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Player } from '@lottiefiles/react-lottie-player';
+import BgAnimation from '../../../assets/animations/snake_bg.json';
+import snakeAnimation from '../../../assets/animations/snake.json';
+import coin from '../../../assets/animations/coin.json';
 import ComponentWithBorder from '../../../shared/ComponentWithBorder/ComponentWithBorder.jsx';
 import testImg from '../../../assets/inventory/egg.png';
 import clock from '../../../assets/inventory/clock.svg';
@@ -42,6 +46,13 @@ const Timer = ({ seconds: initialSeconds, id, isProcessing }) => {
 
 const Eggs = ({ eggs, refetchInventory }) => {
   const openModal = eggModalState((state) => state.openModal);
+
+  const gameDuration = 3000;
+  const animationElementsDuration = 2500;
+  const [coinAnimationStatus, setCoinAnimationStatus] = useState(false);
+  const bgAnimationRef = useRef(null);
+  const snakeAnimationRef = useRef(null);
+  const coinAnimationRef = useRef(null);
 
   const { mutate: breakEgg } = useMutation({
     mutationFn: (data) => postBreakEgg(data),
@@ -114,7 +125,28 @@ const Eggs = ({ eggs, refetchInventory }) => {
                 </div>
                 <div className={styles.content}>
                   <div className={styles.animationContainer}>
-                    <img src={testImg} alt={egg.name} />
+                    {!timers[egg.name] > 0 && (
+                      <img src={testImg} alt={egg.name} />
+                    )}
+                    {timers[egg.name] > 0 && (
+                      <div className={styles.gameField}>
+                        <Player
+                          ref={bgAnimationRef}
+                          src={BgAnimation}
+                          autoplay={true}
+                          loop={true}
+                          className={styles.animationBG}
+                        ></Player>
+
+                        <Player
+                          ref={snakeAnimationRef}
+                          src={snakeAnimation}
+                          autoplay={true}
+                          loop={true}
+                          className={styles.snakeAnimation}
+                        ></Player>
+                      </div>
+                    )}
                   </div>
                   <h3 className={styles.title}>{egg.name}</h3>
                 </div>
