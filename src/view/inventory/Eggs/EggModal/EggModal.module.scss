@@ -1,0 +1,51 @@
+.modal {
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  border-radius: 15px;
+  background: linear-gradient(
+      82deg,
+      rgba(112, 0, 174, 0) 31.05%,
+      rgba(112, 0, 174, 0.2) 84.81%,
+      rgba(255, 36, 176, 0.2) 99.11%
+    ),
+    rgba(15, 11, 36, 0.94);
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 30px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(21, 0, 206, 0.94) 0%,
+    rgba(255, 36, 176, 0.94) 100%
+  );
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: #000;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

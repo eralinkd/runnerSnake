@@ -107,3 +107,68 @@
   font-size: 14px;
   text-align: center;
 }
+//===TABS=====================================================================================================================================================
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 0 1 50%;
+  text-align: center;
+  padding-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: $dark-gray-purple;
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  &.active {
+    color: $white;
+    &::before {
+      width: 100%;
+    }
+  }
+  &:hover {
+    color: $white;
+    &::before {
+      width: 100%;
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: $topNavBorderGrad;
+    transition: all 0.3s ease 0s;
+  }
+  &.active {
+  }
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  p {
+    color: #ff0000;
+    font-size: 16px;
+  }
+}

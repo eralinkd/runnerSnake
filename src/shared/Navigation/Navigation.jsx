@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { menuItems } from '../../constants/menuItems';
 import styles from './Navigation.module.scss';
 import clsx from 'clsx';
