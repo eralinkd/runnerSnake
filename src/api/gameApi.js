@@ -5,11 +5,16 @@ export const postCreateGame = async () => {
   return response.data;
 };
 
-export const postGameStatus = async (gameID) => {
+export const postCreateMinerGame = async (data) => {
+  const response = await api.post(`/game/bomb/create/`, data);
+  return response.data;
+}
+
+export const postGameStatus = async (gameID, content) => {
   console.log(gameID);
   const response = await api.post(
     `/game/game/currentContent/${gameID}`,
-    {},
+    {content},
     {
       noUID: true,
     }

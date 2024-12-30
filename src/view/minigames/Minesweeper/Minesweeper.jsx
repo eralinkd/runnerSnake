@@ -4,6 +4,7 @@ import {
   usdtBetAmountOptions,
   scoinBetAmountOptions,
 } from '../../../constants/games';
+import { postCreateMinerGame, postGameStatus } from '../../../api/gameApi';
 import styles from './Minesweeper.module.scss';
 import clsx from 'clsx';
 import scoin from '../../../assets/profile/snake.svg';
@@ -12,15 +13,16 @@ import usdt from '../../../assets/game/usdt.svg';
 
 const Minesweeper = () => {
   const [field, setField] = useState([]);
-  const [openedCells, setOpenedCells] = useState([]);
+  const [openedCells, setOpenedCells] = useState([]); // [{ row, col, symbol }]
   const [gameStarted, setGameStarted] = useState(false);
   const [coinssLeft, setCoinssLeft] = useState(0);
 
-
+  const [gameID, setGameID] = useState(null);
+  const [currentWin, setCurrentWin] = useState(0);
   const [minesAmount, setMinesAmount] = useState(minesAmountOptions[0]);
   const [betAmount, setBetAmount] = useState(usdtBetAmountOptions[0]);
   const [scoinAmount, setScoinAmount] = useState(scoinBetAmountOptions[0]);
-  const [selectedCurrency, setSelectedCurrency] = useState('usdt');
+  const [selectedCurrency, setSelectedCurrency] = useState('USDT_TRC20');
 
   useEffect(() => {
     setField(generateField(minesAmount));
@@ -33,18 +35,50 @@ const Minesweeper = () => {
 
   const openCell = (rowIndex, colIndex) => () => {
     if (!gameStarted) return;
+
     if (
-      openedCells.some(([row, col]) => row === rowIndex && col === colIndex)
+      openedCells.some((cell) => cell.row === rowIndex && cell.col === colIndex)
     ) {
       return;
     }
-    setOpenedCells((prev) => [...prev, [rowIndex, colIndex]]);
+
+    const content = `${rowIndex},${colIndex}`;
+    postGameStatus(gameID, content).then((data) => {
+      const { symbol, status } = data;
+      setCurrentWin(data.canWin);
+
+      setOpenedCells((prev) => [
+        ...prev,
+        { row: rowIndex, col: colIndex, symbol },
+      ]);
+
+      if (status === 'LOSE') {
+        setGameStarted(false);
+        // Optionally reset the game or show a modal
+      }
+
+      if (status === 'WIN') {
+        setGameStarted(false);
+        // Optionally show a win modal
+      }
+    });
   };
 
   const handlePlay = () => {
-    setGameStarted(true);
+    const gameData = {
+      content: '',
+      bombs: minesAmount,
+      bet: selectedCurrency === 'USDT_TRC20' ? betAmount : scoinAmount,
+      crypto: selectedCurrency.toUpperCase(),
+    };
+    postCreateMinerGame(gameData).then((data) => {
+      if (!data.success) return; // here show no balance error
+      setGameID(data.id);
+      setGameStarted(true);
+      setOpenedCells([]);
+    });
+
     setField(generateField(minesAmount));
-    setOpenedCells([]);
   };
 
   return (
@@ -55,32 +89,36 @@ const Minesweeper = () => {
           {coinssLeft}
         </div>
         <div>
-          <img src={bomb} alt="scoin"></img>
+          <img src={bomb} alt="bomb"></img>
           {minesAmount}
         </div>
       </div>
       <div className={styles.gameField}>
         {field.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <button
-              type="button"
-              disabled={!gameStarted}
-              key={`${rowIndex}+${colIndex}`}
-              className={clsx(
-                styles.cell,
-                openedCells.some(
-                  ([row, col]) => row === rowIndex && col === colIndex
-                ) && styles.opened
-              )}
-              onClick={openCell(rowIndex, colIndex)}
-            >
-              {openedCells.some(
-                ([row, col]) => row === rowIndex && col === colIndex
-              )
-                ? cell
-                : ''}
-            </button>
-          ))
+          row.map((cell, colIndex) => {
+            const openedCell = openedCells.find(
+              (cell) => cell.row === rowIndex && cell.col === colIndex
+            );
+
+            return (
+              <button
+                type="button"
+                disabled={!gameStarted}
+                key={`${rowIndex}+${colIndex}`}
+                className={clsx(styles.cell, openedCell && styles.opened)}
+                onClick={openCell(rowIndex, colIndex)}
+              >
+                {openedCell ? (
+                  <img
+                    src={openedCell.symbol === 'bomb' ? bomb : scoin}
+                    alt={openedCell.symbol}
+                  />
+                ) : (
+                  ''
+                )}
+              </button>
+            );
+          })
         )}
       </div>
 
@@ -89,12 +127,12 @@ const Minesweeper = () => {
           <div
             className={clsx(
               styles.option,
-              selectedCurrency === 'usdt' && styles.selected,
+              selectedCurrency === 'USDT_TRC20' && styles.selected,
               gameStarted && styles.disabled
             )}
-            onClick={() => setSelectedCurrency('usdt')}
+            onClick={() => setSelectedCurrency('USDT_TRC20')}
           >
-            <img src={usdt} alt="usdt"></img>
+            <img src={usdt} alt="USDT_TRC20"></img>
           </div>
           <div
             className={clsx(
@@ -104,13 +142,13 @@ const Minesweeper = () => {
             )}
             onClick={() => setSelectedCurrency('scoin')}
           >
-            <img src={scoin} alt="usdt"></img>
+            <img src={scoin} alt="scoin"></img>
           </div>
         </div>
         <div className={styles.betAmountContainer}>
           <label>Ставка</label>
           <div className={styles.betSelector}>
-            {selectedCurrency === 'usdt'
+            {selectedCurrency === 'USDT_TRC20'
               ? usdtBetAmountOptions.map((option) => (
                   <div
                     key={option}
@@ -158,13 +196,25 @@ const Minesweeper = () => {
           </div>
         </div>
 
-        <button
-          disabled={gameStarted}
-          className={clsx(styles.playButton, gameStarted && styles.disabled)}
-          onClick={handlePlay}
-        >
-          Начать игру
-        </button>
+        {!gameStarted && (
+          <button
+            disabled={gameStarted}
+            className={clsx(styles.playButton, gameStarted && styles.disabled)}
+            onClick={handlePlay}
+          >
+            Начать игру
+          </button>
+        )}
+
+        {gameStarted && (
+          <button
+            disabled={!gameStarted}
+            className={clsx(styles.playButton, !gameStarted && styles.disabled)}
+            onClick={handlePlay}
+          >
+            Забрать {currentWin}
+          </button>
+        )}
       </div>
     </div>
   );
