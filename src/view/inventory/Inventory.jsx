@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import ComponentWithBorder from '../../shared/ComponentWithBorder/ComponentWithBorder';
-import testImg from '../../assets/inventory/snake_probe.png';
 import testItem from '../../assets/store/tets.png';
 import EquipmentModal from './EquipmentModal/EquipmentModal';
 import clsx from 'clsx';
@@ -12,10 +11,10 @@ import { getUser } from '../../api/userApi';
 import Spinner from '../../shared/Spinner/Spinner';
 
 const EQUIPMENT_TYPES = {
-  HELMET: 'helmet',
-  ARMOR: 'armor',
-  WEAPON: 'weapon',
-  SHIELD: 'shield',
+  HELMET: 'HELMET',
+  ARMOR: 'CHESTPLATE',
+  SWORD: 'SWORD',
+  SHIELD: 'SHIELD',
 };
 
 const Inventory = () => {
@@ -33,6 +32,7 @@ const Inventory = () => {
     data: userData,
     isLoading,
     isError,
+    refetch: refetchInventory,
   } = useQuery({
     queryKey: ['user'],
     queryFn: getUser,
@@ -92,9 +92,10 @@ const Inventory = () => {
           selectedEquipment[EQUIPMENT_TYPES.SHIELD]?.name || 'Щит не выбран'
         )}
       </div>
-      <div className={styles.character}>
+      <div className={styles.statsContainer}></div>
+      {/* <div className={styles.character}>
         <img src={testImg} alt="snake" />
-      </div>
+      </div> */}
     </div>
   );
 
@@ -142,7 +143,10 @@ const Inventory = () => {
           {activeTab === 'equipment' ? (
             renderEquipmentContent()
           ) : (
-            <Eggs eggs={userData?.inventory?.eggs} />
+            <Eggs
+              eggs={userData?.inventory?.eggs}
+              refetchInventory={refetchInventory}
+            />
           )}
 
           <EquipmentModal />

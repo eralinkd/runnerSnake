@@ -30,6 +30,11 @@ export const postTakeEgg = async (level) => {
 	return data;
 };
 
+export const postBreakEgg = async (level) => {
+	const { data } = await api.post(`/users/activateEgg/${level}/`)
+	return data;
+};
+
 export const getUser = async () => {
 	const { data } = await api.get(`/users/`)
 	return data;
